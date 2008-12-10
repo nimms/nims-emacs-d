@@ -11,6 +11,23 @@
 
 ;; Load path etc:
 
+;; check to see which platform we are running on
+(defvar mswindows-p (string-match "windows" (symbol-name system-type)))
+(defvar macosx-p (string-match "darwin" (symbol-name system-type)))
+
+(defvar use-home)
+(setq use-home (concat (expand-file-name "~") "/"))
+(defvar use-bin
+  (if mswindows-p
+      "c:/bin/"
+    (concat (expand-file-name "~") "/bin/")))
+
+;; Set up load path
+ (setq load-path (append (list (concat use-home "")
+                               (concat use-home ".emacs.d/plugins")
+                               (concat use-home ".emacs.d/plugins/color-theme"))
+                         load-path))
+
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 (add-to-list 'load-path dotfiles-dir)
@@ -27,6 +44,8 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
+(require 'color-theme)
+
 
 ;; Load up ELPA, the package manager:
 
@@ -47,8 +66,13 @@
 (regen-autoloads)
 
 ;; You can keep system- or user-specific customizations here:
+(setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
+                            ; depth errors
 
-(color-theme-zenburn)
+(color-theme-initialize)                ; color theme loving
+(color-theme-deep-blue)
+
+
 (setq system-specific-config (concat dotfiles-dir system-name ".el")
       user-specific-config (concat dotfiles-dir user-login-name ".el"))
 
