@@ -43,10 +43,12 @@
 (require 'starter-kit-eshell)
 (require 'starter-kit-ruby)
 
+
 (regen-autoloads)
 
 ;; You can keep system- or user-specific customizations here:
 
+(color-theme-zenburn)
 (setq system-specific-config (concat dotfiles-dir system-name ".el")
       user-specific-config (concat dotfiles-dir user-login-name ".el"))
 
