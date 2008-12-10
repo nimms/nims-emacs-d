@@ -87,6 +87,11 @@
                                      (shell-command (format "git add %s" buffer-file-name))
                                      (message "Staged changes.")))))
 
+
+(global-set-key [(meta return)] 'toggle-fullscreen)
+(setq mac-command-modifier 'alt 
+      mac-option-modifier 'meta)
+
 ;; Activate occur easily inside isearch
 (define-key isearch-mode-map (kbd "C-o")
   (lambda () (interactive)
