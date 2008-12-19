@@ -46,6 +46,7 @@
 (require 'ansi-color)
 (require 'recentf)
 (require 'color-theme)
+(require 'parenface)
 
 
 ;; Load up ELPA, the package manager:
