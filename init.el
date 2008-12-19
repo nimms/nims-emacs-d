@@ -34,6 +34,7 @@
 (add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
+(setq custom-file (concat dotfiles-dir "custom.el"))
 
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session:
@@ -51,19 +52,22 @@
 
 (require 'package)
 (package-initialize)
+(require 'starter-kit-elpa)
 
 ;; Load up starter kit customizations:
 
-(require 'starter-kit-lisp)
 (require 'starter-kit-defuns)
 (require 'starter-kit-bindings)
 (require 'starter-kit-misc)
 (require 'starter-kit-registers)
 (require 'starter-kit-eshell)
+(require 'starter-kit-lisp)
 (require 'starter-kit-ruby)
+(require 'starter-kit-js)
 
 
 (regen-autoloads)
+(load custom-file 'noerror)
 
 ;; You can keep system- or user-specific customizations here:
 (setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
