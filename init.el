@@ -25,7 +25,8 @@
 ;; Set up load path
  (setq load-path (append (list (concat use-home "")
                                (concat use-home ".emacs.d/plugins")
-                               (concat use-home ".emacs.d/plugins/color-theme"))
+                               (concat use-home ".emacs.d/plugins/color-theme")
+                               (concat use-home ".emacs.d/plugins/clojure-mode"))
                          load-path))
 
 (setq dotfiles-dir (file-name-directory
@@ -65,6 +66,10 @@
 (require 'starter-kit-lisp)
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
+(require 'clojure-auto)
+
+
+
 
 
 (regen-autoloads)
