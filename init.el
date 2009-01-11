@@ -26,7 +26,8 @@
  (setq load-path (append (list (concat use-home "")
                                (concat use-home ".emacs.d/plugins")
                                (concat use-home ".emacs.d/plugins/color-theme")
-                               (concat use-home ".emacs.d/plugins/clojure-mode"))
+                               (concat use-home ".emacs.d/plugins/clojure-mode")
+                               (concat use-home ".emacs.d/plugins/slime"))
                          load-path))
 
 (setq dotfiles-dir (file-name-directory
@@ -48,6 +49,10 @@
 (require 'recentf)
 (require 'color-theme)
 (require 'parenface)
+(require 'slime)
+(require 'nimai-clisp)
+
+
 
 
 ;; Load up ELPA, the package manager:
@@ -66,7 +71,7 @@
 (require 'starter-kit-lisp)
 (require 'starter-kit-ruby)
 (require 'starter-kit-js)
-(require 'clojure-auto)
+
 
 
 
@@ -76,11 +81,6 @@
 (load custom-file 'noerror)
 
 ;; You can keep system- or user-specific customizations here:
-(setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
-                            ; depth errors
-
-(color-theme-initialize)                ; color theme loving
-(color-theme-deep-blue)
 
 
 (setq system-specific-config (concat dotfiles-dir system-name ".el")

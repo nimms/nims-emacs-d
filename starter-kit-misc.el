@@ -93,6 +93,9 @@
 (add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 
+
+
+
 ;; Cosmetics
 
 (eval-after-load 'diff-mode
@@ -105,7 +108,7 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
-(set-face-foreground 'paren-face "light sea green")
+(set-face-foreground 'paren-face "grey")
 
 (provide 'starter-kit-misc)
 ;;; starter-kit-misc.el ends here
