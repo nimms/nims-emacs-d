@@ -3,6 +3,10 @@ loaddefs.el*
 places
 places/
 backups/*
+auto-save-list
 *elc
-
-
+elpa-to-submit/jabber/jabber.info
+elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc
+thumbs/*
+oddmuse/*
+url/cookies
