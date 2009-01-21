@@ -10,3 +10,8 @@ elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc
 thumbs/*
 oddmuse/*
 url/cookies
+.newsrc-dribble
+.nnmail-cache
+/#.newsrc-dribble#
+.svn
+
