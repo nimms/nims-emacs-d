@@ -84,7 +84,6 @@
                                      (message "Staged changes.")))))
 
 
-(global-set-key [(meta return)] 'toggle-fullscreen)
 (setq mac-command-modifier 'alt 
       mac-option-modifier 'meta)
 

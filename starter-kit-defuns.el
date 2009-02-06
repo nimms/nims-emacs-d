@@ -153,13 +153,6 @@
       (funcall function))))
 
 
-(defun toggle-fullscreen () 
-  (interactive) 
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 
-                                                            'fullscreen) 
-                                           nil 
-                                         'fullboth))) 
-
 
 (defun pairing-bot ()
   "If you can't pair program with a human, use this instead."
