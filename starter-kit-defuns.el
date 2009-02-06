@@ -152,6 +152,10 @@
         (switch-to-buffer buffer)
       (funcall function))))
 
+(defun insert-date ()
+  "Insert a time-stamp according to locale's date and time format."
+  (interactive)
+  (insert (format-time-string "%c" (current-time))))
 
 
 (defun pairing-bot ()
@@ -162,3 +166,4 @@
 
 (provide 'starter-kit-defuns)
 ;;; starter-kit-defuns.el ends here
+
