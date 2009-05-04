@@ -49,9 +49,14 @@
 ;; (color-theme-deep-blue)
 
 
- (global-set-key (kbd "C-x 7") 'three-quarters-window)
- (global-set-key (kbd "C-x 8") 'half-window)
-(global-set-key [(meta return)] 'toggle-fullscreen)
+
+(defun toggle-fullscreen () 
+  (interactive) 
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 
+                                                            'fullscreen) 
+                                           nil 
+                                         'fullboth))) 
+
 ;;;;#### moz repl stuff
     (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
@@ -110,5 +115,5 @@
 (setq org-log-done t)
 
 
-;; (global-set-key [(meta return)] 'toggle-fullscreen)
+(global-set-key [(meta return)] 'toggle-fullscreen)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)

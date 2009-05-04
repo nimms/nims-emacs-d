@@ -1,9 +1,9 @@
 (eval-when-compile    (require 'color-theme))
-(defun my-color-theme ()
+(defun nimms-color-theme ()
   "Color theme by netheridge, created 2009-02-02."
   (interactive)
   (color-theme-install
-   '(my-color-theme
+   '(nimms-color-theme
      ((background-color . "gray7")
       (background-mode . dark)
       (background-toolbar-color . "#cccccccccccc")
@@ -375,4 +375,5 @@
      (x-face ((t (:background "white"))))
      (yellow ((t (:foreground "yellow"))))
      (zmacs-region ((t (:background "snow" :foreground "blue")))))))
-(add-to-list 'color-themes '(my-color-theme  "THEME NAME" "YOUR NAME"))
+(add-to-list 'color-themes '(my-color-theme  "NIMMS Color" "Nimai Etheridge"))
+(provide 'nimms-color)

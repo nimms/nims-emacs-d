@@ -4,6 +4,7 @@ places
 places/
 backups/*
 auto-save-list
+custom.el
 *elc
 elpa-to-submit/jabber/jabber.info
 elpa-to-submit/nxhtml/etc/schema/xhtml-loader.rnc
@@ -15,4 +16,5 @@ url/cookies
 /#.newsrc-dribble#
 .svn
 .DS_Store
+image-dired
 
