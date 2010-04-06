@@ -29,7 +29,7 @@
 ;;(color-theme-subdued)
 (nimms-color-theme)
 
-(load "anything.el")
+;;(load "anything.el")
 (require 'nimms-functions)
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
@@ -39,6 +39,9 @@
 (require 'nimai-clisp)
 (require 'tramp)
 (setq tramp-default-method "ssh")
+(setq default-directory "~/")
+(setq rinari-tags-file-name "TAGS")
+
 
 (set-default 'truncate-lines t)
 (setq-default ispell-program-name "aspell")
@@ -49,8 +52,8 @@
 ;; (color-theme-deep-blue)
 
 
- (global-set-key (kbd "C-x 7") 'three-quarters-window)
- (global-set-key (kbd "C-x 8") 'half-window)
+(global-set-key (kbd "C-x 7") 'three-quarters-window)
+(global-set-key (kbd "C-x 8") 'half-window)
 (global-set-key [(meta return)] 'toggle-fullscreen)
 ;;;;#### moz repl stuff
     (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
@@ -112,3 +115,9 @@
 
 ;; (global-set-key [(meta return)] 'toggle-fullscreen)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+
+;;erc
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#emacs" "#kde" "#ruby" "ubuntu" "kubuntu")))
+
