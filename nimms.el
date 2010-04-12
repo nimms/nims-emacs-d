@@ -25,6 +25,8 @@
 (load "moz-auto-update.el")
 
 (require 'nimms-color)
+(load "color-theme-obsolescence.el")
+
 ;;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
 (nimms-color-theme)
@@ -41,6 +43,10 @@
 (setq tramp-default-method "ssh")
 (setq default-directory "~/")
 (setq rinari-tags-file-name "TAGS")
+(scroll-bar-mode -1)
+(column-number-mode t)
+(tool-bar-mode -1)
+(setq line-number-mode 1)
 
 
 (set-default 'truncate-lines t)
@@ -69,10 +75,6 @@
                                       "BrowserReload();")))
 
 
-;;;### (autoloads (php-mode php-file-patterns) "../related/php-mode-2008-10-23"
-;;;;;;  "related/php-mode-2008-10-23.el" (18688 64648))
-;;; Generated autoloads from related/php-mode-2008-10-23.el
-
 (defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") 
 "List of file patterns for which to automatically invoke `php-mode'.")
 
@@ -80,18 +82,6 @@
 
 (autoload 'php-mode "php-mode" "Major mode for editing PHP code." t)
 
-
-;;vb mode
-
-(autoload 'vbnet-mode "vbdotnet" "Visual Basic mode." t)
-  (setq auto-mode-alist (append '(("\\.\\(frm\\|bas\\|cls\\)$" .
-                                  vbnet-mode)) auto-mode-alist))
-
-
-;; (autoload 'php-mode "../related/php-mode-2008-10-23" "Major mode for editing PHP code.
-;; \\{php-mode-map}
-
-;; \(fn)" t nil)
 
 (require 'remember)
 (setq org-remember-templates
@@ -121,3 +111,7 @@
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#kde" "#ruby" "ubuntu" "kubuntu")))
 
+;; ruby stuff
+(add-hook 'ruby-mode-hook
+          (function (lambda ()
+                      (ruby-electric-mode t))))

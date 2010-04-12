@@ -52,8 +52,11 @@
 
 ;; TODO: maybe use browse-url-filename-alist
 
+(eval-when-compile (require 'ourcomments-util))
 (eval-when-compile (require 'cl))
-;;(eval-when-compile (load-library "cl-macs"))
+(eval-when-compile (require 'dired))
+(eval-when-compile (require 'ffip))
+(eval-when-compile (require 'grep))
 ;;(defvar html-site-list) ;; Silence compiler
 ;;(defvar html-site-current) ;; Silence compiler
 
@@ -199,8 +202,7 @@ See `rgrep' for the arguments REGEXP and FILES."
             (files (grep-read-files regexp)))
        (list regexp files))))
   ;; fix-me: ask for site
-  (when (called-interactively-p)
-    )
+  ;;(when (called-interactively-p) )
   (rgrep regexp files (html-site-current-site-dir)))
 
 ;;;###autoload
@@ -209,13 +211,12 @@ See `rgrep' for the arguments REGEXP and FILES."
   (interactive
    (let ((parameters (dir-replace-read-parameters t t)))
      ;; Delete element 3
-     (length parameters)
+     ;;(length parameters)
      (setcdr (nthcdr 2 parameters) (nthcdr 4 parameters))
-     (length parameters)
+     ;;(length parameters)
      parameters))
   ;; fix-me: ask for site
-  (when (called-interactively-p)
-    )
+  ;;(when (called-interactively-p) )
   (rdir-query-replace from to file-regexp
                       ;;root
                       (html-site-current-site-dir)
@@ -481,6 +482,7 @@ No check is done that the file exists."
   ;;(find-file-name-handler "/ftp:c:/eclean/" 'file-exists-p)
   (null (find-file-name-handler filename 'file-exists-p)))
 
+;;;###autoload
 (defgroup html-site nil
   "Customization group for html-site."
   :group 'nxhtml)
@@ -719,7 +721,9 @@ Use the entry with this name in `html-site-list'."
 
 ;; Provide here to be able to load the files in any order
 (provide 'html-site)
-(require 'html-upl nil t)
+
+(eval-when-compile (require 'html-upl nil t))
+
 (defvar html-site-mode-menu-map
   (let ((map (make-sparse-keymap "html-site-mode-menu-map")))
 

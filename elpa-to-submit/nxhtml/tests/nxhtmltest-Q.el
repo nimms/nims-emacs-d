@@ -44,9 +44,17 @@
 ;;
 ;;; Code:
 
+(require 'cl)
+(require 'ourcomments-util)
 
-(defvar nxhtmltest-bin-Q
-  (file-name-directory (if load-file-name load-file-name buffer-file-name)))
+(eval-and-compile
+  (defvar nxhtmltest-bin-Q
+    (file-name-directory (or load-file-name
+                             (when 'bytecomp-filename bytecomp-filename)
+                             buffer-file-name)))
+
+  (add-to-list 'load-path nxhtmltest-bin-Q)
+  (require 'nxhtmltest-helpers))
 
 ;;;###autoload
 (defun nxhtmltest-run-Q ()
@@ -78,6 +86,7 @@ See `nxhtmltest-run' for more information about the tests."
                 "\" load-path)")))
     (with-current-buffer temp-eval-buf
       (save-buffer))
+    (kill-buffer temp-eval-buf)
     (unless (file-exists-p nxhtmltest-bin-Q)
       (error "Can't find directory %s" nxhtmltest-bin-Q))
     (unless (file-exists-p test-el)

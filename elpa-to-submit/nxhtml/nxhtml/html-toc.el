@@ -52,9 +52,9 @@
 
 (eval-when-compile (require 'cl))
 (eval-when-compile (add-to-list 'load-path default-directory load-path))
-(require 'fupd)
+(eval-when-compile (require 'fupd))
 ;;(require 'html-move)
-(require 'html-site)
+(eval-when-compile (require 'html-site))
 ;;(require 'dom)
 (require 'xml)
 
@@ -122,6 +122,7 @@ Return the file name."
          )
     (expand-file-name "html-toc" this-dir)))
 
+;;;###autoload
 (defgroup html-toc nil
   "Customization group for html-toc."
   :group 'nxhtml)
@@ -341,6 +342,7 @@ You may also want to look at `html-wtoc-write-pages-with-toc'."
         (save-buffer))
       frames-file)))
 
+;;;###autoload
 (defconst html-toc-menu-map
   (let ((map (make-sparse-keymap)))
     (define-key map [html-toc-browse-frames-file]
