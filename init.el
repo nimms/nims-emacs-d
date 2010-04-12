@@ -23,12 +23,13 @@
     (concat (expand-file-name "~") "/bin/")))
 
 ;; Set up load path
- (setq load-path (append (list (concat use-home "")
-                               (concat use-home ".emacs.d/plugins")
-                               (concat use-home ".emacs.d/plugins/color-theme")
-                               (concat use-home ".emacs.d/plugins/clojure-mode")
-                               (concat use-home ".emacs.d/plugins/slime"))
-                         load-path))
+(setq load-path (append (list (concat use-home "")
+                              (concat use-home ".emacs.d/nxhtml")
+                              (concat use-home ".emacs.d/plugins")
+                              (concat use-home ".emacs.d/plugins/color-theme")
+                              (concat use-home ".emacs.d/plugins/clojure-mode")
+                              (concat use-home ".emacs.d/plugins/slime"))
+                        load-path))
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
