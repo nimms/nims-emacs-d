@@ -51,4 +51,50 @@
                                            nil 
                                          'fullboth))) 
 
+
+
+(setq sql-connection-alist
+      '((px-local
+         (sql-product 'postgres)
+         (sql-server "localhost")
+         (sql-user "postgres")
+         (sql-database "planxchange_development")
+         (sql-password "")
+         (sql-port 5432))        
+        (px-prod
+         (sql-product 'postgres)
+         (sql-sever "pxprod")
+         (sql-user "nimai")
+         (sql-database "planxchange_development")
+         (sql-port 5432))
+        (sharemap-local
+         (sql-product 'postgres)
+         (sql-server "localhost")
+         (sql-user "postgres")
+         (sql-database "sharemap_development")
+         (sql-password "")
+         (sql-port 5432))))
+
+(defun sql-connect-preset (name)
+  "Connect to a predefined SQL connection listed in `sql-connection-alist'"
+  (eval `(let, (cdr (assoc name sql-connection-alist))
+               (flet ((sql-get-login (&rest what)))
+                 (sql-product-interactive sql-product)))))
+
+(defun px-dev ()
+  (interactive)
+  (sql-connect-preset 'px-local)
+  (rename-buffer "*px-development*"))
+
+(defun px-prod ()
+  (interactive)
+  (sql-connect-preset 'px-prod)
+  (rename-buffer "*px-production*"))
+
+(defun sm-dev ()
+  (interactive)
+  (sql-connect-preset 'sharemap-local)
+  (rename-buffer "*sm-development*"))
+
+
 (provide 'nimms-functions)

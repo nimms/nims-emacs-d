@@ -93,11 +93,11 @@ order."
   (add-to-list 'magic-mode-alist
                '("\\(?:.\\|\n\\)\\{,500\\}xmlns:py=\"http://genshi.edgewall.org/\""
                  . genshi-nxhtml-mumamo-mode))
-  (add-to-list 'auto-mode-alist '("\\.htm\\'"      . nxhtml-mumamo-mode))
-  (add-to-list 'auto-mode-alist '("\\.html\\'"     . nxhtml-mumamo-mode))
+  (add-to-list 'auto-mode-alist '("\\.htm\\'"      . nxhtml-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'"     . nxhtml-mode))
   (add-to-list 'auto-mode-alist '("\\.xhtm\\'"     . nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.xhtml\\'"    . nxhtml-mumamo-mode))
-  (add-to-list 'auto-mode-alist '("\\.html\\'"     . nxhtml-mumamo-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'"     . nxhtml-mode))
   (add-to-list 'auto-mode-alist '("\\.htmlf\\'"    . nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.xhtml\\'"    . nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.xhtmlf\\'"   . nxhtml-mumamo-mode))
@@ -107,8 +107,6 @@ order."
   (add-to-list 'auto-mode-alist '("\\.gsp\\'"      . gsp-nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.asp\\'"      . asp-nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'"   . django-nxhtml-mumamo-mode))
-  (add-to-list 'auto-mode-alist '("\\.rhtml\\'"    . eruby-nxhtml-mumamo-mode))
-  (add-to-list 'auto-mode-alist '("\\.erb\\'"      . eruby-javascript-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.phps\\'"     . smarty-nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.epl\\'"      . embperl-nxhtml-mumamo-mode))
   (add-to-list 'auto-mode-alist '("\\.ghtml\\'"     . genshi-nxhtml-mumamo-mode))

@@ -23,7 +23,6 @@
      (add-hook 'js2-mode-hook 'run-coding-hook)
 
      (define-key js2-mode-map (kbd "C-c l") 'js-lambda)
-     (define-key js2-mode-map "\C-\M-h" 'backward-kill-word)
 
      ;; Fix js2's crazy indentation
      (define-key js2-mode-map (kbd "TAB") (lambda () (interactive)
