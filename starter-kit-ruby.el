@@ -82,9 +82,7 @@ exec-to-string command, but it works and seems fast"
                             (file-writable-p buffer-file-name))
                    (local-set-key (kbd "C-c d")
                                   'flymake-display-err-menu-for-current-line)
-                   (flymake-mode t))                 
-                   (ecb-activate)
-                   (ecb-hide-ecb-windows)))))
+                   (flymake-mode t))))))
 
 
 ;; Rinari (Minor Mode for Ruby On Rails)

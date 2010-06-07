@@ -20,6 +20,7 @@
                                (concat use-home ".emacs.d/egg")
                                (concat use-home ".emacs.d/emacs-rails")
                                (concat use-home ".emacs.d/includes")
+                               (concat use-home ".emacs.d/rhtml-mode")
                                (concat use-plugins "yasnippet")
                                (concat use-plugins "remember")
                                (concat use-plugins "ecb-snap")
@@ -136,9 +137,9 @@
 
 ;; hippie-expand-try-functions-list ))
 
-(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . nxhtml-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . nxhtml-mode))
-(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . nxhtml-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . nxhtml-mode))
+;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . nxhtml-mode))
+;; (add-to-list 'auto-mode-alist '("\\.rhtml\\'" . nxhtml-mode))
 
 (require 'color-theme)
 (color-theme-initialize)
@@ -201,3 +202,10 @@
 
 ;; (setq erc-autojoin-channels-alist
 ;;       '(("freenode.net" "#emacs" "#kde" "#ruby" "ubuntu" "kubuntu")))
+
+
+     ;;; rhtml-mode
+
+     (require 'rhtml-mode)
+     (add-hook 'rhtml-mode-hook
+     	  (lambda () (rinari-launch)))

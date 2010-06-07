@@ -96,5 +96,4 @@
   (sql-connect-preset 'sharemap-local)
   (rename-buffer "*sm-development*"))
 
-
 (provide 'nimms-functions)

@@ -24,7 +24,6 @@
 
 ;; Set up load path
 (setq load-path (append (list (concat use-home "")
-                              (concat use-home ".emacs.d/nxhtml")
                               (concat use-home ".emacs.d/plugins")
                               (concat use-home ".emacs.d/plugins/color-theme")
                               (concat use-home ".emacs.d/plugins/clojure-mode")
@@ -61,7 +60,7 @@
 
 ;; this must be loaded before ELPA since it bundles its own
 ;; out-of-date js stuff. TODO: fix it to use ELPA dependencies
-(load "nxhtml/autostart")
+;;(load "nxhtml/autostart")
 
 ;; Load up ELPA, the package manager
 

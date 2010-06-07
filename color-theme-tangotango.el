@@ -3,11 +3,11 @@
   (interactive)
   (color-theme-install
    '(color-theme-tangotango
-     ((background-color . "#2e3436")
+     ((background-color . "gray8") ; "#2e3436")
       (background-mode . dark)
       (border-color . "#888a85")
       (cursor-color . "#fce94f")
-      (foreground-color . "#eeeeec")
+      (foreground-color . "white") ;"#eeeeec")
       (mouse-color . "#8ae234"))
      ((ibuffer-dired-buffer-face . font-lock-function-name-face)
       (ibuffer-help-buffer-face . font-lock-comment-face)
