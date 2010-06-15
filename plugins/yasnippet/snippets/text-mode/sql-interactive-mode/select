@@ -1,0 +1,5 @@
+#key : sel
+#contributor : Nimai Etheridge, <nimai.e@gmail.com>
+#name : select * from ...
+# --
+select * from $1 ${2: where ${3: something = value}};$0

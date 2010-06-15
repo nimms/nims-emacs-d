@@ -1,0 +1,5 @@
+#name : <% form_tag ... do %> ... <% end  %>
+# --
+<% form_tag $1 do %>
+$0
+<% end %>

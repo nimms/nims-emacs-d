@@ -1,0 +1,21 @@
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(cua-enable-cua-keys nil)
+ '(cua-highlight-region-shift-only nil)
+ '(cua-remap-control-v nil)
+ '(cua-remap-control-z nil)
+ '(ecb-layout-name "right1")
+ '(ido-auto-merge-work-directories-length -1)
+ '(ido-cannot-complete-command (quote ido-completion-help))
+ '(ido-completion-buffer-all-completions t)
+ '(same-window-buffer-names (quote ("*shell*" "*mail*" "*inferior-lisp*" "*ielm*" "*scheme*")))
+ '(special-display-buffer-names nil))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )

@@ -1,5 +1,6 @@
 loaddefs.el*
 /places/*
+session*
 places
 places/
 backups/*

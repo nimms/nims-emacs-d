@@ -112,8 +112,8 @@
 
 (require 'remember)
 (setq org-remember-templates
-      '(("Tasks" ?t "* TODO %?\n  %i\n  %a" "~/org/organiser.org")
-        ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a" "~/org/organiser.org")))
+      '(("Tasks" ?t "* TODO %?\n  %i\n  %a" "~/org/todo.org")
+        ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a" "~/org/todo.org")))
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (eval-after-load 'remember
