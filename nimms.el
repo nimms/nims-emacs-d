@@ -62,7 +62,8 @@
 
 (require 'cedet)
 (require 'ecb-autoloads)
-         
+(require 'window-numbering)
+
 
 (setq tramp-default-method "ssh")
 (setq default-directory "~/")
@@ -73,7 +74,8 @@
 (tool-bar-mode -1)
 (setq line-number-mode 1)
 (global-auto-revert-mode t)
-
+(winner-mode 1)
+(window-numbering-mode)
 ;;(cua-mode t)
 
 (load "feature-mode")
