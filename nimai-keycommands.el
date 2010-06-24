@@ -24,6 +24,10 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
+
+;; egg
+(global-set-key (kbd "<f8>") 'egg-status)
+
 ;; ruby stuff
 
 (eval-after-load 'ruby-mode

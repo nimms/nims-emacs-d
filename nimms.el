@@ -11,40 +11,40 @@
 
 ;; Set up load path
 (setq load-path (append (list (concat use-home "")
-                               (concat use-home ".emacs.d/plugins")
-                               (concat use-home ".emacs.d/")
-                               (concat use-home ".emacs.d/plugins/color-theme")
-                               (concat use-home ".emacs.d/plugins/clojure-mode")
+                              (concat use-home ".emacs.d/plugins")
+                              (concat use-home ".emacs.d/")
+                              (concat use-home ".emacs.d/plugins/color-theme")
+                              (concat use-home ".emacs.d/plugins/clojure-mode")
                               (concat use-home ".emacs.d/plugins/cucumber-mode")
-                               (concat use-home ".emacs.d/plugins/slime")
-                               (concat use-home ".emacs.d/egg")
-                               (concat use-home ".emacs.d/emacs-rails")
-                               (concat use-home ".emacs.d/includes")
-                               (concat use-home ".emacs.d/rhtml-mode")
-                               (concat use-plugins "yasnippet")
-                               (concat use-plugins "remember")
-                               (concat use-plugins "ecb-snap")
-                               (concat use-plugins ""))
-                         load-path))
+                              (concat use-home ".emacs.d/plugins/slime")
+                              (concat use-home ".emacs.d/egg")
+                              (concat use-home ".emacs.d/emacs-rails")
+                              (concat use-home ".emacs.d/includes")
+                              (concat use-home ".emacs.d/rhtml-mode")
+                              (concat use-plugins "yasnippet")
+                              (concat use-plugins "remember")
+                              (concat use-plugins "ecb-snap")
+                              (concat use-plugins ""))
+                        load-path))
 
 
 (load "moz-auto-update.el")
 
 
 
-;(load "color-theme-ld-dark")
-;(color-theme-ld-dark)
-      
-;(require 'nimms-color)
-;(load "color-theme-obsolescence.el")
+                                        ;(load "color-theme-ld-dark")
+                                        ;(color-theme-ld-dark)
+
+                                        ;(require 'nimms-color)
+                                        ;(load "color-theme-obsolescence.el")
 
 (load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-;(load "color-theme-subdued.el")
+                                        ;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
-;(nimms-color-theme)
+                                        ;(nimms-color-theme)
 
 ;;(load "anything.el")
 (require 'yasnippet) ;; not yasnippet-bundle
@@ -93,7 +93,7 @@
 (set-default 'truncate-lines t)
 (setq-default ispell-program-name "aspell")
 (setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
-                            ; depth errors
+                                        ; depth errors
 
 ;;;;#### moz repl stuff
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
@@ -105,7 +105,7 @@
 
 
 (defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") 
-"List of file patterns for which to automatically invoke `php-mode'.")
+  "List of file patterns for which to automatically invoke `php-mode'.")
 
 (custom-autoload 'php-file-patterns "../related/php-mode-2008-10-23" nil)
 
@@ -193,14 +193,14 @@
 (de-erc-connect erc-opn "localhost" 6667 "nimai")
 (call-interactively 'erc-opn)
 
- ;; fires up a new frame and opens your servers in there. You will need
- ;; to modify it to suit your needs.
- ;; (defun my-irc ()
- ;;   "Start to waste time on IRC with ERC."
- ;;   (interactive)
- ;;   (select-frame (make-frame '((name . "Emacs IRC")
- ;; 			      (minibuffer . t))))
- ;;   (call-interactively 'erc-opn))
+;; fires up a new frame and opens your servers in there. You will need
+;; to modify it to suit your needs.
+;; (defun my-irc ()
+;;   "Start to waste time on IRC with ERC."
+;;   (interactive)
+;;   (select-frame (make-frame '((name . "Emacs IRC")
+;; 			      (minibuffer . t))))
+;;   (call-interactively 'erc-opn))
 
 ;; (setq erc-autojoin-channels-alist
 ;;       '(("freenode.net" "#emacs" "#kde" "#ruby" "ubuntu" "kubuntu")))
@@ -208,6 +208,13 @@
 
      ;;; rhtml-mode
 
-     (require 'rhtml-mode)
-     (add-hook 'rhtml-mode-hook
+(require 'rhtml-mode)
+(add-hook 'rhtml-mode-hook
      	  (lambda () (rinari-launch)))
+
+;;eshell
+;; Change the default eshell prompt
+(setq eshell-prompt-function
+      (lambda ()
+        (concat "[" (getenv "USER") "@" (system-name) "] "
+                (eshell/pwd) (if (= (user-uid) 0) " # " " $ "))))
