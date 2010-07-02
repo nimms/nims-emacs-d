@@ -2,7 +2,12 @@
 ;; window size commands
 (global-set-key (kbd "C-x 7") 'three-quarters-window)
 (global-set-key (kbd "C-x 8") 'half-window)
+
+
 (global-set-key (kbd "<f7>") 'rename-buffer)
+;; egg
+(global-set-key (kbd "<f8>") 'egg-status)
+(global-set-key (kbd "<f9>") 'rgrep)
 (global-set-key [(meta return)] 'toggle-fullscreen)
 
 
@@ -25,8 +30,9 @@
 (global-set-key (kbd "C-c j") 'windmove-down)
 (global-set-key (kbd "C-c k") 'windmove-up)
 
-;; egg
-(global-set-key (kbd "<f8>") 'egg-status)
+;;multi term
+(global-set-key (kbd "C-c t") 'multi-term-next)
+(global-set-key (kbd "C-c T") 'multi-term)
 
 ;; ruby stuff
 

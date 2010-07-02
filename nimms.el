@@ -21,6 +21,7 @@
                               (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
+                              (concat use-plugins "jd-el")
                               (concat use-plugins "yasnippet")
                               (concat use-plugins "remember")
                               (concat use-plugins "ecb-snap")
@@ -39,8 +40,6 @@
                                         ;(load "color-theme-obsolescence.el")
 
 (load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
-(setq x-select-enable-clipboard t)
-(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
                                         ;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
@@ -59,26 +58,32 @@
 (require 'etags)
 (require 'egg)
 (require 'snippet)
+(require 'rainbow-mode)
+;;(require 'multi-term)
+(require 'google-maps)
 
 (require 'cedet)
 (require 'ecb-autoloads)
 (require 'window-numbering)
 
-
-(setq tramp-default-method "ssh")
-(setq default-directory "~/")
-(setq rinari-tags-file-name "TAGS")
 (scroll-bar-mode -1)
 (column-number-mode t)
 (display-time)
 (tool-bar-mode -1)
-(setq line-number-mode 1)
+
 (global-auto-revert-mode t)
 (winner-mode 1)
 (window-numbering-mode)
 ;;(cua-mode t)
 
 (load "feature-mode")
+
+
+(autoload 'multi-term "multi-term" nil t)
+(autoload 'multi-term-next "multi-term" nil t)
+
+(setq multi-term-program "/bin/bash")   ;; use bash
+;; (setq multi-term-program "/bin/zsh") ;; or use zsh...
 
 ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
 ;; Select one of the following
@@ -89,6 +94,12 @@
 ;; Enable this if you develop in semantic, or develop grammars
 ;; (semantic-load-enable-semantic-debugging-helpers)
 
+(setq x-select-enable-clipboard t
+      interprogram-paste-function 'x-cut-buffer-or-selection-value      
+      tramp-default-method "ssh"
+      default-directory "~/"
+      line-number-mode 1
+      rinari-tags-file-name "TAGS")
 
 (set-default 'truncate-lines t)
 (setq-default ispell-program-name "aspell")
@@ -145,9 +156,9 @@
 
 (require 'color-theme)
 (color-theme-initialize)
-(setq color-theme-is-global t)
-(setq color-theme-is-cumulative t)
-(setq color-theme-load-all-themes nil)
+(setq color-theme-is-global t
+      color-theme-is-cumulative t
+      color-theme-load-all-themes nil)
 (load "color-theme-tangotango")
 (color-theme-tangotango)
 
@@ -207,6 +218,17 @@
 
 
      ;;; rhtml-mode
+
+;; (load  "/home/nimai/.emacs.d/plugins/nxhtml/autostart") --->
+
+;; (setq --->
+;;  nxhtml-global-minor-mode t --->
+;;  mumamo-chunk-coloring 'submode-colored --->
+;;  nxhtml-skip-welcome t --->
+;;  indent-region-mode t --->
+;;  rng-nxml-auto-validate-flag nil --->
+;;  nxml-degraded t) --->
+;; (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode)) --->
 
 (require 'rhtml-mode)
 (add-hook 'rhtml-mode-hook
