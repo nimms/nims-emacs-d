@@ -34,6 +34,7 @@
 (global-set-key (kbd "C-c t") 'multi-term-next)
 (global-set-key (kbd "C-c T") 'multi-term)
 
+(global-set-key (kbd "<f2>") 'visit-ansi-term)
 ;; ruby stuff
 
 (eval-after-load 'ruby-mode

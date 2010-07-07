@@ -70,12 +70,14 @@
 (column-number-mode t)
 (display-time)
 (tool-bar-mode -1)
+(rainbow-mode 1)
 
 (global-auto-revert-mode t)
 (winner-mode 1)
 (window-numbering-mode)
-;;(cua-mode t)
+(cua-mode t)
 
+;;cucumber mode
 (load "feature-mode")
 
 
@@ -140,10 +142,7 @@
 (setq org-log-done t)
 
 
-;; (global-set-key [(meta return)] 'toggle-fullscreen)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-
 
 
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev try-expand-dabbrev-all-buffers try-complete-file-name))
@@ -240,3 +239,16 @@
       (lambda ()
         (concat "[" (getenv "USER") "@" (system-name) "] "
                 (eshell/pwd) (if (= (user-uid) 0) " # " " $ "))))
+
+;;ansi-term
+;; enable cua and transient mark modes in term-line-mode
+(defadvice term-line-mode (after term-line-mode-fixes ())
+  (set (make-local-variable 'cua-mode) t)
+  (set (make-local-variable 'transient-mark-mode) t))
+(ad-activate 'term-line-mode)
+
+;; disable cua and transient mark modes in term-char-mode
+(defadvice term-char-mode (after term-char-mode-fixes ())
+  (set (make-local-variable 'cua-mode) nil)
+  (set (make-local-variable 'transient-mark-mode) nil))
+(ad-activate 'term-char-mode)

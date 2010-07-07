@@ -96,4 +96,36 @@
   (sql-connect-preset 'sharemap-local)
   (rename-buffer "*sm-development*"))
 
+
+(defun visit-ansi-term ()
+  "If we are in an *ansi-term*, rename it.
+If there is no *ansi-term*, run it.
+If there is one running, switch to that buffer."
+  (interactive)
+  (if (equal "*ansi-term*" (buffer-name))
+      (call-interactively 'rename-buffer)
+      (if (get-buffer "*ansi-term*")
+   (switch-to-buffer "*ansi-term*")
+   (ansi-term "/bin/bash"))))
+
+;; Use this for remote so I can specify command line arguments
+(defun remote-term (new-buffer-name cmd &rest switches)
+  (setq term-ansi-buffer-name (concat "*" new-buffer-name "*"))
+  (setq term-ansi-buffer-name (generate-new-buffer-name term-ansi-buffer-name))
+  (setq term-ansi-buffer-name (apply 'make-term term-ansi-buffer-name cmd nil switches))
+  (set-buffer term-ansi-buffer-name)
+  (term-mode)
+  (term-char-mode)
+  (term-set-escape-char ?\C-x)
+  (switch-to-buffer term-ansi-buffer-name))
+
+(defun web01 ()
+  (interactive) 
+  (remote-term "web01" "ssh" "web01"))
+
+(defun web03 ()
+  (interactive) 
+  (remote-term "web03" "ssh" "web03"))
+
+
 (provide 'nimms-functions)
