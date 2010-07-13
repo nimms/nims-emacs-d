@@ -1,15 +1,11 @@
-
-;; window size commands
-(global-set-key (kbd "C-x 7") 'three-quarters-window)
-(global-set-key (kbd "C-x 8") 'half-window)
-
-
+(global-set-key (kbd "<f5>") 'nimms-toggle-selective-display)
 (global-set-key (kbd "<f7>") 'rename-buffer)
-;; egg
 (global-set-key (kbd "<f8>") 'egg-status)
 (global-set-key (kbd "<f9>") 'rgrep)
 (global-set-key [(meta return)] 'toggle-fullscreen)
 
+
+(global-set-key (kbd "C-c r") 'revert-buffer)
 
 ;;reload the current page in firefox
 (global-set-key (kbd "C-x p")
@@ -18,24 +14,16 @@
                   (comint-send-string (inferior-moz-process)
                                       "BrowserReload();")))
 
-
+(global-set-key (kbd "C-z") 'repeat)
 ;;org mode
-(global-set-key (kbd "C-c r") 'remember)
+;;(global-set-key (kbd "C-c r") 'remember)
 ;(global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-;;wind move
-(global-set-key (kbd "C-c h") 'windmove-left)
-(global-set-key (kbd "C-c l") 'windmove-right)
-(global-set-key (kbd "C-c j") 'windmove-down)
-(global-set-key (kbd "C-c k") 'windmove-up)
-
-;;multi term
-(global-set-key (kbd "C-c t") 'multi-term-next)
-(global-set-key (kbd "C-c T") 'multi-term)
-
 (global-set-key (kbd "<f2>") 'visit-ansi-term)
 ;; ruby stuff
+
+(global-set-key (kbd "C-x C-d") 'ido-dired)
 
 (eval-after-load 'ruby-mode
   '(progn

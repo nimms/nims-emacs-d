@@ -108,8 +108,9 @@ If there is one running, switch to that buffer."
    (switch-to-buffer "*ansi-term*")
    (ansi-term "/bin/bash"))))
 
-;; Use this for remote so I can specify command line arguments
+
 (defun remote-term (new-buffer-name cmd &rest switches)
+  "Use this for remote so I can specify command line arguments"
   (setq term-ansi-buffer-name (concat "*" new-buffer-name "*"))
   (setq term-ansi-buffer-name (generate-new-buffer-name term-ansi-buffer-name))
   (setq term-ansi-buffer-name (apply 'make-term term-ansi-buffer-name cmd nil switches))
@@ -127,5 +128,66 @@ If there is one running, switch to that buffer."
   (interactive) 
   (remote-term "web03" "ssh" "web03"))
 
+
+(defun nimms-toggle-selective-display (column)
+  "toggles code folding.  defaults to 3 which will show ruby methods in a file"
+  (interactive "P")
+  (set-selective-display
+   (if selective-display nil (or column 3))))
+
+(defun eterminal/get-matching-buffer-names (name-to-match)
+  (let ((buffers (buffer-list))
+        (matching-buffers))
+    (dolist (buf buffers matching-buffers)
+      (if (eq 0 (string-match name-to-match (buffer-name buf)))
+          (setq matching-buffers (cons (buffer-name buf) matching-buffers))))
+    matching-buffers))
+
+(defun eterminal/get-next-buffer (buffer-name-list)
+  (let ((name (buffer-name (current-buffer))))
+    (setq frst (car buffer-name-list))
+    (setq next nil)
+    (while buffer-name-list
+      (setq n (pop buffer-name-list))
+      (if (string= n name)
+          (if buffer-name-list
+              (setq next (car buffer-name-list))
+            (setq next frst))))
+    next))
+
+(defun eterminal/switch-to-next-term-buffer ()
+  (interactive)
+  (let ((buf-list (eterminal/get-matching-buffer-names "*Terminal*")))
+    (setq buf-list (sort buf-list 'string<))
+    (setq next (eterminal/get-next-buffer buf-list))
+    (if next
+        (switch-to-buffer next))))
+
+(defun eterminal/switch-to-prev-term-buffer ()
+  (interactive)
+  (let ((buf-list (eterminal/get-matching-buffer-names "*Terminal*")))
+    (setq buf-list (sort buf-list 'string<))
+    (setq buf-list (nreverse buf-list))
+    (setq next (eterminal/get-next-buffer buf-list))
+    (if next
+        (switch-to-buffer next))))
+
+(add-hook 'term-mode-hook
+          (lambda ()
+            (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
+            (setq term-term-name "ansi")
+            (setq term-input-chunk-size 1024)
+                                        ; term-raw-map on char-moodia varten.
+            (define-key term-raw-map [C-tab] 'eterminal/switch-to-next-term-buffer)
+            (define-key term-raw-map [C-iso-lefttab] 'eterminal/switch-to-prev-term-buffer)
+                                        ; term-mode-map on line-moodia varten.
+            (define-key term-mode-map [C-tab] 'eterminal/switch-to-next-term-buffer)
+            (define-key term-mode-map [C-iso-lefttab] 'eterminal/switch-to-prev-term-buffer)))
+
+(defun eterminal/run-terminal ()
+  (interactive)
+  (ansi-term "/bin/bash" "Terminal"))
+
+(define-key ctl-x-map' "t" 'eterminal/run-terminal)
 
 (provide 'nimms-functions)

@@ -70,13 +70,13 @@
 (column-number-mode t)
 (display-time)
 (tool-bar-mode -1)
-(rainbow-mode 1)
+(rainbow-mode t)
 
 (global-auto-revert-mode t)
 (winner-mode 1)
 (window-numbering-mode)
 (cua-mode t)
-
+(desktop-save-mode t)
 ;;cucumber mode
 (load "feature-mode")
 
