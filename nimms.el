@@ -61,7 +61,7 @@
 (require 'rainbow-mode)
 ;;(require 'multi-term)
 (require 'google-maps)
-
+(require 'smart-tab)
 (require 'cedet)
 (require 'ecb-autoloads)
 (require 'window-numbering)
@@ -77,6 +77,7 @@
 (window-numbering-mode)
 (cua-mode t)
 (desktop-save-mode t)
+(partial-completion-mode t)
 ;;cucumber mode
 (load "feature-mode")
 
@@ -145,7 +146,11 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 
-(setq hippie-expand-try-functions-list '(try-expand-dabbrev try-expand-dabbrev-all-buffers try-complete-file-name))
+(setq hippie-expand-try-functions-list '(yas/hippie-try-expand
+                                         try-expand-dabbrev
+                                         try-expand-dabbrev-all-buffers
+                                         try-expand-dabbrev-from-kill
+                                         try-complete-file-name))
 
 ;; hippie-expand-try-functions-list ))
 

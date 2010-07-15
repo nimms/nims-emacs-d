@@ -6,7 +6,7 @@
 
 
 (global-set-key (kbd "C-c r") 'revert-buffer)
-
+(global-set-key (kbd "C-x C-t") 'eterminal/run-terminal)
 ;;reload the current page in firefox
 (global-set-key (kbd "C-x p")
                 (lambda ()
