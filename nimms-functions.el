@@ -190,4 +190,37 @@ If there is one running, switch to that buffer."
 
 (define-key ctl-x-map' "t" 'eterminal/run-terminal)
 
+
+(setq my-key-pairs
+      '((?! ?1) (?@ ?2) (?# ?3) (?$ ?4) (?% ?5)
+        (?^ ?6) (?& ?7) (?* ?8) (?( ?9) (?) ?0)
+        (?- ?_) (?\" ?') (?{ ?[) (?} ?])         ; (?| ?\\)
+        ))
+        
+(defun my-key-swap (key-pairs)
+  (if (eq key-pairs nil)
+      (message "Keyboard zapped!! Shift-F10 to restore!")
+      (progn
+        (keyboard-translate (caar key-pairs)  (cadar key-pairs)) 
+        (keyboard-translate (cadar key-pairs) (caar key-pairs))
+        (my-key-swap (cdr key-pairs))
+        )
+    ))
+
+(defun my-key-restore (key-pairs)
+  (if (eq key-pairs nil)
+      (message "Keyboard restored!! F10 to Zap!")
+    (progn
+      
+      (keyboard-translate (caar key-pairs)  (caar key-pairs))
+      (keyboard-translate (cadar key-pairs) (cadar key-pairs))
+      (my-key-restore (cdr key-pairs))
+      )
+    ))
+
+
+
+
+
+
 (provide 'nimms-functions)

@@ -70,9 +70,10 @@
 (column-number-mode t)
 (display-time)
 (tool-bar-mode -1)
-(rainbow-mode t)
+(rainbow-mode)
+(global-smart-tab-mode)
 
-(global-auto-revert-mode t)
+(global-auto-revert-mode)
 (winner-mode 1)
 (window-numbering-mode)
 (cua-mode t)

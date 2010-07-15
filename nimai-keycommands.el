@@ -25,6 +25,9 @@
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 
+(global-set-key (kbd "<f10>") 'my-key-swap)
+(global-set-key (kbd "S-<f10>") 'my-key-restore)
+
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
