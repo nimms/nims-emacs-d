@@ -71,7 +71,6 @@
 (display-time)
 (tool-bar-mode -1)
 (rainbow-mode)
-(global-smart-tab-mode)
 
 (global-auto-revert-mode)
 (winner-mode 1)
@@ -147,8 +146,7 @@
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 
-(setq hippie-expand-try-functions-list '(yas/hippie-try-expand
-                                         try-expand-dabbrev
+(setq hippie-expand-try-functions-list '(try-expand-dabbrev
                                          try-expand-dabbrev-all-buffers
                                          try-expand-dabbrev-from-kill
                                          try-complete-file-name))

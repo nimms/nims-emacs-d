@@ -27,6 +27,12 @@
 
 (global-set-key (kbd "<f10>") 'my-key-swap)
 (global-set-key (kbd "S-<f10>") 'my-key-restore)
+(global-set-key [(control return)] 'hippie-expand)
+(global-set-key (kbd "M-/") 'cua-set-rectangle-mark)
+
+(global-set-key [f10]         '(lambda () (interactive) (my-key-swap    my-key-pairs)))
+(global-set-key [S-f10]       '(lambda () (interactive) (my-key-restore my-key-pairs)))
+
 
 (eval-after-load 'ruby-mode
   '(progn
