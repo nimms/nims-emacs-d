@@ -21,6 +21,8 @@
                               (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
+                              (concat use-home ".emacs.d/cedet-1.0pre7")
+                              (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
                               (concat use-plugins "jd-el")
                               (concat use-plugins "yasnippet")
                               (concat use-plugins "remember")
@@ -39,7 +41,7 @@
                                         ;(require 'nimms-color)
                                         ;(load "color-theme-obsolescence.el")
 
-(load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
+;;(load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
 
                                         ;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
@@ -65,6 +67,8 @@
 (require 'cedet)
 (require 'ecb-autoloads)
 (require 'window-numbering)
+(require 'malabar-mode)
+
 
 (scroll-bar-mode -1)
 (column-number-mode t)
@@ -97,6 +101,17 @@
 ;; Enable this if you develop in semantic, or develop grammars
 ;; (semantic-load-enable-semantic-debugging-helpers)
 
+;;java mode
+(setq malabar-groovy-lib-dir "/home/nimai/.emacs.d/malabar-1.4-SNAPSHOT/lib")
+(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
+
+(add-hook 'malabar-mode-hook
+          (lambda ()
+            (add-hook 'after-save-hook 'malabar-compile-file-silently
+                      nil t)))
+
+(add-to-list 'compilation-error-regexp-alist (list "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
+
 (setq x-select-enable-clipboard t
       interprogram-paste-function 'x-cut-buffer-or-selection-value      
       tramp-default-method "ssh"
@@ -128,13 +143,13 @@
 
 (require 'remember)
 (setq org-remember-templates
-      '(("Tasks" ?t "* TODO %?\n  %i\n  %a" "~/org/todo.org")
-        ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a" "~/org/todo.org")))
+      '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/gtd.org" "Tasks")
+        ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a" "~/org/appoinments.org")))
 (setq remember-annotation-functions '(org-remember-annotation))
 (setq remember-handler-functions '(org-remember-handler))
 (eval-after-load 'remember
   '(add-hook 'remember-mode-hook 'org-remember-apply-template))
-
+ 
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 ;;(setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))
@@ -218,8 +233,8 @@
 ;; 			      (minibuffer . t))))
 ;;   (call-interactively 'erc-opn))
 
-;; (setq erc-autojoin-channels-alist
-;;       '(("freenode.net" "#emacs" "#kde" "#ruby" "ubuntu" "kubuntu")))
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#emacs" "#ruby")))
 
 
      ;;; rhtml-mode
@@ -263,7 +278,7 @@
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
 (defvar autosave-dir
- (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
+  (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
 
 (make-directory autosave-dir t)
 
@@ -272,13 +287,28 @@
 
 (defun make-auto-save-file-name ()
   (concat autosave-dir
-   (if buffer-file-name
-      (concat "#" (file-name-nondirectory buffer-file-name) "#")
-    (expand-file-name
-     (concat "#%" (buffer-name) "#")))))
+          (if buffer-file-name
+              (concat "#" (file-name-nondirectory buffer-file-name) "#")
+            (expand-file-name
+             (concat "#%" (buffer-name) "#")))))
 
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
 ;; list contains regexp=>directory mappings; filenames matching a regexp are
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
+
+
+(require 'gnus)
+;;gnus setup
+(add-to-list 'gnus-secondary-select-methods '(nnimap "gmail"
+                                  (nnimap-address "imap.gmail.com")
+                                  (nnimap-server-port 993)
+                                  (nnimap-stream ssl)))
+'(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "nimai.e@gmail.com" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      smtpmail-local-domain "sdx.com.au")
