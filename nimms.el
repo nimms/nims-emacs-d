@@ -18,6 +18,7 @@
                               (concat use-home ".emacs.d/plugins/cucumber-mode")
                               (concat use-home ".emacs.d/plugins/slime")
                               (concat use-home ".emacs.d/egg")
+                              (concat use-home ".emacs.d/vimpulse")
                               (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
@@ -41,12 +42,11 @@
                                         ;(require 'nimms-color)
                                         ;(load "color-theme-obsolescence.el")
 
-;;(load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
+(load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
 
                                         ;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
                                         ;(nimms-color-theme)
-
 ;;(load "anything.el")
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
@@ -63,12 +63,11 @@
 (require 'rainbow-mode)
 ;;(require 'multi-term)
 (require 'google-maps)
-(require 'smart-tab)
 (require 'cedet)
 (require 'ecb-autoloads)
 (require 'window-numbering)
 (require 'malabar-mode)
-
+(require 'vimpulse)
 
 (scroll-bar-mode -1)
 (column-number-mode t)
