@@ -14,23 +14,22 @@
 ;; check to see which platform we are running on
 (defvar mswindows-p (string-match "windows" (symbol-name system-type)))
 (defvar macosx-p (string-match "darwin" (symbol-name system-type)))
- (defvar linux-p (string-match "gnu/linux" (symbol-name system-type)))
+(defvar linux-p (string-match "gnu/linux" (symbol-name system-type)))
 
-(if linux-p    
-    (let ((startup-file "/usr/share/emacs/site-lisp/debian-startup.el"))
-      (if (and (or (not (fboundp 'debian-startup))
-		 (not (boundp  'debian-emacs-flavor)))
-	     (file-readable-p startup-file))
-	(progn
-	  (load-file startup-file)
-	  (setq debian-emacs-flavor 'emacs23)
-	  (debian-startup debian-emacs-flavor)
-	  (mapcar '(lambda (f)
-		     (and (not (string= (substring f -3) "/.."))
-			  (file-directory-p f) 
-			  (add-to-list 'load-path f)))
-		  (directory-files "/usr/share/emacs/site-lisp" t))))))
-'
+(let ((startup-file "/usr/share/emacs23/site-lisp/debian-startup.el"))
+  (if (and (or (not (fboundp 'debian-startup))
+               (not (boundp  'debian-emacs-flavor)))
+           (file-readable-p startup-file))
+      (progn
+        (load-file startup-file)
+        (setq debian-emacs-flavor 'emacs23)
+        (debian-startup debian-emacs-flavor)
+        (mapcar '(lambda (f)
+                   (and (not (string= (substring f -3) "/.."))
+                        (file-directory-p f) 
+                        (add-to-list 'load-path f)))
+                (directory-files "/usr/share/emacs23/site-lisp" t)))))
+
 (defvar use-home)
 (setq use-home (concat (expand-file-name "~") "/"))
 (defvar use-bin
@@ -126,6 +125,6 @@
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
 (if (file-exists-p user-specific-dir)
-  (mapc #'load (directory-files user-specific-dir nil ".*el$")))
+    (mapc #'load (directory-files user-specific-dir nil ".*el$")))
 
 ;;; init.el ends here

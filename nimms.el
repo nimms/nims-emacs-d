@@ -21,7 +21,6 @@
                               (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
-                              (concat use-home ".emacs.d/cedet-1.0pre7")
                               (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
                               (concat use-plugins "jd-el")
                               (concat use-plugins "yasnippet")
@@ -58,10 +57,17 @@
 (require 'rainbow-mode)
 ;;(require 'multi-term)
 (require 'google-maps)
-(require 'cedet)
 (require 'ecb-autoloads)
 (require 'window-numbering)
-;(require 'malabar-mode)
+(require 'malabar-mode)
+
+;; Or enable more if you wish
+(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
+                                  global-semanticdb-minor-mode
+                                  global-semantic-idle-summary-mode
+                                  global-semantic-mru-bookmark-mode))
+(semantic-mode 1)
+(require 'remember)
 (require 'vimpulse)
 
 (scroll-bar-mode -1)
@@ -133,7 +139,6 @@
 (autoload 'php-mode "php-mode" "Major mode for editing PHP code." t)
 
 
-(require 'remember)
 (setq org-remember-templates
       '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/gtd.org" "Tasks")
         ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a" "~/org/appoinments.org")))
