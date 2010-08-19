@@ -18,7 +18,6 @@
                               (concat use-home ".emacs.d/plugins/cucumber-mode")
                               (concat use-home ".emacs.d/plugins/slime")
                               (concat use-home ".emacs.d/egg")
-                              (concat use-home ".emacs.d/vimpulse")
                               (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
@@ -34,15 +33,11 @@
 
 (load "moz-auto-update.el")
 
-
-
                                         ;(load "color-theme-ld-dark")
                                         ;(color-theme-ld-dark)
 
                                         ;(require 'nimms-color)
                                         ;(load "color-theme-obsolescence.el")
-
-(load-file "~/.emacs.d/cedet-1.0pre7/common/cedet.el")
 
                                         ;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
@@ -66,7 +61,7 @@
 (require 'cedet)
 (require 'ecb-autoloads)
 (require 'window-numbering)
-(require 'malabar-mode)
+;(require 'malabar-mode)
 (require 'vimpulse)
 
 (scroll-bar-mode -1)
@@ -82,9 +77,7 @@
 (desktop-save-mode t)
 (partial-completion-mode t)
 ;;cucumber mode
-(load "feature-mode")
-
-
+(autoload 'feature-mode "feature-mode" nil t)
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 
@@ -93,7 +86,7 @@
 
 ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
 ;; Select one of the following
-(semantic-load-enable-code-helpers)
+;(semantic-load-enable-code-helpers)
 ;; (semantic-load-enable-guady-code-helpers)
 ;; (semantic-load-enable-excessive-code-helpers)
 
@@ -109,7 +102,7 @@
             (add-hook 'after-save-hook 'malabar-compile-file-silently
                       nil t)))
 
-(add-to-list 'compilation-error-regexp-alist (list "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
+;(add-to-list 'compilation-error-regexp-alist (list "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
 
 (setq x-select-enable-clipboard t
       interprogram-paste-function 'x-cut-buffer-or-selection-value      

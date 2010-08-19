@@ -1,29 +1,37 @@
 ;;-*-coding: emacs-mule;-*-
-(define-abbrev-table 'Buffer-menu-mode-abbrev-table '(    ))
+(define-abbrev-table 'Buffer-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'Custom-mode-abbrev-table '(    ))
+(define-abbrev-table 'Custom-mode-abbrev-table '())
 
-(define-abbrev-table 'amrita-mode-abbrev-table '(    ))
+(define-abbrev-table 'amrita-mode-abbrev-table '())
 
-(define-abbrev-table 'apropos-mode-abbrev-table '(    ))
+(define-abbrev-table 'apropos-mode-abbrev-table '())
 
-(define-abbrev-table 'as-external-for-mail-mode-abbrev-table '(    ))
+(define-abbrev-table 'as-external-for-mail-mode-abbrev-table '())
 
-(define-abbrev-table 'awk-mode-abbrev-table '(    ))
+(define-abbrev-table 'awk-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c++-mode-abbrev-table '(    ))
+(define-abbrev-table 'c++-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'c-mode-abbrev-table '(    ))
+(define-abbrev-table 'c-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'change-log-mode-abbrev-table '(    ))
+(define-abbrev-table 'change-log-mode-abbrev-table '())
 
-(define-abbrev-table 'chartg-mode-abbrev-table '(    ))
+(define-abbrev-table 'chartg-mode-abbrev-table '())
 
-(define-abbrev-table 'comint-mode-abbrev-table '(    ))
+(define-abbrev-table 'comint-mode-abbrev-table '())
 
-(define-abbrev-table 'completion-list-mode-abbrev-table '(    ))
+(define-abbrev-table 'completion-list-mode-abbrev-table '())
 
-(define-abbrev-table 'cperl-mode-abbrev-table '(    ("=head1" "=head1" cperl-electric-pod 0)
+(define-abbrev-table 'cperl-mode-abbrev-table
+  '(
+    ("=head1" "=head1" cperl-electric-pod 0)
     ("=head2" "=head2" cperl-electric-pod 0)
     ("=over" "=over" cperl-electric-pod 0)
     ("=pod" "=pod" cperl-electric-pod 0)
@@ -43,125 +51,141 @@
     ("unless" "unless" cperl-electric-keyword 0)
     ("until" "until" cperl-electric-keyword 0)
     ("while" "while" cperl-electric-keyword 0)
-    ))
+   ))
 
-(define-abbrev-table 'csharp-mode-abbrev-table '(    ))
+(define-abbrev-table 'csharp-mode-abbrev-table '())
 
-(define-abbrev-table 'css-mode-abbrev-table '(    ))
+(define-abbrev-table 'css-mode-abbrev-table '())
 
-(define-abbrev-table 'diff-mode-abbrev-table '(    ))
+(define-abbrev-table 'diff-mode-abbrev-table '())
 
-(define-abbrev-table 'django-mode-abbrev-table '(    ))
+(define-abbrev-table 'django-mode-abbrev-table '())
 
-(define-abbrev-table 'django-variable-mode-abbrev-table '(    ))
+(define-abbrev-table 'django-variable-mode-abbrev-table '())
 
-(define-abbrev-table 'doctex-mode-abbrev-table '(    ))
+(define-abbrev-table 'doctex-mode-abbrev-table '())
 
-(define-abbrev-table 'edit-server-text-mode-abbrev-table '(    ))
+(define-abbrev-table 'dsssl-mode-abbrev-table '())
 
-(define-abbrev-table 'egg-log-msg-mode-abbrev-table '(    ))
+(define-abbrev-table 'edit-server-text-mode-abbrev-table '())
 
-(define-abbrev-table 'erc-list-menu-mode-abbrev-table '(    ))
+(define-abbrev-table 'egg-log-msg-mode-abbrev-table '())
 
-(define-abbrev-table 'erc-mode-abbrev-table '(    ))
+(define-abbrev-table 'emacs-lisp-mode-abbrev-table '())
 
-(define-abbrev-table 'fundamental-mode-abbrev-table '(    ))
+(define-abbrev-table 'erc-list-menu-mode-abbrev-table '())
 
-(define-abbrev-table 'global-abbrev-table '(    ))
+(define-abbrev-table 'erc-mode-abbrev-table '())
 
-(define-abbrev-table 'gpl-mode-abbrev-table '(    ))
+(define-abbrev-table 'fundamental-mode-abbrev-table '())
 
-(define-abbrev-table 'grep-mode-abbrev-table '(    ))
+(define-abbrev-table 'global-abbrev-table '())
 
-(define-abbrev-table 'haml-mode-abbrev-table '(    ))
+(define-abbrev-table 'google-maps-static-mode-abbrev-table '())
 
-(define-abbrev-table 'html-mode-abbrev-table '(    ))
+(define-abbrev-table 'gpl-mode-abbrev-table '())
 
-(define-abbrev-table 'idl-mode-abbrev-table '(    ))
+(define-abbrev-table 'grep-mode-abbrev-table '())
 
-(define-abbrev-table 'inferior-moz-mode-abbrev-table '(    ))
+(define-abbrev-table 'haml-mode-abbrev-table '())
 
-(define-abbrev-table 'inferior-python-mode-abbrev-table '(    ))
+(define-abbrev-table 'html-mode-abbrev-table '())
 
-(define-abbrev-table 'java-mode-abbrev-table '(    ))
+(define-abbrev-table 'idl-mode-abbrev-table '())
 
-(define-abbrev-table 'js2-mode-abbrev-table '(    ))
+(define-abbrev-table 'inferior-moz-mode-abbrev-table '())
 
-(define-abbrev-table 'jython-mode-abbrev-table '(    ))
+(define-abbrev-table 'inferior-python-mode-abbrev-table '())
 
-(define-abbrev-table 'latex-mode-abbrev-table '(    ))
+(define-abbrev-table 'java-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'lisp-mode-abbrev-table '(    ))
+(define-abbrev-table 'js2-mode-abbrev-table '())
 
-(define-abbrev-table 'markdown-mode-abbrev-table '(    ))
+(define-abbrev-table 'jython-mode-abbrev-table '())
 
-(define-abbrev-table 'message-mode-abbrev-table '(    ))
+(define-abbrev-table 'latex-mode-abbrev-table '())
 
-(define-abbrev-table 'mumamo-comment-mode-abbrev-table '(    ))
+(define-abbrev-table 'lisp-mode-abbrev-table '())
 
-(define-abbrev-table 'n-back-control-mode-abbrev-table '(    ))
+(define-abbrev-table 'markdown-mode-abbrev-table '())
 
-(define-abbrev-table 'noshell-process-mode-abbrev-table '(    ))
+(define-abbrev-table 'message-mode-abbrev-table '())
 
-(define-abbrev-table 'nroff-mode-abbrev-table '(    ))
+(define-abbrev-table 'mumamo-comment-mode-abbrev-table '())
 
-(define-abbrev-table 'nxhtml-genshi-mode-abbrev-table '(    ))
+(define-abbrev-table 'n-back-control-mode-abbrev-table '())
 
-(define-abbrev-table 'nxhtml-mjt-mode-abbrev-table '(    ))
+(define-abbrev-table 'noshell-process-mode-abbrev-table '())
 
-(define-abbrev-table 'nxhtml-mode-abbrev-table '(    ))
+(define-abbrev-table 'nroff-mode-abbrev-table '())
 
-(define-abbrev-table 'objc-mode-abbrev-table '(    ))
+(define-abbrev-table 'nxhtml-genshi-mode-abbrev-table '())
 
-(define-abbrev-table 'org-mode-abbrev-table '(    ))
+(define-abbrev-table 'nxhtml-mjt-mode-abbrev-table '())
 
-(define-abbrev-table 'orgpan-mode-abbrev-table '(    ))
+(define-abbrev-table 'nxhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'outline-mode-abbrev-table '(    ))
+(define-abbrev-table 'objc-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'pause-break-mode-abbrev-table '(    ))
+(define-abbrev-table 'org-mode-abbrev-table '())
 
-(define-abbrev-table 'php-mode-abbrev-table '(    ))
+(define-abbrev-table 'orgpan-mode-abbrev-table '())
 
-(define-abbrev-table 'pike-mode-abbrev-table '(    ))
+(define-abbrev-table 'outline-mode-abbrev-table '())
 
-(define-abbrev-table 'plain-tex-mode-abbrev-table '(    ))
+(define-abbrev-table 'pause-break-mode-abbrev-table '())
 
-(define-abbrev-table 'python-mode-abbrev-table '(    ))
+(define-abbrev-table 'php-mode-abbrev-table '())
 
-(define-abbrev-table 'reb-lisp-mode-abbrev-table '(    ))
+(define-abbrev-table 'pike-mode-abbrev-table
+  '(
+   ))
 
-(define-abbrev-table 'reb-mode-abbrev-table '(    ))
+(define-abbrev-table 'plain-tex-mode-abbrev-table '())
 
-(define-abbrev-table 'rhtml-mode-abbrev-table '(    ))
+(define-abbrev-table 'python-mode-abbrev-table '())
 
-(define-abbrev-table 'ruby-mode-abbrev-table '(    ))
+(define-abbrev-table 'reb-lisp-mode-abbrev-table '())
 
-(define-abbrev-table 'select-tags-table-mode-abbrev-table '(    ))
+(define-abbrev-table 'reb-mode-abbrev-table '())
 
-(define-abbrev-table 'sex-file-mode-abbrev-table '(    ))
+(define-abbrev-table 'rhtml-mode-abbrev-table '())
 
-(define-abbrev-table 'sgml-mode-abbrev-table '(    ))
+(define-abbrev-table 'ruby-mode-abbrev-table '())
 
-(define-abbrev-table 'sh-mode-abbrev-table '(    ))
+(define-abbrev-table 'scheme-mode-abbrev-table '())
 
-(define-abbrev-table 'shell-mode-abbrev-table '(    ))
+(define-abbrev-table 'select-tags-table-mode-abbrev-table '())
 
-(define-abbrev-table 'sldb-mode-abbrev-table '(    ))
+(define-abbrev-table 'sex-file-mode-abbrev-table '())
 
-(define-abbrev-table 'slime-compiler-notes-mode-abbrev-table '(    ))
+(define-abbrev-table 'sgml-mode-abbrev-table '())
 
-(define-abbrev-table 'slime-connection-list-mode-abbrev-table '(    ))
+(define-abbrev-table 'sh-mode-abbrev-table '())
 
-(define-abbrev-table 'slime-inspector-mode-abbrev-table '(    ))
+(define-abbrev-table 'shell-mode-abbrev-table '())
 
-(define-abbrev-table 'slime-thread-control-mode-abbrev-table '(    ))
+(define-abbrev-table 'sldb-mode-abbrev-table '())
 
-(define-abbrev-table 'slime-xref-mode-abbrev-table '(    ))
+(define-abbrev-table 'slime-compiler-notes-mode-abbrev-table '())
 
-(define-abbrev-table 'slitex-mode-abbrev-table '(    ))
+(define-abbrev-table 'slime-connection-list-mode-abbrev-table '())
 
-(define-abbrev-table 'smarty-mode-abbrev-table '(    ("assign" "" smarty-template-assign-hook 0)
+(define-abbrev-table 'slime-inspector-mode-abbrev-table '())
+
+(define-abbrev-table 'slime-thread-control-mode-abbrev-table '())
+
+(define-abbrev-table 'slime-xref-mode-abbrev-table '())
+
+(define-abbrev-table 'slitex-mode-abbrev-table '())
+
+(define-abbrev-table 'smarty-mode-abbrev-table
+  '(
+    ("assign" "" smarty-template-assign-hook 0)
     ("bbcodetohtml" "" smarty-template-bbcodetohtml-hook 0)
     ("btosmilies" "" smarty-template-btosmilies-hook 0)
     ("capitalize" "" smarty-template-capitalize-hook 0)
@@ -241,25 +265,29 @@
     ("upper" "" smarty-template-upper-hook 0)
     ("validate" "" smarty-template-validate-hook 0)
     ("wordwrap" "" smarty-template-wordwrap-hook 0)
-    ))
+   ))
 
-(define-abbrev-table 'snippet-mode-abbrev-table '(    ))
+(define-abbrev-table 'snippet-mode-abbrev-table '())
 
-(define-abbrev-table 'special-mode-abbrev-table '(    ))
+(define-abbrev-table 'special-mode-abbrev-table '())
 
-(define-abbrev-table 'tex-mode-abbrev-table '(    ))
+(define-abbrev-table 'tex-mode-abbrev-table '())
 
-(define-abbrev-table 'tex-shell-abbrev-table '(    ))
+(define-abbrev-table 'tex-shell-abbrev-table '())
 
-(define-abbrev-table 'text-mode-abbrev-table '(    ))
+(define-abbrev-table 'text-mode-abbrev-table '())
 
-(define-abbrev-table 'tt-mode-abbrev-table '(    ))
+(define-abbrev-table 'tt-mode-abbrev-table '())
 
-(define-abbrev-table 'udev-control-mode-abbrev-table '(    ))
+(define-abbrev-table 'udev-control-mode-abbrev-table '())
 
-(define-abbrev-table 'vc-git-log-view-mode-abbrev-table '(    ))
+(define-abbrev-table 'vc-git-log-view-mode-abbrev-table '())
 
-(define-abbrev-table 'visual-basic-mode-abbrev-table '(    ("add" "Add" nil 0)
+(define-abbrev-table 'vc-svn-log-view-mode-abbrev-table '())
+
+(define-abbrev-table 'visual-basic-mode-abbrev-table
+  '(
+    ("add" "Add" nil 0)
     ("aggregate" "Aggregate" nil 0)
     ("and" "And" nil 0)
     ("app" "App" nil 0)
@@ -561,7 +589,9 @@
     ("workspaces" "Workspaces" nil 0)
     ("write" "Write" nil 0)
     ("year" "Year" nil 0)
-    ))
+   ))
 
-(define-abbrev-table 'wab-compilation-mode-abbrev-table '(    ))
+(define-abbrev-table 'wab-compilation-mode-abbrev-table '())
+
+(define-abbrev-table 'yaml-mode-abbrev-table '())
 
