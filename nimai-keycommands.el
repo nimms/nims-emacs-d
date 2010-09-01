@@ -4,8 +4,8 @@
 (global-set-key (kbd "<f7>") 'rename-buffer)
 (global-set-key (kbd "<f8>") 'egg-status)
 (global-set-key (kbd "<f9>") 'rgrep)
-(global-set-key [(meta return)] 'toggle-fullscreen)
-
+(global-set-key [(control return)] 'toggle-fullscreen)
+(global-set-key [(meta return)] 'hippie-expand)
 
 (global-set-key (kbd "C-c C-r") 'revert-buffer)
 (global-set-key (kbd "C-x C-t") 'eterminal/run-terminal)
@@ -16,7 +16,11 @@
                   (comint-send-string (inferior-moz-process)
                                       "BrowserReload();")))
 
-(global-set-key (kbd "C-z") 'repeat)
+(global-set-key (kbd "M-z") 'repeat)
+(global-set-key (kbd "M-b") 'ido-switch-buffer)
+(global-set-key (kbd "M-o") 'ido-find-file)
+(global-set-key (kbd "C-s") 'save-buffer)
+
 ;;org mode
 (global-set-key (kbd "C-c r") 'remember)
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -29,7 +33,6 @@
 
 (global-set-key (kbd "<f10>") 'my-key-swap)
 (global-set-key (kbd "S-<f10>") 'my-key-restore)
-(global-set-key [(control return)] 'hippie-expand)
 (global-set-key (kbd "M-/") 'cua-set-rectangle-mark)
 
 (global-set-key [f10]         '(lambda () (interactive) (my-key-swap    my-key-pairs)))
