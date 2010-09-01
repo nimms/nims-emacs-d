@@ -1,3 +1,6 @@
 [submodule "vimpulse"]
 	path = vimpulse
 	url = git://git.assembla.com/vimpulse.git
+[submodule "egg"]
+	path = egg
+	url = http://github.com/bogolisk/egg.git
