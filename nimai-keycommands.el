@@ -20,6 +20,7 @@
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-o") 'ido-find-file)
 (global-set-key (kbd "M-O") 'ido-find-file-other-window)
+(global-set-key (kbd "M-q") 'save-buffers-kill-terminal)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
 
 (global-set-key (kbd "M-k") 'ido-kill-buffer)
@@ -29,12 +30,12 @@
 (global-set-key (kbd "M-3") 'split-window-horizontally)
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-s") 'other-window)
-;;org mode
+;;org mode-compile-after-compile-hooke
 (global-set-key (kbd "C-c r") 'remember)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-(global-set-key (kbd "<f2>") 'visit-ansi-term)
+(global-set-key (kbd "<f2>") 'shell)
 ;; ruby stuff
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
@@ -45,7 +46,7 @@
 
 (global-set-key [f10]         '(lambda () (interactive) (my-key-swap    my-key-pairs)))
 (global-set-key [S-f10]       '(lambda () (interactive) (my-key-restore my-key-pairs)))
-
+(global-unset-key (kbd "C-t"))
 
 (eval-after-load 'ruby-mode
   '(progn
@@ -58,7 +59,7 @@
 (eval-after-load 'malabar-mode
   '(progn
      (define-key malabar-mode-map (kbd "RET") 'newline-and-indent)
-     (define-key malabar-mode-map (kbd "C-t") 'semantic-ia-complete-symbol-menu)
+     (define-key malabar-mode-map (kbd "M-t") 'semantic-ia-complete-symbol-menu)
      (define-key malabar-mode-map (kbd "<tab>") 'yas/expand)
      (setq yas/fallback-behaviour 'indent-for-tab-command)))
 

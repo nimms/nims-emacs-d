@@ -65,6 +65,8 @@
 (require 'remember)
 
 (load "~/.emacs.d/cedet-1.0/common/cedet")
+(require 'ede)
+(global-ede-mode t)
 
 ;; Enable EDE (Project Management) features
 ;;(global-ede-mode 1)
@@ -136,10 +138,9 @@
 
 (add-hook 'malabar-mode-hook
           (lambda ()
-            (add-hook 'after-save-hook 'malabar-compile-file-silently
-                      nil t)))
+            (add-hook 'after-save-hook 'malabar-compile-file-silently nil t)
+            (add-to-list 'compilation-error-regexp-alist (list "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))))
 
-;(add-to-list 'compilation-error-regexp-alist (list "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))
 
 (setq x-select-enable-clipboard t
       interprogram-paste-function 'x-cut-buffer-or-selection-value      
