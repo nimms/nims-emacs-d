@@ -108,7 +108,6 @@
 
 (global-auto-revert-mode)
 (winner-mode 1)
-(window-numbering-mode)
 (cua-mode t)
 (desktop-save-mode t)
 (partial-completion-mode t)
