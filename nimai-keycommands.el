@@ -19,8 +19,12 @@
 (global-set-key (kbd "M-z") 'repeat)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-o") 'ido-find-file)
+(global-set-key (kbd "M-k") 'ido-kill-buffer)
 (global-set-key (kbd "C-s") 'save-buffer)
-
+(global-set-key (kbd "C-1") 'delete-other-windows)
+(global-set-key (kbd "C-2") 'split-window-vertically)
+(global-set-key (kbd "C-3") 'split-window-horizontally)
+(global-set-key (kbd "C-4") 'delete-window)
 ;;org mode
 (global-set-key (kbd "C-c r") 'remember)
 (global-set-key (kbd "C-c l") 'org-store-link)
