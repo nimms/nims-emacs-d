@@ -2,7 +2,11 @@
 
 (global-set-key (kbd "<f5>") 'nimms-toggle-selective-display)
 (global-set-key (kbd "<f7>") 'rename-buffer)
-(global-set-key (kbd "<f8>") 'egg-status)
+(global-set-key (kbd "<f8>")
+                (lambda ()
+                  (interactive)
+                  (egg-status)
+                  (other-window 1)))
 (global-set-key (kbd "<f9>") 'rgrep)
 (global-set-key [(control return)] 'toggle-fullscreen)
 (global-set-key [(meta return)] 'hippie-expand)
@@ -27,8 +31,16 @@
 (global-set-key (kbd "M-k") 'ido-kill-buffer)
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "M-1") 'delete-other-windows)
-(global-set-key (kbd "M-2") 'split-window-vertically)
-(global-set-key (kbd "M-3") 'split-window-horizontally)
+(global-set-key (kbd "M-2")
+                (lambda ()
+                (interactive)
+                (split-window-vertically)
+                (other-window 1)))
+(global-set-key (kbd "M-3")
+                (lambda ()
+                  (interactive)
+                  (split-window-horizontally)
+                  (other-window 1)))
 (global-set-key (kbd "M-0") 'delete-window)
 (global-set-key (kbd "M-z") 'other-window)
 ;;org mode-compile-after-compile-hook
@@ -36,7 +48,7 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-(global-set-key (kbd "<f2>") 'shell)
+(global-set-key (kbd "<f2>") 'eshell)
 ;; ruby stuff
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
@@ -46,9 +58,9 @@
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
-     (define-key rinari-minor-mode-map (kbd "C-M-c") 'rinari-find-controller)
-     (define-key rinari-minor-mode-map (kbd "C-M-m") 'rinari-find-model)
-     (define-key rinari-minor-mode-map (kbd "C-M-v") 'rinari-find-view)))
+     (define-key rinari-minor-mode-map (kbd "H-c") 'rinari-find-controller)
+     (define-key rinari-minor-mode-map (kbd "H-m") 'rinari-find-model)
+     (define-key rinari-minor-mode-map (kbd "H-v") 'rinari-find-view)))
 
 
 (eval-after-load 'malabar-mode
