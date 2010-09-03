@@ -19,7 +19,7 @@
      (highlight ((t (:background "gray15" :foreground nil))))
      (border ((t (:background "#888a85"))))
      (fringe ((t (:background "grey10"))))
-     (mode-line ((t (:foreground "#bbbbbc" :background "#222222" :box (:line-width 1 :color nil :style released-button)))))
+     (mode-line ((t (:foreground "white" :background "green4" :box (:line-width 1 :color nil :style released-button)))))
      (mode-line-inactive ((t (:foreground "#bbbbbc" :background "#555753"))))
      (mode-line-buffer-id ((t (:bold t :foreground "orange" :background nil))))
      (region ((t (:background "dark slate blue"))))

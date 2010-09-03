@@ -49,8 +49,6 @@
 (yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 (require 'parenface)
 ;;(require 'nimai-clisp)
-(require 'nimai-keycommands)
-(require 'nimms-functions)
 (require 'tramp)
 (require 'cc-mode)
 (require 'etags)
@@ -341,3 +339,8 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587
       smtpmail-local-domain "sdx.com.au")
+
+
+
+(require 'nimai-keycommands)
+(require 'nimms-functions)
