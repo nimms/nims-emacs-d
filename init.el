@@ -128,3 +128,7 @@
     (mapc #'load (directory-files user-specific-dir nil ".*el$")))
 
 ;;; init.el ends here
+
+(put 'narrow-to-region 'disabled nil)
+
+(put 'narrow-to-page 'disabled nil)

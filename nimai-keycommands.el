@@ -20,16 +20,22 @@
                   (comint-send-string (inferior-moz-process)
                                       "BrowserReload();")))
 
-(global-set-key (kbd "M-z") 'repeat)
+;(global-set-key (kbd "M-z") 'repeat)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
-(global-set-key (kbd "M-o") 'ido-find-file)
-(global-set-key (kbd "M-O") 'ido-find-file-other-window)
+;(global-set-key (kbd "C-o") 'ido-find-file)
+(global-set-key (kbd "C-O") 'ido-find-file-other-window)
 (global-set-key (kbd "H-o") 'find-file-in-project)
 (global-set-key (kbd "M-q") 'save-buffers-kill-terminal)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
 
-(global-set-key (kbd "M-k") 'ido-kill-buffer)
-(global-set-key (kbd "C-s") 'save-buffer)
+;; open keyboard shortcut image with F8 key
+(global-set-key (kbd "M-<f12>")
+  (lambda ()
+    (interactive)
+    (find-file "~/.emacs.d/ergo_emacs_qwerty.png")))
+
+(global-set-key (kbd "C-k") 'ido-kill-buffer)
+;(global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2")
                 (lambda ()
@@ -42,7 +48,7 @@
                   (split-window-horizontally)
                   (other-window 1)))
 (global-set-key (kbd "M-0") 'delete-window)
-(global-set-key (kbd "M-z") 'other-window)
+;(global-set-key (kbd "M-z") 'other-window)
 ;;org mode-compile-after-compile-hook
 (global-set-key (kbd "C-c r") 'remember)
 (global-set-key (kbd "C-c l") 'org-store-link)

@@ -70,6 +70,7 @@
 (defconst ergoemacs-mark-paragraph-key			(kbd "M-S-SPC"))
 (defconst ergoemacs-shrink-whitespaces-key		(kbd "M-w"))
 (defconst ergoemacs-comment-dwim-key			(kbd "M-'"))
+(defconst ergoemacs-toggle-letter-case-key		(kbd "M-/"))
 
 ; keyword completion, because Alt+Tab is used by OS
 (defconst ergoemacs-call-keyword-completion-key		(kbd "M-t"))
@@ -98,14 +99,14 @@
 (defconst ergoemacs-switch-to-previous-frame-key        (kbd "M-~"))
 (defconst ergoemacs-switch-to-next-frame-key            (kbd "M-`"))
 
-(defconst ergoemacs-query-replace-key                   (kbd "M-7"))
-(defconst ergoemacs-query-replace-regexp-key            (kbd "M-&"))
+(defconst ergoemacs-query-replace-key                   (kbd "M-5"))
+(defconst ergoemacs-query-replace-regexp-key            (kbd "M-%"))
 
-(defconst ergoemacs-delete-other-windows-key            (kbd "M-5"))
+(defconst ergoemacs-delete-other-windows-key            (kbd "M-3"))
 (defconst ergoemacs-delete-window-key                   (kbd "M-0"))
 
-(defconst ergoemacs-split-window-vertically-key         (kbd "M-6"))
-(defconst ergoemacs-split-window-horizontally-key       (kbd "M-^"))
+(defconst ergoemacs-split-window-vertically-key         (kbd "M-4"))
+(defconst ergoemacs-split-window-horizontally-key       (kbd "M-$"))
 
 (defconst ergoemacs-extend-selection-key                (kbd "M-8"))
 (defconst ergoemacs-select-text-in-quote-key            (kbd "M-*"))

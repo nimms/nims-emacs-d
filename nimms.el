@@ -22,12 +22,14 @@
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
                               (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
+                              (concat use-home ".emacs.d/cedet-1.0/common")
                               (concat use-plugins "ergoemacs")
                               (concat use-plugins "jd-el")
                               (concat use-plugins "cedet")
                               (concat use-plugins "yasnippet")
                               (concat use-plugins "remember")
                               (concat use-plugins "ecb-snap")
+                              (concat use-plugins "ergoemacs")
                               (concat use-plugins ""))
                         load-path))
 
@@ -59,10 +61,20 @@
 (require 'google-maps)
 (require 'ecb-autoloads)
 (require 'window-numbering)
-(require 'vimpulse)
+;;(require 'vimpulse)
 (require 'remember)
 
-(load "~/.emacs.d/cedet-1.0/common/cedet")
+
+(setenv "ERGOEMACS_KEYBOARD_LAYOUT" "us") ; US layout
+;(setenv "ERGOEMACS_KEYBOARD_LAYOUT" "colemak") ; Colemak layout
+
+;; load ErgoEmacs keybinding
+(load "ergoemacs-mode")
+
+;; turn on minor mode ergoemacs-mode
+
+
+(load "cedet")
 
 
 ;; * This enables the database and idle reparse engines
@@ -98,19 +110,25 @@
 (global-auto-revert-mode)
 (winner-mode 1)
 (cua-mode t)
-(desktop-save-mode t)
+(ergoemacs-mode 1)
+;;(desktop-save-mode t)
 (partial-completion-mode t)
+(iswitchb-mode 1)
+(icomplete-mode 1)
+
+(setq show-paren-delay 0.0)
+
 ;;cucumber mode
 (autoload 'feature-mode "feature-mode" nil t)
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
+(setq multi-term-program "/bin/zsh") ;; or use zsh...
 
-(setq multi-term-program "/bin/bash")   ;; use bash
-;; (setq multi-term-program "/bin/zsh") ;; or use zsh...
-
+(when (require 'browse-kill-ring nil 'noerror)
+  (browse-kill-ring-default-keybindings))
 ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
 ;; Select one of the following
-;(semantic-load-enable-code-helpers)
+                                        ;(semantic-load-enable-code-helpers)
 ;; (semantic-load-enable-guady-code-helpers)
 ;; (semantic-load-enable-excessive-code-helpers)
 
@@ -165,7 +183,7 @@
 (setq remember-handler-functions '(org-remember-handler))
 (eval-after-load 'remember
   '(add-hook 'remember-mode-hook 'org-remember-apply-template))
- 
+
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 ;;(setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))
@@ -313,7 +331,9 @@
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
-
+;; I use version control, don't annoy me with backup files everywhere
+(setq make-backup-files nil)
+(setq auto-save-default nil)
 
 (require 'gnus)
 ;;gnus setup
