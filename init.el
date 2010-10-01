@@ -16,20 +16,6 @@
 (defvar macosx-p (string-match "darwin" (symbol-name system-type)))
 (defvar linux-p (string-match "gnu/linux" (symbol-name system-type)))
 
-(let ((startup-file "/usr/share/emacs23/site-lisp/debian-startup.el"))
-  (if (and (or (not (fboundp 'debian-startup))
-               (not (boundp  'debian-emacs-flavor)))
-           (file-readable-p startup-file))
-      (progn
-        (load-file startup-file)
-        (setq debian-emacs-flavor 'emacs23)
-        (debian-startup debian-emacs-flavor)
-        (mapcar '(lambda (f)
-                   (and (not (string= (substring f -3) "/.."))
-                        (file-directory-p f) 
-                        (add-to-list 'load-path f)))
-                (directory-files "/usr/share/emacs23/site-lisp" t)))))
-
 (defvar use-home)
 (setq use-home (concat (expand-file-name "~") "/"))
 (defvar use-bin
@@ -103,10 +89,6 @@
 (regen-autoloads)
 (load custom-file 'noerror)
 
-;; More complicated packages that haven't made it into ELPA yet
-
-(autoload 'jabber-connect "jabber" "" t)
-;; TODO: rinari, slime
 
 ;; Work around a bug on OS X where system-name is FQDN
 (if (eq system-type 'darwin)
@@ -132,3 +114,5 @@
 (put 'narrow-to-region 'disabled nil)
 
 (put 'narrow-to-page 'disabled nil)
+
+(put 'upcase-region 'disabled nil)

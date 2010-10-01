@@ -61,10 +61,10 @@
 (require 'google-maps)
 (require 'ecb-autoloads)
 (require 'window-numbering)
-;;(require 'vimpulse)
+(require 'vimpulse)
 (require 'remember)
 
-
+(load "mark-lines")
 (setenv "ERGOEMACS_KEYBOARD_LAYOUT" "us") ; US layout
 ;(setenv "ERGOEMACS_KEYBOARD_LAYOUT" "colemak") ; Colemak layout
 
@@ -123,6 +123,7 @@
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
+
 
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings))
@@ -273,16 +274,6 @@
 
      ;;; rhtml-mode
 
-;; (load  "/home/nimai/.emacs.d/plugins/nxhtml/autostart") --->
-
-;; (setq --->
-;;  nxhtml-global-minor-mode t --->
-;;  mumamo-chunk-coloring 'submode-colored --->
-;;  nxhtml-skip-welcome t --->
-;;  indent-region-mode t --->
-;;  rng-nxml-auto-validate-flag nil --->
-;;  nxml-degraded t) --->
-;; (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode)) --->
 
 (require 'rhtml-mode)
 (add-hook 'rhtml-mode-hook
@@ -295,19 +286,7 @@
         (concat "[" (getenv "USER") "@" (system-name) "] "
                 (eshell/pwd) (if (= (user-uid) 0) " # " " $ "))))
 
-;;ansi-term
-;; enable cua and transient mark modes in term-line-mode
-(defadvice term-line-mode (after term-line-mode-fixes ())
-  (set (make-local-variable 'cua-mode) t)
-  (set (make-local-variable 'transient-mark-mode) t))
-(ad-activate 'term-line-mode)
-
-;; disable cua and transient mark modes in term-char-mode
-(defadvice term-char-mode (after term-char-mode-fixes ())
-  (set (make-local-variable 'cua-mode) nil)
-  (set (make-local-variable 'transient-mark-mode) nil))
-(ad-activate 'term-char-mode)
-
+;
 
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
@@ -350,6 +329,13 @@
       smtpmail-local-domain "sdx.com.au")
 
 
+
+
+(defadvice yank (after indent-region activate)
+  (if (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
+                           c-mode c++-mode objc-mode
+                           LaTeX-mode TeX-mode ruby-mode java-mode))
+      (indent-region (region-beginning) (region-end) nil)))
 
 (require 'nimai-keycommands)
 (require 'nimms-functions)

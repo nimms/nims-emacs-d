@@ -1,17 +1,17 @@
 (defun nimms-indent-xml-region (begin end)
-"Pretty format XML markup in region. You need to have nxml-mode http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do this. The function inserts linebreaks to separate tags that have nothing but whitespace between them. It then indents the markup by using nxml’s indentation rules."
- (interactive "r")
- (save-excursion
-   (nxml-mode)
-   (goto-char begin)
-   (while (search-forward-regexp "\>[ \\t]*\<" nil t)
-     (backward-char) (insert "\n")
-     )
-   (mark-whole-buffer)
-   (indent-region begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do this. The function inserts linebreaks to separate tags that have nothing but whitespace between them. It then indents the markup by using nxml’s indentation rules."
+  (interactive "r")
+  (save-excursion
+    (nxml-mode)
+    (goto-char begin)
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
+      (backward-char) (insert "\n")
+      )
+    (mark-whole-buffer)
+    (indent-region begin end)
                                         ;(indent-region point-min point-max)
-   )
- (message "Ah, much better!"))
+    )
+  (message "Ah, much better!"))
 
 (defun word-count nil "Count words in buffer" (interactive)
   (shell-command-on-region (point-min) (point-max) "wc -w"))
@@ -104,9 +104,9 @@ If there is one running, switch to that buffer."
   (interactive)
   (if (equal "*ansi-term*" (buffer-name))
       (call-interactively 'rename-buffer)
-      (if (get-buffer "*ansi-term*")
-   (switch-to-buffer "*ansi-term*")
-   (ansi-term "/bin/bash"))))
+    (if (get-buffer "*ansi-term*")
+        (switch-to-buffer "*ansi-term*")
+      (ansi-term "/bin/bash"))))
 
 
 (defun remote-term (new-buffer-name cmd &rest switches)
@@ -135,92 +135,12 @@ If there is one running, switch to that buffer."
   (set-selective-display
    (if selective-display nil (or column 3))))
 
-(defun eterminal/get-matching-buffer-names (name-to-match)
-  (let ((buffers (buffer-list))
-        (matching-buffers))
-    (dolist (buf buffers matching-buffers)
-      (if (eq 0 (string-match name-to-match (buffer-name buf)))
-          (setq matching-buffers (cons (buffer-name buf) matching-buffers))))
-    matching-buffers))
-
-(defun eterminal/get-next-buffer (buffer-name-list)
-  (let ((name (buffer-name (current-buffer))))
-    (setq frst (car buffer-name-list))
-    (setq next nil)
-    (while buffer-name-list
-      (setq n (pop buffer-name-list))
-      (if (string= n name)
-          (if buffer-name-list
-              (setq next (car buffer-name-list))
-            (setq next frst))))
-    next))
-
-(defun eterminal/switch-to-next-term-buffer ()
-  (interactive)
-  (let ((buf-list (eterminal/get-matching-buffer-names "*Terminal*")))
-    (setq buf-list (sort buf-list 'string<))
-    (setq next (eterminal/get-next-buffer buf-list))
-    (if next
-        (switch-to-buffer next))))
-
-(defun eterminal/switch-to-prev-term-buffer ()
-  (interactive)
-  (let ((buf-list (eterminal/get-matching-buffer-names "*Terminal*")))
-    (setq buf-list (sort buf-list 'string<))
-    (setq buf-list (nreverse buf-list))
-    (setq next (eterminal/get-next-buffer buf-list))
-    (if next
-        (switch-to-buffer next))))
-
-(add-hook 'term-mode-hook
-          (lambda ()
-            (setq term-prompt-regexp "^[^#$%>\n]*[#$%>] *")
-            (setq term-term-name "ansi")
-            (setq term-input-chunk-size 1024)
-                                        ; term-raw-map on char-moodia varten.
-            (define-key term-raw-map [C-tab] 'eterminal/switch-to-next-term-buffer)
-            (define-key term-raw-map [C-iso-lefttab] 'eterminal/switch-to-prev-term-buffer)
-                                        ; term-mode-map on line-moodia varten.
-            (define-key term-mode-map [C-tab] 'eterminal/switch-to-next-term-buffer)
-            (define-key term-mode-map [C-iso-lefttab] 'eterminal/switch-to-prev-term-buffer)))
-
-(defun eterminal/run-terminal ()
-  (interactive)
-  (ansi-term "/bin/bash" "Terminal"))
-
-(define-key ctl-x-map' "t" 'eterminal/run-terminal)
-
-
-(setq my-key-pairs
-      '((?! ?1) (?@ ?2) (?# ?3) (?$ ?4) (?% ?5)
-        (?^ ?6) (?& ?7) (?* ?8) (?( ?9) (?) ?0)
-        (?- ?_) (?\" ?') (?{ ?[) (?} ?])         ; (?| ?\\)
-        ))
-        
-(defun my-key-swap (key-pairs)
-  (if (eq key-pairs nil)
-      (message "Keyboard zapped!! Shift-F10 to restore!")
-      (progn
-        (keyboard-translate (caar key-pairs)  (cadar key-pairs)) 
-        (keyboard-translate (cadar key-pairs) (caar key-pairs))
-        (my-key-swap (cdr key-pairs))
-        )
-    ))
-
-(defun my-key-restore (key-pairs)
-  (if (eq key-pairs nil)
-      (message "Keyboard restored!! F10 to Zap!")
-    (progn
-      
-      (keyboard-translate (caar key-pairs)  (caar key-pairs))
-      (keyboard-translate (cadar key-pairs) (cadar key-pairs))
-      (my-key-restore (cdr key-pairs))
-      )
-    ))
-
-
-
-
+(defun nimms-copy-line (arg)
+  "Copy lines (as many as prefix argument) in the kill ring"
+  (interactive "p")
+  (kill-ring-save (line-beginning-position)
+                  (line-beginning-position (+ 1 arg)))
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 
 (provide 'nimms-functions)

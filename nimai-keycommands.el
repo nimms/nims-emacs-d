@@ -1,3 +1,4 @@
+;(global-set-key (kbd "M-z") 'repeat)
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
 (global-set-key (kbd "<f5>") 'nimms-toggle-selective-display)
@@ -12,7 +13,7 @@
 (global-set-key [(meta return)] 'hippie-expand)
 
 (global-set-key (kbd "C-c C-r") 'revert-buffer)
-(global-set-key (kbd "C-x C-t") 'eterminal/run-terminal)
+(global-set-key (kbd "<f2>") 'shell)
 ;;reload the current page in firefox
 (global-set-key (kbd "C-x p")
                 (lambda ()
@@ -20,42 +21,52 @@
                   (comint-send-string (inferior-moz-process)
                                       "BrowserReload();")))
 
-;(global-set-key (kbd "M-z") 'repeat)
+                                        ;(global-set-key (kbd "M-z") 'repeat)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
-;(global-set-key (kbd "C-o") 'ido-find-file)
-(global-set-key (kbd "C-O") 'ido-find-file-other-window)
+(global-set-key (kbd "M-o") 'ido-find-file)
 (global-set-key (kbd "H-o") 'find-file-in-project)
-(global-set-key (kbd "M-q") 'save-buffers-kill-terminal)
+(global-set-key (kbd "C-O") 'ido-find-file-other-window)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
+(global-set-key (kbd "C-p") 'open-line)
+(global-set-key (kbd "H-g") 'goto-line)
+(global-set-key (kbd "M-m") 'back-to-indentation)                
+(global-set-key (kbd "M-k") 'ido-kill-buffer)
+;; marking commands
+(define-key cua--cua-keys-keymap (kbd "M-v") 'cua-paste)
+(global-set-key (kbd "M-C") 'nimms-copy-line)
+(global-set-key (kbd "H-c") 'copy-all)
+(global-set-key (kbd "H-p") 'mark-lines-previous-line)
+(global-set-key (kbd "H-n") 'mark-lines-next-line)
 
 ;; open keyboard shortcut image with F8 key
 (global-set-key (kbd "M-<f12>")
-  (lambda ()
-    (interactive)
-    (find-file "~/.emacs.d/ergo_emacs_qwerty.png")))
+                (lambda ()
+                  (interactive)
+                  (find-file "~/.emacs.d/ergo_emacs_qwerty.png")))
 
 (global-set-key (kbd "C-k") 'ido-kill-buffer)
-;(global-set-key (kbd "C-s") 'save-buffer)
+                                        ;(global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2")
                 (lambda ()
-                (interactive)
-                (split-window-vertically)
-                (other-window 1)))
+                  (interactive)
+                  (split-window-vertically)
+                  (other-window 1)))
+
 (global-set-key (kbd "M-3")
                 (lambda ()
                   (interactive)
                   (split-window-horizontally)
                   (other-window 1)))
 (global-set-key (kbd "M-0") 'delete-window)
-;(global-set-key (kbd "M-z") 'other-window)
+                                        ;(global-set-key (kbd "M-z") 'other-window)
 ;;org mode-compile-after-compile-hook
 (global-set-key (kbd "C-c r") 'remember)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 
-(global-set-key (kbd "<f2>") 'eshell)
 ;; ruby stuff
+
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 
@@ -64,9 +75,10 @@
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
-     (define-key rinari-minor-mode-map (kbd "H-c") 'rinari-find-controller)
-     (define-key rinari-minor-mode-map (kbd "H-m") 'rinari-find-model)
-     (define-key rinari-minor-mode-map (kbd "H-v") 'rinari-find-view)))
+     (global-set-key (kbd "M-c") 'rinari-find-controller)
+     (global-set-key (kbd "M-m") 'rinari-find-model)
+     (global-set-key (kbd "M-v") 'rinari-find-view)
+     (global-set-key (kbd "H-o") 'find-file-in-project)))
 
 
 (eval-after-load 'malabar-mode
