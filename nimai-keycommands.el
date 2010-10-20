@@ -1,3 +1,7 @@
+(if macosx-p
+    (setq mac-command-modifier 'hyper))
+
+
 ;(global-set-key (kbd "M-z") 'repeat)
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 

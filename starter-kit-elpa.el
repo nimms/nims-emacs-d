@@ -9,7 +9,6 @@
                                    'css-mode
                                    'nxml
                                    'gist
-                                   'rinari
                                ;; To submit
 ;;;                                "magit"
 ;;;                                "paredit"

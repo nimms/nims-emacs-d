@@ -13,10 +13,16 @@
     )
   (message "Ah, much better!"))
 
+(defun nimms-wrap-markup (tag)
+  "Wrap region with html tag"
+  (interactive "sWrap with: ")
+  (goto-char (region-end))
+  (insert (concat "</" tag ">"))
+  (goto-char (region-beginning))
+  (insert (concat "<" tag ">\n" )))
+
 (defun word-count nil "Count words in buffer" (interactive)
   (shell-command-on-region (point-min) (point-max) "wc -w"))
-
-
 
 (defun three-quarters-window ()
   "Resizes current window big"

@@ -1,0 +1,20 @@
+
+
+(let ((current-directory (file-name-directory load-file-name)))
+  (setq rinari-test-path current-directory)
+  (setq rinari-root-path (expand-file-name ".." current-directory))
+  (setq rinari-util-path (expand-file-name "util" rinari-root-path)))
+
+(add-to-list 'load-path rinari-root-path)
+(add-to-list 'load-path (expand-file-name "ert" (expand-file-name "test" rinari-util-path)))
+
+(require 'ert)
+(require 'ert-batch)
+(require 'rinari)
+
+(load-file (expand-file-name "test-helper.el" rinari-test-path))
+
+(dolist (test-file (or argv (directory-files rinari-test-path t "-test.el")))
+  (load-file test-file))
+
+(ert-run-tests-batch t)

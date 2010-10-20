@@ -1,0 +1,12 @@
+[submodule "util/jump"]
+	path = util/jump
+	url = http://github.com/eschulte/jump.el.git
+[submodule "util/test/ert"]
+	path = util/test/ert
+	url = http://github.com/ohler/ert.git
+[submodule "util/test/ecukes"]
+	path = util/test/ecukes
+	url = http://github.com/rejeep/ecukes.git
+[submodule "util/test/espuds"]
+	path = util/test/espuds
+	url = http://github.com/rejeep/espuds.git

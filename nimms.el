@@ -24,6 +24,7 @@
                               (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
                               (concat use-home ".emacs.d/cedet-1.0/common")
                               (concat use-plugins "ergoemacs")
+                              (concat use-plugins "rinari")
                               (concat use-plugins "jd-el")
                               (concat use-plugins "cedet")
                               (concat use-plugins "yasnippet")
@@ -63,6 +64,8 @@
 (require 'window-numbering)
 (require 'vimpulse)
 (require 'remember)
+(require 'rinari)
+(require 'pabbrev)
 
 (load "mark-lines")
 (setenv "ERGOEMACS_KEYBOARD_LAYOUT" "us") ; US layout
@@ -72,33 +75,6 @@
 (load "ergoemacs-mode")
 
 ;; turn on minor mode ergoemacs-mode
-
-
-(load "cedet")
-
-
-;; * This enables the database and idle reparse engines
-(semantic-load-enable-minimum-features)
-
-;; * This enables some tools useful for coding, such as summary mode
-;;   imenu support, and the semantic navigator
-;;(semantic-load-enable-code-helpers)
-
-;; * This enables even more coding tools such as intellisense mode
-;;   decoration mode, and stickyfunc mode (plus regular code helpers)
-;;(semantic-load-enable-gaudy-code-helpers)
-
-;; * This enables the use of Exuberent ctags if you have it installed.
-;;   If you use C++ templates or boost, you should NOT enable it.
-;; (semantic-load-enable-all-exuberent-ctags-support)
-;;   Or, use one of these two types of support.
-;;   Add support for new languges only via ctags.
-;;(semantic-load-enable-primary-exuberent-ctags-support)
-;;   Add support for using ctags as a backup parser.
-;; (semantic-load-enable-secondary-exuberent-ctags-support)
-
-;; Enable SRecode (Template management) minor-mode.
-;; (global-srecode-minor-mode 1)
 
 
 (scroll-bar-mode -1)
@@ -163,11 +139,24 @@
 ;;;;#### moz repl stuff
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
-(add-hook 'javascript-mode-hook 'javascript-custom-setup)
-(defun javascript-custom-setup ()
+(add-hook 'js2-mode-hook 'js2-custom-setup)
+(defun js2-custom-setup ()
   (moz-minor-mode 1))
 
 
+(defun auto-reload-firefox-on-after-save-hook ()         
+  (add-hook 'after-save-hook
+            '(lambda ()
+               (interactive)
+               (comint-send-string (inferior-moz-process)
+                                   "setTimeout(BrowserReload(), \"100\");"))
+            'append 'local)) ; buffer-local
+
+;; Example - you may want to add hooks for your own modes.
+;; I also add this to python-mode when doing django development.
+(add-hook 'rhtml-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(add-hook 'js2-mode-hook 'auto-reload-firefox-on-after-save-hook)
 
 (defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") 
   "List of file patterns for which to automatically invoke `php-mode'.")
@@ -232,6 +221,7 @@
 	      (color-theme-ld-dark))))
 
 ;; bitlbee
+  
 (defvar bitlbee-password "Trinkets")
 
 (add-hook 'erc-join-hook 'bitlbee-identify)
@@ -256,8 +246,9 @@
              (erc :server ,server :port ,port :nick ,nick)))))
 
 (autoload 'erc "erc" "" t)
-(de-erc-connect erc-opn "localhost" 6667 "nimai")
-(call-interactively 'erc-opn)
+(unless (or macosx-p mswindows-p)
+  ((de-erc-connect erc-opn "localhost" 6667 "nimai")
+   (call-interactively 'erc-opn)))
 
 ;; fires up a new frame and opens your servers in there. You will need
 ;; to modify it to suit your needs.
@@ -273,7 +264,6 @@
 
 
      ;;; rhtml-mode
-
 
 (require 'rhtml-mode)
 (add-hook 'rhtml-mode-hook
@@ -336,6 +326,13 @@
                            c-mode c++-mode objc-mode
                            LaTeX-mode TeX-mode ruby-mode java-mode))
       (indent-region (region-beginning) (region-end) nil)))
+
+(defadvice viper-maybe-checkout (around viper-git-checkin-fix activate)
+      "Advise viper-maybe-checkout to ignore svn files."
+      (let ((file (expand-file-name (buffer-file-name buf))))
+        (when (and (featurep 'vc-hooks)
+                   (not (memq (vc-backend file) '(nil Git))))
+          ad-do-it)))
 
 (require 'nimai-keycommands)
 (require 'nimms-functions)
