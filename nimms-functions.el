@@ -69,9 +69,15 @@
          (sql-port 5432))        
         (px-prod
          (sql-product 'postgres)
-         (sql-sever "pxprod")
+         (sql-server "pxprod")
          (sql-user "nimai")
          (sql-database "planxchange_development")
+         (sql-port 5432))
+        (sharemap-local2
+         (sql-product 'postgres)
+         (sql-server "localhost")
+         (sql-user "postgres")
+         (sql-database "sharemap_dev2")
          (sql-port 5432))
         (sharemap-local
          (sql-product 'postgres)
@@ -102,6 +108,10 @@
   (sql-connect-preset 'sharemap-local)
   (rename-buffer "*sm-development*"))
 
+(defun sm-dev2 ()
+  (interactive)
+  (sql-connect-preset 'sharemap-local2)
+  (rename-buffer "*sm-development2*"))
 
 (defun visit-ansi-term ()
   "If we are in an *ansi-term*, rename it.

@@ -71,6 +71,10 @@
 
 ;; ruby stuff
 
+;;smex
+(global-set-key (kbd "M-a") 'smex)
+(global-set-key (kbd "M-A") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
 
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 
