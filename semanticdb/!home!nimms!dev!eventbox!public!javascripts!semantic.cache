@@ -1,0 +1,151 @@
+;; Object javascripts/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "javascripts/"
+  :tables (list 
+   (semanticdb-table "events.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "events.js"
+    :pointmax 1580
+    :fsize 1579
+    :lastmodtime '(19671 61842)
+    :unmatched-syntax '((PAREN_BLOCK 2 . 1576) (PAREN_BLOCK 2 . 1576) (PAREN_BLOCK 2 . 1541) (PAREN_BLOCK 2 . 1524) (PAREN_BLOCK 2 . 1520) (PAREN_BLOCK 2 . 1450) (PAREN_BLOCK 2 . 1449) (PAREN_BLOCK 2 . 1447) (PAREN_BLOCK 2 . 1442) (PAREN_BLOCK 2 . 1403) (PAREN_BLOCK 2 . 1370) (PAREN_BLOCK 2 . 1364) (PAREN_BLOCK 2 . 1362) (PAREN_BLOCK 2 . 1269) (PAREN_BLOCK 2 . 1240) (PAREN_BLOCK 2 . 1173) (PAREN_BLOCK 2 . 1164) (PAREN_BLOCK 2 . 1137) (PAREN_BLOCK 2 . 1137) (PAREN_BLOCK 2 . 1052) (PAREN_BLOCK 2 . 1050) (PAREN_BLOCK 2 . 1017) (PAREN_BLOCK 2 . 1013) (PAREN_BLOCK 2 . 1013) (PAREN_BLOCK 2 . 1013) (PAREN_BLOCK 2 . 1009) (PAREN_BLOCK 2 . 997) (PAREN_BLOCK 2 . 969) (PAREN_BLOCK 2 . 960) (PAREN_BLOCK 2 . 952) (PAREN_BLOCK 2 . 951) (PAREN_BLOCK 2 . 951))
+    )
+   (semanticdb-table "application.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "application.js"
+    :pointmax 1
+    :fsize 0
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "jquery.calendrical.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.calendrical.js"
+    :pointmax 17411
+    :fsize 17410
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 17401 . 17409) (PAREN_BLOCK 1 . 17401))
+    )
+   (semanticdb-table "map.js"
+    :major-mode 'js-mode
+    :tags 
+        '( ("geocoder" variable nil nil [138 151])
+            ("map" variable nil nil [152 160])
+            ("isMobileDevice" function nil nil [162 382])
+            ("findListOfAddresses" function (:arguments 
+              ( ("searchTerm" variable nil (reparse-symbol FormalParameterList) [415 425]))              ) nil [386 708])
+            ("findPosition" function (:arguments 
+              ( ("navigator" variable nil (reparse-symbol FormalParameterList) [733 742]))              ) nil [711 1678])
+            ("drawMarker" function (:arguments 
+              ( ("latLong" variable nil (reparse-symbol FormalParameterList) [1701 1708])
+                ("title" variable nil (reparse-symbol FormalParameterList) [1710 1715])
+                ("mqp" variable nil (reparse-symbol FormalParameterList) [1717 1720]))              ) nil [1681 1860])
+            ("handleNoGeolocation" function (:arguments 
+              ( ("errorFlag" variable nil (reparse-symbol FormalParameterList) [1890 1899]))              ) nil [1861 2106])
+            ("drawMap" function (:arguments 
+              ( ("mapContainer" variable nil (reparse-symbol FormalParameterList) [2126 2138])
+                ("mapHeight" variable nil (reparse-symbol FormalParameterList) [2140 2149]))              ) nil [2109 2572]))          
+    :file "map.js"
+    :pointmax 2575
+    :fsize 2574
+    :lastmodtime '(19671 61104)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "jquery.autocomplete_geomod.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.autocomplete_geomod.js"
+    :pointmax 21655
+    :fsize 21655
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 21645 . 21653) (PAREN_BLOCK 320 . 21645))
+    )
+   (semanticdb-table "jquery.scrollTo.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.scrollTo.js"
+    :pointmax 6297
+    :fsize 6445
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 6286 . 6296) (PAREN_BLOCK 3114 . 6286))
+    )
+   (semanticdb-table "jquery-ui.min.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery-ui.min.js"
+    :pointmax 204321
+    :fsize 204320
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((SEMICOLON 92238 . 92239) (PAREN_BLOCK 92556 . 204321) (PAREN_BLOCK 92228 . 92236) (SEMICOLON 83255 . 83256) (PAREN_BLOCK 83542 . 92228) (PAREN_BLOCK 83245 . 83253) (SEMICOLON 59565 . 59566) (PAREN_BLOCK 59873 . 83245) (PAREN_BLOCK 59555 . 59563) (SEMICOLON 55260 . 55261) (PAREN_BLOCK 55572 . 59555) (PAREN_BLOCK 55250 . 55258) (SEMICOLON 37894 . 37895) (PAREN_BLOCK 38204 . 55250) (PAREN_BLOCK 37884 . 37892) (SEMICOLON 32124 . 32125) (PAREN_BLOCK 32460 . 37884) (PAREN_BLOCK 32114 . 32122) (SEMICOLON 13779 . 13780) (PAREN_BLOCK 14089 . 32114) (PAREN_BLOCK 13769 . 13777) (SEMICOLON 10160 . 10161) (PAREN_BLOCK 10386 . 13769) (PAREN_BLOCK 10150 . 10158) (SEMICOLON 7541 . 7542) (PAREN_BLOCK 7800 . 10150) (PAREN_BLOCK 7531 . 7539) (SEMICOLON 4270 . 4271) (PAREN_BLOCK 4493 . 7531) (PAREN_BLOCK 4260 . 4268) (PAREN_BLOCK 209 . 4260))
+    )
+   (semanticdb-table "rails.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "rails.js"
+    :pointmax 4781
+    :fsize 4912
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 7 . 4779))
+    )
+   (semanticdb-table "jquery.localscroll.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.localscroll.js"
+    :pointmax 4326
+    :fsize 4428
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 4315 . 4325) (PAREN_BLOCK 1289 . 4315))
+    )
+   (semanticdb-table "places.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "places.js"
+    :pointmax 576
+    :fsize 575
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 2 . 574))
+    )
+   (semanticdb-table "users.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "users.js"
+    :pointmax 532
+    :fsize 531
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 3 . 530))
+    )
+   (semanticdb-table "geo_autocomplete.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "geo_autocomplete.js"
+    :pointmax 2541
+    :fsize 2608
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 2531 . 2539) (PAREN_BLOCK 503 . 2531))
+    )
+   (semanticdb-table "jquery.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.js"
+    :pointmax 72175
+    :fsize 72174
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 368 . 72175))
+    )
+   (semanticdb-table "jquery.autocomplete-min.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.autocomplete-min.js"
+    :pointmax 7178
+    :fsize 7187
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 7169 . 7177) (PAREN_BLOCK 297 . 7169))
+    )
+   )
+  :file "!home!nimms!dev!eventbox!public!javascripts!semantic.cache"
+  :semantic-tag-version "2.0pre7"
+  :semanticdb-version "2.0pre7"
+  )

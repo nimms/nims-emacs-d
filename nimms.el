@@ -22,11 +22,9 @@
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
                               (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
-                              (concat use-home ".emacs.d/cedet-1.0/common")
                               (concat use-plugins "ergoemacs")
                               (concat use-plugins "rinari")
                               (concat use-plugins "jd-el")
-                              (concat use-plugins "cedet")
                               (concat use-plugins "yasnippet")
                               (concat use-plugins "remember")
                               (concat use-plugins "ecb-snap")
@@ -66,6 +64,8 @@
 (require 'remember)
 (require 'rinari)
 (require 'pabbrev)
+(global-pabbrev-mode)
+(setq pabbrev-idle-timer-verbose nil)
 
 
 (setq smex-history-length 50)
@@ -82,12 +82,16 @@
 
 ;; turn on minor mode ergoemacs-mode
 
+(semantic-mode 1)
 
 (scroll-bar-mode -1)
 (column-number-mode t)
 (display-time)
 (tool-bar-mode -1)
-(rainbow-mode)
+(rainbow-mode 1)
+(add-hook 'css-mode-hook 'rainbow-mode)
+(add-hook 'sass-mode-hook 'rainbow-mode)
+(add-hook 'rhtml-mode-hook 'rainbow-mode)
 
 (global-auto-revert-mode)
 (winner-mode 1)
@@ -99,24 +103,21 @@
 (icomplete-mode 1)
 
 (setq show-paren-delay 0.0)
-
+(auto-fill-mode 0)
 ;;cucumber mode
 (autoload 'feature-mode "feature-mode" nil t)
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
 
+;;smex
+(require 'smex)
+(smex-initialize)
 
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings))
 ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
 ;; Select one of the following
-                                        ;(semantic-load-enable-code-helpers)
-;; (semantic-load-enable-guady-code-helpers)
-;; (semantic-load-enable-excessive-code-helpers)
-
-;; Enable this if you develop in semantic, or develop grammars
-;; (semantic-load-enable-semantic-debugging-helpers)
 
 ;;java mode
 (autoload 'malabar-mode "malabar-mode" "Java shiz n shiz" t)
@@ -145,8 +146,8 @@
 ;;;;#### moz repl stuff
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
-(add-hook 'js2-mode-hook 'js2-custom-setup)
-(defun js2-custom-setup ()
+(add-hook 'js-mode-hook 'js-custom-setup)
+(defun js-custom-setup ()
   (moz-minor-mode 1))
 
 
@@ -155,14 +156,15 @@
             '(lambda ()
                (interactive)
                (comint-send-string (inferior-moz-process)
-                                   "setTimeout(BrowserReload(), \"100\");"))
+                                   "BrowserReload();"))
             'append 'local)) ; buffer-local
 
-;; Example - you may want to add hooks for your own modes.
-;; I also add this to python-mode when doing django development.
+(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
+
 (add-hook 'rhtml-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(add-hook 'haml-mode-hook 'auto-reload-firefox-on-after-save-hook)
 (add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
-(add-hook 'js2-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(add-hook 'js-mode-hook 'auto-reload-firefox-on-after-save-hook)
 
 (defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") 
   "List of file patterns for which to automatically invoke `php-mode'.")
@@ -252,9 +254,11 @@
              (erc :server ,server :port ,port :nick ,nick)))))
 
 (autoload 'erc "erc" "" t)
-(unless (or macosx-p mswindows-p)
-  ((de-erc-connect erc-opn "localhost" 6667 "nimai")
-   (call-interactively 'erc-opn)))
+(ignore-errors
+  (progn
+    (unless (or macosx-p mswindows-p)
+      ((de-erc-connect erc-opn "localhost" 6667 "nimai")
+       (call-interactively 'erc-opn)))))
 
 ;; fires up a new frame and opens your servers in there. You will need
 ;; to modify it to suit your needs.

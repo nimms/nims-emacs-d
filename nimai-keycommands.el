@@ -24,24 +24,27 @@
                   (interactive)
                   (comint-send-string (inferior-moz-process)
                                       "BrowserReload();")))
-
-                                        ;(global-set-key (kbd "M-z") 'repeat)
+(global-set-key (kbd "M-a") 'smex)
+(global-set-key (kbd "M-A") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c M-a") 'execute-extended-command)
+(global-set-key (kbd "C-c M-A") 'shell-command)
+(global-set-key (kbd "H-i") 'open-line)                                        ;(global-set-key (kbd "M-z") 'repeat)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
-(global-set-key (kbd "M-o") 'ido-find-file)
+(global-set-key (kbd "M-[") 'ido-find-file)
+(global-set-key (kbd "M-]") 'ido-find-file)
 (global-set-key (kbd "H-o") 'find-file-in-project)
-(global-set-key (kbd "C-O") 'ido-find-file-other-window)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
 (global-set-key (kbd "C-p") 'open-line)
 (global-set-key (kbd "H-g") 'goto-line)
 (global-set-key (kbd "M-m") 'back-to-indentation)                
-(global-set-key (kbd "M-k") 'ido-kill-buffer)
 ;; marking commands
 (define-key cua--cua-keys-keymap (kbd "M-v") 'cua-paste)
 (global-set-key (kbd "M-C") 'nimms-copy-line)
 (global-set-key (kbd "H-c") 'copy-all)
 (global-set-key (kbd "H-p") 'mark-lines-previous-line)
 (global-set-key (kbd "H-n") 'mark-lines-next-line)
-
+(global-set-key (kbd "M-w") 'kill-ring-save)
 ;; open keyboard shortcut image with F8 key
 (global-set-key (kbd "M-<f12>")
                 (lambda ()
@@ -80,15 +83,23 @@
 
 (global-set-key (kbd "M-/") 'cua-set-rectangle-mark)
 
+(vimpulse-map (kbd ";") 'viper-ex)
+(vimpulse-map (kbd ":") 'viper-repeat-find)
+
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
      (global-set-key (kbd "M-c") 'rinari-find-controller)
      (global-set-key (kbd "M-m") 'rinari-find-model)
-     (global-set-key (kbd "M-v") 'rinari-find-view)
+     (global-set-key (kbd "C-r") 'ruby-send-block)
+     (global-set-key (kbd "C-R") 'ruby-send-region)
+     (global-set-key (kbd "H-r") 'ruby-send-buffer)
      (global-set-key (kbd "H-o") 'find-file-in-project)))
 
-
+(eval-after-load 'shell-mode
+  '(progn
+     (define-key shell-mode-map (kbd "C-p") 'comint-previous-input)))
+     
 (eval-after-load 'malabar-mode
   '(progn
      (define-key malabar-mode-map (kbd "RET") 'newline-and-indent)
