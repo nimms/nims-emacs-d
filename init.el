@@ -1,3 +1,4 @@
+
 ;;; init.el --- Where all the magic begins
 ;;
 ;; Part of the Emacs Starter Kit

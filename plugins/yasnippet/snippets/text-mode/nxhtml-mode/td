@@ -1,4 +1,6 @@
 #contributor : Anders Bach Nielsen <abachn@abachn.net>
 #name : <td>...</td>
 # --
-<td$1>$0</td>
+<td$1>
+        $0
+</td>

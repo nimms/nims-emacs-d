@@ -26,8 +26,7 @@
                                       "BrowserReload();")))
 (global-set-key (kbd "M-a") 'smex)
 (global-set-key (kbd "M-A") 'smex-major-mode-commands)
-;; This is your old M-x.
-(global-set-key (kbd "C-c M-a") 'execute-extended-command)
+(global-set-key (kbd "C-c M-a") 'execute-extended-command) ;;old m-x
 (global-set-key (kbd "C-c M-A") 'shell-command)
 (global-set-key (kbd "H-i") 'open-line)                                        ;(global-set-key (kbd "M-z") 'repeat)
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
@@ -35,7 +34,7 @@
 (global-set-key (kbd "M-]") 'ido-find-file)
 (global-set-key (kbd "H-o") 'find-file-in-project)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
-(global-set-key (kbd "C-p") 'open-line)
+(global-set-key (kbd "C-o") 'open-line)
 (global-set-key (kbd "H-g") 'goto-line)
 (global-set-key (kbd "M-m") 'back-to-indentation)                
 ;; marking commands
@@ -73,33 +72,29 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 
 ;; ruby stuff
-
-;;smex
-(global-set-key (kbd "M-a") 'smex)
-(global-set-key (kbd "M-A") 'smex-major-mode-commands)
-(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
 (global-set-key (kbd "C-x C-d") 'ido-dired)
 
-(global-set-key (kbd "M-/") 'cua-set-rectangle-mark)
+;;(global-set-key (kbd "M-/") 'cua-set-rectangle-mark)
 
-(vimpulse-map (kbd ";") 'viper-ex)
-(vimpulse-map (kbd ":") 'viper-repeat-find)
+;; (vimpulse-map (kbd ";") 'viper-ex)
+;; (vimpulse-map (kbd ":") 'viper-repeat-find)
 
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
      (global-set-key (kbd "M-c") 'rinari-find-controller)
+     (global-set-key (kbd "C-M-v") 'rinari-find-view)
      (global-set-key (kbd "M-m") 'rinari-find-model)
      (global-set-key (kbd "C-r") 'ruby-send-block)
      (global-set-key (kbd "C-R") 'ruby-send-region)
      (global-set-key (kbd "H-r") 'ruby-send-buffer)
      (global-set-key (kbd "H-o") 'find-file-in-project)))
 
-(eval-after-load 'shell-mode
-  '(progn
-     (define-key shell-mode-map (kbd "C-p") 'comint-previous-input)))
-     
+(global-unset-key (kbd "C-p"))
+(global-unset-key (kbd "C-n"))
+(global-set-key (kbd "C-p") 'comint-previous-input)
+(global-set-key (kbd "C-n") 'comint-next-input)
+
 (eval-after-load 'malabar-mode
   '(progn
      (define-key malabar-mode-map (kbd "RET") 'newline-and-indent)

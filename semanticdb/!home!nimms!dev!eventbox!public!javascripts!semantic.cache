@@ -6,10 +6,10 @@
     :major-mode 'js-mode
     :tags nil
     :file "events.js"
-    :pointmax 1580
-    :fsize 1579
-    :lastmodtime '(19671 61842)
-    :unmatched-syntax '((PAREN_BLOCK 2 . 1576) (PAREN_BLOCK 2 . 1576) (PAREN_BLOCK 2 . 1541) (PAREN_BLOCK 2 . 1524) (PAREN_BLOCK 2 . 1520) (PAREN_BLOCK 2 . 1450) (PAREN_BLOCK 2 . 1449) (PAREN_BLOCK 2 . 1447) (PAREN_BLOCK 2 . 1442) (PAREN_BLOCK 2 . 1403) (PAREN_BLOCK 2 . 1370) (PAREN_BLOCK 2 . 1364) (PAREN_BLOCK 2 . 1362) (PAREN_BLOCK 2 . 1269) (PAREN_BLOCK 2 . 1240) (PAREN_BLOCK 2 . 1173) (PAREN_BLOCK 2 . 1164) (PAREN_BLOCK 2 . 1137) (PAREN_BLOCK 2 . 1137) (PAREN_BLOCK 2 . 1052) (PAREN_BLOCK 2 . 1050) (PAREN_BLOCK 2 . 1017) (PAREN_BLOCK 2 . 1013) (PAREN_BLOCK 2 . 1013) (PAREN_BLOCK 2 . 1013) (PAREN_BLOCK 2 . 1009) (PAREN_BLOCK 2 . 997) (PAREN_BLOCK 2 . 969) (PAREN_BLOCK 2 . 960) (PAREN_BLOCK 2 . 952) (PAREN_BLOCK 2 . 951) (PAREN_BLOCK 2 . 951))
+    :pointmax 1927
+    :fsize 1926
+    :lastmodtime '(19687 11343)
+    :unmatched-syntax '((PAREN_BLOCK 2 . 1923) (PAREN_BLOCK 1 . 1922) (PAREN_BLOCK 1 . 1893) (PAREN_BLOCK 1 . 1922) (PAREN_BLOCK 1 . 1059) (PAREN_BLOCK 1 . 1922) (PAREN_BLOCK 1 . 1921) (PAREN_BLOCK 2 . 1841) (PAREN_BLOCK 2 . 1824))
     )
    (semanticdb-table "application.js"
     :major-mode 'js-mode
@@ -51,7 +51,7 @@
     :file "map.js"
     :pointmax 2575
     :fsize 2574
-    :lastmodtime '(19671 61104)
+    :lastmodtime '(19686 29844)
     :unmatched-syntax 'nil
     )
    (semanticdb-table "jquery.autocomplete_geomod.js"
@@ -143,6 +143,15 @@
     :fsize 7187
     :lastmodtime '(19670 7045)
     :unmatched-syntax '((PAREN_BLOCK 7169 . 7177) (PAREN_BLOCK 297 . 7169))
+    )
+   (semanticdb-table "jquery.jplayer.min.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "jquery.jplayer.min.js"
+    :pointmax 16499
+    :fsize 16498
+    :lastmodtime '(19686 14461)
+    :unmatched-syntax '((PAREN_BLOCK 16490 . 16498) (PAREN_BLOCK 370 . 16490))
     )
    )
   :file "!home!nimms!dev!eventbox!public!javascripts!semantic.cache"

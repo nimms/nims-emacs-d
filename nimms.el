@@ -1,5 +1,6 @@
 (defvar mswindows-p (string-match "windows" (symbol-name system-type)))
 (defvar macosx-p (string-match "darwin" (symbol-name system-type)))
+(defvar gnu-linux-p  (string-match "gnu/linux" (symbol-name system-type)))
 
 (defvar use-home)
 (setq use-home (concat (expand-file-name "~") "/"))
@@ -27,7 +28,6 @@
                               (concat use-plugins "jd-el")
                               (concat use-plugins "yasnippet")
                               (concat use-plugins "remember")
-                              (concat use-plugins "ecb-snap")
                               (concat use-plugins "ergoemacs")
                               (concat use-plugins ""))
                         load-path))
@@ -44,6 +44,14 @@
                                         ;(load "color-theme-subdued.el")
 ;;(color-theme-subdued)
                                         ;(nimms-color-theme)
+
+;; set default font depending on what machine I'm on
+(if macosx-p 
+    (set-frame-font "-apple-Monaco-medium-normal-normal-*-12-*-*-*-m-0-iso10646-1"))
+
+;(if gnu-linux-p
+;    (set-frame-font "-unknown-Droid Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
+
 ;;(load "anything.el")
 (require 'yasnippet) ;; not yasnippet-bundle
 (yas/initialize)
@@ -58,15 +66,17 @@
 (require 'rainbow-mode)
 ;;(require 'multi-term)
 (require 'google-maps)
-(require 'ecb-autoloads)
 (require 'window-numbering)
-(require 'vimpulse)
+;;(require 'vimpulse)
 (require 'remember)
 (require 'rinari)
 (require 'pabbrev)
-(global-pabbrev-mode)
+(require 'enclose)
+(require 'ruby-end)
 (setq pabbrev-idle-timer-verbose nil)
-
+;; (if macosx-p 
+;;     (require 'rvm)
+;;     (rvm-use-default))
 
 (setq smex-history-length 50)
 (require 'smex)
@@ -80,6 +90,7 @@
 ;; load ErgoEmacs keybinding
 (load "ergoemacs-mode")
 
+(load (concat use-home ".emacs.d/nxhtml/autostart.el"))
 ;; turn on minor mode ergoemacs-mode
 
 (semantic-mode 1)
@@ -106,6 +117,9 @@
 (auto-fill-mode 0)
 ;;cucumber mode
 (autoload 'feature-mode "feature-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.feature\\'" . feature-mode))
+
+
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
@@ -143,13 +157,19 @@
 (setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
                                         ; depth errors
 
+(add-hook 'ruby-mode-hook 'ruby-custom-setup)
+(defun ruby-custom-setup ()
+  (pabbrev-mode 1)
+  (enclose-mode t))
+
 ;;;;#### moz repl stuff
 (autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
 
 (add-hook 'js-mode-hook 'js-custom-setup)
 (defun js-custom-setup ()
-  (moz-minor-mode 1))
-
+  (moz-minor-mode 1)
+  (enclose-mode t)
+  (pabbrev-mode 1))
 
 (defun auto-reload-firefox-on-after-save-hook ()         
   (add-hook 'after-save-hook
@@ -161,10 +181,14 @@
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
 
-(add-hook 'rhtml-mode-hook 'auto-reload-firefox-on-after-save-hook)
+(add-hook 'nxhtml-mode-hook 'nxhtml-custom-setup)
 (add-hook 'haml-mode-hook 'auto-reload-firefox-on-after-save-hook)
 (add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
 (add-hook 'js-mode-hook 'auto-reload-firefox-on-after-save-hook)
+
+(defun nxhtml-custom-setup ()
+  (auto-reload-firefox-on-after-save-hook)
+  (enclose-mode))
 
 (defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") 
   "List of file patterns for which to automatically invoke `php-mode'.")
@@ -202,9 +226,11 @@
 
 ;; hippie-expand-try-functions-list ))
 
-;; (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . nxhtml-mode))
-;; (add-to-list 'auto-mode-alist '("\\.erb\\'" . nxhtml-mode))
-;; (add-to-list 'auto-mode-alist '("\\.rhtml\\'" . nxhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.erb\\'" . eruby-nxhtml-mumamo-mode))
+(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-nxhtml-mumamo-mode))
+
+(add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
 
 (require 'color-theme)
 (color-theme-initialize)
@@ -243,19 +269,19 @@
                                    (erc-default-target) 
                                    bitlbee-password))))
 
-(defmacro de-erc-connect (command server port nick)
-  "Create interactive command `command', for connecting to an IRC server. The
-      command uses interactive mode if passed an argument."
-  (fset command
-        `(lambda (arg)
-           (interactive "p")
-           (if (not (= 1 arg))
-               (call-interactively 'erc)
-             (erc :server ,server :port ,port :nick ,nick)))))
-
 (autoload 'erc "erc" "" t)
 (ignore-errors
   (progn
+
+    (defmacro de-erc-connect (command server port nick)
+      "Create interactive command `command', for connecting to an IRC server. The
+      command uses interactive mode if passed an argument."
+      (fset command
+            `(lambda (arg)
+               (interactive "p")
+               (if (not (= 1 arg))
+                   (call-interactively 'erc)
+                 (erc :server ,server :port ,port :nick ,nick)))))
     (unless (or macosx-p mswindows-p)
       ((de-erc-connect erc-opn "localhost" 6667 "nimai")
        (call-interactively 'erc-opn)))))
@@ -272,13 +298,6 @@
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#ruby")))
 
-
-     ;;; rhtml-mode
-
-(require 'rhtml-mode)
-(add-hook 'rhtml-mode-hook
-     	  (lambda () (rinari-launch)))
-
 ;;eshell
 ;; Change the default eshell prompt
 (setq eshell-prompt-function
@@ -286,7 +305,6 @@
         (concat "[" (getenv "USER") "@" (system-name) "] "
                 (eshell/pwd) (if (= (user-uid) 0) " # " " $ "))))
 
-;
 
 ;; Put autosave files (ie #foo#) in one place, *not*
 ;; scattered all over the file system!
@@ -351,6 +369,8 @@
         (when (and (featurep 'vc-hooks)
                    (not (memq (vc-backend file) '(nil Git))))
           ad-do-it)))
+
+(setq debug-on-error nil)
 
 (require 'nimai-keycommands)
 (require 'nimms-functions)
