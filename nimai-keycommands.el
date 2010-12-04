@@ -1,7 +1,6 @@
 (if macosx-p
     (setq mac-command-modifier 'hyper))
 
-
 ;(global-set-key (kbd "M-z") 'repeat)
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
@@ -14,7 +13,7 @@
                   (other-window 1)))
 (global-set-key (kbd "<f9>") 'rgrep)
 (global-set-key [(control return)] 'toggle-fullscreen)
-(global-set-key [(meta return)] 'hippie-expand)
+(global-set-key [(meta return)] 'auto-complete)
 
 (global-set-key (kbd "C-c C-r") 'revert-buffer)
 (global-set-key (kbd "<f2>") 'shell)
@@ -73,21 +72,16 @@
 
 ;; ruby stuff
 (global-set-key (kbd "C-x C-d") 'ido-dired)
-
-;;(global-set-key (kbd "M-/") 'cua-set-rectangle-mark)
-
-;; (vimpulse-map (kbd ";") 'viper-ex)
-;; (vimpulse-map (kbd ":") 'viper-repeat-find)
-
+(global-unset-key (kbd "M-R"))
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
      (global-set-key (kbd "M-c") 'rinari-find-controller)
      (global-set-key (kbd "C-M-v") 'rinari-find-view)
      (global-set-key (kbd "M-m") 'rinari-find-model)
+     (global-set-key (kbd "M-t") 'rinari-find-rspec)
      (global-set-key (kbd "C-r") 'ruby-send-block)
      (global-set-key (kbd "C-R") 'ruby-send-region)
-     (global-set-key (kbd "H-r") 'ruby-send-buffer)
      (global-set-key (kbd "H-o") 'find-file-in-project)))
 
 (global-unset-key (kbd "C-p"))

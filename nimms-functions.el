@@ -58,6 +58,15 @@
                                          'fullboth))) 
 
 
+(defun auto-reload-firefox-on-after-save-hook ()         
+  (add-hook 'after-save-hook
+            '(lambda ()
+               (interactive)
+               (comint-send-string (inferior-moz-process)
+                                   "BrowserReload();"))
+            'append 'local)) ; buffer-local
+
+
 
 (setq sql-connection-alist
       '((px-local
@@ -142,7 +151,7 @@ If there is one running, switch to that buffer."
 
 (defun web03 ()
   (interactive) 
-  (remote-term "web03" "ssh" "web03"))
+  (remote-term "web03" "ssh" "web03")) 
 
 
 (defun nimms-toggle-selective-display (column)
@@ -159,4 +168,12 @@ If there is one running, switch to that buffer."
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 
+
+(setq path-to-ctags "/opt/local/bin/ctags") ;; <- your ctags path here
+(defun create-tags (dir-name)
+  "Create tags file."
+  (interactive "Directory: ")
+  (shell-command
+   (format "%s -f %s/TAGS -e -R %s" path-to-ctags dir-name (directory-file-name dir-name)))
+  )
 (provide 'nimms-functions)

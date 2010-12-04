@@ -33,6 +33,9 @@
                         load-path))
 
 
+(load "mode-list.el")
+(load "hooks.el")
+(load "vi-misc.el")
 (load "moz-auto-update.el")
 
                                         ;(load "color-theme-ld-dark")
@@ -115,14 +118,13 @@
 
 (setq show-paren-delay 0.0)
 (auto-fill-mode 0)
-;;cucumber mode
-(autoload 'feature-mode "feature-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.feature\\'" . feature-mode))
 
 
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
+
+
 
 ;;smex
 (require 'smex)
@@ -132,17 +134,6 @@
   (browse-kill-ring-default-keybindings))
 ;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
 ;; Select one of the following
-
-;;java mode
-(autoload 'malabar-mode "malabar-mode" "Java shiz n shiz" t)
-
-(setq malabar-groovy-lib-dir "/home/nimai/.emacs.d/malabar-1.4-SNAPSHOT/lib")
-(add-to-list 'auto-mode-alist '("\\.java\\'" . malabar-mode))
-
-(add-hook 'malabar-mode-hook
-          (lambda ()
-            (add-hook 'after-save-hook 'malabar-compile-file-silently nil t)
-            (add-to-list 'compilation-error-regexp-alist (list "\\[ERROR\\] \\(.+?\\):\\[\\([0-9]+\\),\\([0-9]+\\)\\].*" 1 2 3))))
 
 
 (setq x-select-enable-clipboard t
@@ -157,46 +148,6 @@
 (setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
                                         ; depth errors
 
-(add-hook 'ruby-mode-hook 'ruby-custom-setup)
-(defun ruby-custom-setup ()
-  (pabbrev-mode 1)
-  (enclose-mode t))
-
-;;;;#### moz repl stuff
-(autoload 'moz-minor-mode "moz" "Mozilla Minor and Inferior Mozilla Modes" t)
-
-(add-hook 'js-mode-hook 'js-custom-setup)
-(defun js-custom-setup ()
-  (moz-minor-mode 1)
-  (enclose-mode t)
-  (pabbrev-mode 1))
-
-(defun auto-reload-firefox-on-after-save-hook ()         
-  (add-hook 'after-save-hook
-            '(lambda ()
-               (interactive)
-               (comint-send-string (inferior-moz-process)
-                                   "BrowserReload();"))
-            'append 'local)) ; buffer-local
-
-(add-to-list 'auto-mode-alist '("\\.js$" . js-mode))
-
-(add-hook 'nxhtml-mode-hook 'nxhtml-custom-setup)
-(add-hook 'haml-mode-hook 'auto-reload-firefox-on-after-save-hook)
-(add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
-(add-hook 'js-mode-hook 'auto-reload-firefox-on-after-save-hook)
-
-(defun nxhtml-custom-setup ()
-  (auto-reload-firefox-on-after-save-hook)
-  (enclose-mode))
-
-(defvar php-file-patterns '("\\.php[s34]?\\'" "\\.phtml\\'" "\\.inc\\'") 
-  "List of file patterns for which to automatically invoke `php-mode'.")
-
-(custom-autoload 'php-file-patterns "../related/php-mode-2008-10-23" nil)
-
-(autoload 'php-mode "php-mode" "Major mode for editing PHP code." t)
-
 
 (setq org-remember-templates
       '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/gtd.org" "Tasks")
@@ -206,15 +157,12 @@
 (eval-after-load 'remember
   '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+
 
 ;;(setq org-todo-keywords '("TODO" "STARTED" "WAITING" "DONE"))
 (setq org-agenda-include-diary t)                                               
 (setq org-agenda-include-all-todo t)    
 (setq org-log-done t)
-
-
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
 
 (setq hippie-expand-try-functions-list '(try-expand-dabbrev
@@ -226,12 +174,6 @@
 
 ;; hippie-expand-try-functions-list ))
 
-(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.erb\\'" . eruby-nxhtml-mumamo-mode))
-(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-nxhtml-mumamo-mode))
-
-(add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
-
 (require 'color-theme)
 (color-theme-initialize)
 (setq color-theme-is-global t
@@ -240,19 +182,6 @@
 (load "color-theme-tangotango")
 (color-theme-tangotango)
 
-;; (load "color-theme-nimms-new")
-;; (color-theme-nimms-new)
-
-(add-hook 'message-mode-hook 'color-theme-tangotango)
-(add-hook 'gnus-article-mode-hook 'color-theme-tangotango)
-
-(add-hook 'after-make-frame-functions
-	  (lambda (frame)
-	    (set-variable 'color-theme-is-global nil)
-	    (select-frame frame)
-	    (if window-system
-		(color-theme-tangotango)
-	      (color-theme-ld-dark))))
 
 ;; bitlbee
   
@@ -323,6 +252,14 @@
             (expand-file-name
              (concat "#%" (buffer-name) "#")))))
 
+
+;; auto complete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(ac-config-default)
+(setq ac-auto-start 3)
+
+
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
 ;; list contains regexp=>directory mappings; filenames matching a regexp are
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
@@ -331,44 +268,6 @@
 ;; I use version control, don't annoy me with backup files everywhere
 (setq make-backup-files nil)
 (setq auto-save-default nil)
-
-(require 'gnus)
-;;gnus setup
-(add-to-list 'gnus-secondary-select-methods '(nnimap "gmail"
-                                  (nnimap-address "imap.gmail.com")
-                                  (nnimap-server-port 993)
-                                  (nnimap-stream ssl)))
-'(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "nimai.e@gmail.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587
-      smtpmail-local-domain "sdx.com.au")
-
-
-
-;;advice
-
-(defadvice viper-maybe-checkout (around viper-git-checkin-fix activate)
-  "Advise viper-maybe-checkout to ignore git files."
-  (let ((file (expand-file-name (buffer-file-name buf))))
-    (when (and (featurep 'vc-hooks)
-               (not (memq (vc-backend file) '(nil Git))))
-      ad-do-it)))
-
-(defadvice yank (after indent-region activate)
-  (if (member major-mode '(emacs-lisp-mode scheme-mode lisp-mode
-                           c-mode c++-mode objc-mode
-                           LaTeX-mode TeX-mode ruby-mode java-mode))
-      (indent-region (region-beginning) (region-end) nil)))
-
-(defadvice viper-maybe-checkout (around viper-git-checkin-fix activate)
-      "Advise viper-maybe-checkout to ignore svn files."
-      (let ((file (expand-file-name (buffer-file-name buf))))
-        (when (and (featurep 'vc-hooks)
-                   (not (memq (vc-backend file) '(nil Git))))
-          ad-do-it)))
 
 (setq debug-on-error nil)
 
