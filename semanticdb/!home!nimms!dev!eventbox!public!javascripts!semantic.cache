@@ -6,10 +6,10 @@
     :major-mode 'js-mode
     :tags nil
     :file "events.js"
-    :pointmax 1927
-    :fsize 1926
-    :lastmodtime '(19687 11343)
-    :unmatched-syntax '((PAREN_BLOCK 2 . 1923) (PAREN_BLOCK 1 . 1922) (PAREN_BLOCK 1 . 1893) (PAREN_BLOCK 1 . 1922) (PAREN_BLOCK 1 . 1059) (PAREN_BLOCK 1 . 1922) (PAREN_BLOCK 1 . 1921) (PAREN_BLOCK 2 . 1841) (PAREN_BLOCK 2 . 1824))
+    :pointmax 2137
+    :fsize 2136
+    :lastmodtime '(19706 12489)
+    :unmatched-syntax '((PAREN_BLOCK 2 . 2133) (PAREN_BLOCK 2 . 2138) (PAREN_BLOCK 2 . 2129) (PAREN_BLOCK 2 . 2131) (PAREN_BLOCK 2 . 2124) (PAREN_BLOCK 2 . 2068) (PAREN_BLOCK 2 . 2060) (PAREN_BLOCK 2 . 2033) (PAREN_BLOCK 2 . 2029) (PAREN_BLOCK 2 . 2025) (PAREN_BLOCK 2 . 2001) (PAREN_BLOCK 2 . 1979) (PAREN_BLOCK 2 . 1963) (PAREN_BLOCK 2 . 1962) (PAREN_BLOCK 2 . 1938) (PAREN_BLOCK 2 . 1936) (PAREN_BLOCK 2 . 1933) (PAREN_BLOCK 2 . 1924))
     )
    (semanticdb-table "application.js"
     :major-mode 'js-mode
@@ -32,27 +32,27 @@
    (semanticdb-table "map.js"
     :major-mode 'js-mode
     :tags 
-        '( ("geocoder" variable nil nil [138 151])
-            ("map" variable nil nil [152 160])
-            ("isMobileDevice" function nil nil [162 382])
+        '( ("geocoder" variable nil nil [76 89])
+            ("map" variable nil nil [90 98])
+            ("isMobileDevice" function nil nil [100 320])
             ("findListOfAddresses" function (:arguments 
-              ( ("searchTerm" variable nil (reparse-symbol FormalParameterList) [415 425]))              ) nil [386 708])
+              ( ("searchTerm" variable nil (reparse-symbol FormalParameterList) [353 363]))              ) nil [324 646])
             ("findPosition" function (:arguments 
-              ( ("navigator" variable nil (reparse-symbol FormalParameterList) [733 742]))              ) nil [711 1678])
+              ( ("navigator" variable nil (reparse-symbol FormalParameterList) [671 680]))              ) nil [649 1616])
             ("drawMarker" function (:arguments 
-              ( ("latLong" variable nil (reparse-symbol FormalParameterList) [1701 1708])
-                ("title" variable nil (reparse-symbol FormalParameterList) [1710 1715])
-                ("mqp" variable nil (reparse-symbol FormalParameterList) [1717 1720]))              ) nil [1681 1860])
+              ( ("latLong" variable nil (reparse-symbol FormalParameterList) [1639 1646])
+                ("title" variable nil (reparse-symbol FormalParameterList) [1648 1653])
+                ("mqp" variable nil (reparse-symbol FormalParameterList) [1655 1658]))              ) nil [1619 1798])
             ("handleNoGeolocation" function (:arguments 
-              ( ("errorFlag" variable nil (reparse-symbol FormalParameterList) [1890 1899]))              ) nil [1861 2106])
+              ( ("errorFlag" variable nil (reparse-symbol FormalParameterList) [1828 1837]))              ) nil [1799 2044])
             ("drawMap" function (:arguments 
-              ( ("mapContainer" variable nil (reparse-symbol FormalParameterList) [2126 2138])
-                ("mapHeight" variable nil (reparse-symbol FormalParameterList) [2140 2149]))              ) nil [2109 2572]))          
+              ( ("mapContainer" variable nil (reparse-symbol FormalParameterList) [2064 2076])
+                ("mapHeight" variable nil (reparse-symbol FormalParameterList) [2078 2087]))              ) nil [2047 2567]))          
     :file "map.js"
-    :pointmax 2575
-    :fsize 2574
-    :lastmodtime '(19686 29844)
-    :unmatched-syntax 'nil
+    :pointmax 2570
+    :fsize 2569
+    :lastmodtime '(19706 8102)
+    :unmatched-syntax '((PAREN_BLOCK 71 . 73))
     )
    (semanticdb-table "jquery.autocomplete_geomod.js"
     :major-mode 'js-mode
@@ -112,10 +112,10 @@
     :major-mode 'js-mode
     :tags nil
     :file "users.js"
-    :pointmax 532
-    :fsize 531
-    :lastmodtime '(19670 7045)
-    :unmatched-syntax '((PAREN_BLOCK 3 . 530))
+    :pointmax 577
+    :fsize 576
+    :lastmodtime '(19706 8422)
+    :unmatched-syntax '((PAREN_BLOCK 3 . 575) (PAREN_BLOCK 3 . 576) (PAREN_BLOCK 3 . 575) (PAREN_BLOCK 3 . 530))
     )
    (semanticdb-table "geo_autocomplete.js"
     :major-mode 'js-mode
