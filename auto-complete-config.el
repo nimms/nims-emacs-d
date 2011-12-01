@@ -111,6 +111,7 @@
   "Face for the yasnippet selected candidate."
   :group 'auto-complete)
 
+
 (defun ac-yasnippet-table-hash (table)
   (cond
    ((fboundp 'yas/snippet-table-hash)
@@ -123,20 +124,28 @@
    ((fboundp 'yas/snippet-table-parent)
     (yas/snippet-table-parent table))
    ((fboundp 'yas/table-parent)
-    (yas/table-parent table))))
+    (car (yas/table-parent table)))
+   ((fboundp 'yas/table-parents)
+    (car (yas/table-parents table)))
+   )
+  )
 
 (defun ac-yasnippet-candidate-1 (table)
   (with-no-warnings
     (let ((hashtab (ac-yasnippet-table-hash table))
           (parent (ac-yasnippet-table-parent table))
+          (ac-prefix (ac-yasnippet-prefix))
           candidates)
       (maphash (lambda (key value)
                  (push key candidates))
                hashtab)
-      (setq candidates (all-completions ac-prefix (nreverse candidates)))
-      (if parent
-          (setq candidates
-                (append candidates (ac-yasnippet-candidate-1 parent))))
+      (when ac-prefix
+        (setq candidates (all-completions ac-prefix (nreverse candidates)))
+        )
+      (when parent
+        (setq candidates
+              (append candidates (ac-yasnippet-candidate-1 parent)))
+        )
       candidates)))
 
 (defun ac-yasnippet-candidates ()
@@ -153,14 +162,38 @@
         (if table
             (ac-yasnippet-candidate-1 table))))))
 
+(defun ac-yasnippet-document (complete)
+  "* Completes Documentation for Yasnippet"
+  (let (templates only-one (ret ""))
+    (setq templates (mapcar #'cdr 
+                            (mapcan #'(lambda (table)
+                                        (yas/fetch table complete))
+                                    (yas/get-snippet-tables))))
+    (mapc #'(lambda (template)
+              (setq ret (format "%s%s\n%s\n" ret (yas/template-name template) (yas/template-content template))))
+          templates)
+    (when (string-match "\n\\'" ret)
+      (setq ret (replace-match "" nil nil ret)))
+    ret))
+
+(defun ac-yasnippet-prefix ()
+  "* Gets Yasnippet Prefix."
+  (if (looking-back "[^ ]*")
+      (match-string 0)
+    nil
+    )
+  )
+
 (ac-define-source yasnippet
   '((depends yasnippet)
     (candidates . ac-yasnippet-candidates)
     (action . yas/expand)
     (candidate-face . ac-yasnippet-candidate-face)
     (selection-face . ac-yasnippet-selection-face)
+    (document . ac-yasnippet-document)
+    (requires . 3)
+    (prefix . "\\(\\<[^ ]*\\)")
     (symbol . "a")))
-
 ;; semantic
 
 (defun ac-semantic-candidates (prefix)
@@ -485,12 +518,12 @@
   (setq ac-sources (append '(ac-source-css-property) ac-sources)))
 
 (defun ac-config-default ()
-  (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers))
+  (setq-default ac-sources '(ac-source-abbrev ac-source-dictionary ac-source-words-in-same-mode-buffers ac-source-yasnippet))
   (add-hook 'emacs-lisp-mode-hook 'ac-emacs-lisp-mode-setup)
   (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
   (add-hook 'ruby-mode-hook 'ac-ruby-mode-setup)
   (add-hook 'css-mode-hook 'ac-css-mode-setup)
-  (add-hook 'auto-complete-mode-hook 'ac-common-setup)
+  (add-hook 'haml-mode 'ac-common-setup)
   (global-auto-complete-mode t))
 
 (provide 'auto-complete-config)

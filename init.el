@@ -66,9 +66,9 @@
 
 ;; Load up ELPA, the package manager
 
-(require 'package)
-(package-initialize)
-(require 'starter-kit-elpa)
+;(require 'package)
+;(package-initialize)
+;(require 'starter-kit-elpa)
 
 ;; Load up starter kit customizations
 

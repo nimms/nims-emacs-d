@@ -10,6 +10,7 @@
       "c:/bin/"
     (concat (expand-file-name "~") "/bin/")))
 
+
 ;; Set up load path
 (setq load-path (append (list (concat use-home "")
                               (concat use-home ".emacs.d/plugins")
@@ -22,6 +23,7 @@
                               (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
                               (concat use-home ".emacs.d/rhtml-mode")
+                              (concat use-home ".emacs.d/nyan")
                               (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
                               (concat use-plugins "ergoemacs")
                               (concat use-plugins "rinari")
@@ -37,6 +39,8 @@
 (load "hooks.el")
 (load "vi-misc.el")
 (load "moz-auto-update.el")
+
+
 
                                         ;(load "color-theme-ld-dark")
                                         ;(color-theme-ld-dark)
@@ -76,11 +80,16 @@
 (require 'pabbrev)
 (require 'enclose)
 (require 'ruby-end)
+(require 'ido-goto-symbol)
+(require 'nyan-mode)
+(nyan-mode 1)
+(nyan-start-animation)
 (setq pabbrev-idle-timer-verbose nil)
 ;; (if macosx-p 
 ;;     (require 'rvm)
 ;;     (rvm-use-default))
 
+(setq tab-always-indent 'complete)
 (setq smex-history-length 50)
 (require 'smex)
 
@@ -93,7 +102,7 @@
 ;; load ErgoEmacs keybinding
 (load "ergoemacs-mode")
 
-(load (concat use-home ".emacs.d/nxhtml/autostart.el"))
+;;(load (concat use-home ".emacs.d/nxhtml/autostart.el"))
 ;; turn on minor mode ergoemacs-mode
 
 (semantic-mode 1)
@@ -112,7 +121,7 @@
 (cua-mode t)
 (ergoemacs-mode 1)
 ;;(desktop-save-mode t)
-(partial-completion-mode t)
+;;(partial-completion-mode t)
 (iswitchb-mode 1)
 (icomplete-mode 1)
 
@@ -123,6 +132,12 @@
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
+
+;;auto-complete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(ac-config-default)
+(setq ac-auto-start 2)
 
 
 
@@ -136,13 +151,17 @@
 ;; Select one of the following
 
 
-(setq x-select-enable-clipboard t
-      interprogram-paste-function 'x-cut-buffer-or-selection-value      
-      tramp-default-method "ssh"
-      default-directory "~/"
-      line-number-mode 1
-      rinari-tags-file-name "TAGS")
+(autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
 
+(setq x-select-enable-clipboard t)
+(setq rinari-tags-file-name "TAGS")
+(setq line-number-mode 1)
+(setq default-directory "~/")
+(setq tramp-default-method "ssh")
+(setq tramp-chunksize 500)
+(add-to-list 'tramp-default-proxies-alist
+             '("storage01.sdx.com.au" nil "/ssh:sysadmin@web03.sdx.com.au:"))
 (set-default 'truncate-lines t)
 (setq-default ispell-program-name "aspell")
 (setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
@@ -257,7 +276,7 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
 (ac-config-default)
-(setq ac-auto-start 3)
+(setq ac-auto-start 2)
 
 
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist

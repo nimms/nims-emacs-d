@@ -1,5 +1,5 @@
-(if macosx-p
-    (setq mac-command-modifier 'hyper))
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'hyper)
 
 ;(global-set-key (kbd "M-z") 'repeat)
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
@@ -12,7 +12,7 @@
                   (egg-status)
                   (other-window 1)))
 (global-set-key (kbd "<f9>") 'rgrep)
-(global-set-key [(control return)] 'toggle-fullscreen)
+(global-set-key [(control return)] 'ns-toggle-fullscreen)
 (global-set-key [(meta return)] 'auto-complete)
 
 (global-set-key (kbd "C-c C-r") 'revert-buffer)
@@ -88,6 +88,8 @@
 (global-unset-key (kbd "C-n"))
 (global-set-key (kbd "C-p") 'comint-previous-input)
 (global-set-key (kbd "C-n") 'comint-next-input)
+
+(global-set-key (kbd "C-e") 'ido-goto-symbol)
 
 (eval-after-load 'malabar-mode
   '(progn

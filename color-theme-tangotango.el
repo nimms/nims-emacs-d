@@ -43,7 +43,7 @@
      (comint-highlight-input ((t (:italic t :bold t))))
      (comint-highlight-prompt ((t (:foreground "#8ae234"))))
      (isearch ((t (:background "#f57900" :foreground "#2e3436"))))
-     (isearch-lazy-highlight-face ((t (:foreground "#2e3436" :background "#e9b96e"))))
+     (isearch-lazy-highlight-face ((t (:foreground "#2e3436" :background "green"))))
      (show-paren-match-face ((t (:foreground "#2e3436" :background "#73d216"))))
      (show-paren-mismatch-face ((t (:background "#ad7fa8" :foreground "#2e3436"))))
      (minibuffer-prompt ((t (:foreground "#729fcf" :bold t))))

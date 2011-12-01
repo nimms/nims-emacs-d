@@ -10,6 +10,7 @@
       "c:/bin/"
     (concat (expand-file-name "~") "/bin/")))
 
+
 ;; Set up load path
 (setq load-path (append (list (concat use-home "")
                               (concat use-home ".emacs.d/plugins")
@@ -123,6 +124,8 @@
 (autoload 'multi-term "multi-term" nil t)
 (autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
+
+
 
 ;;smex
 (require 'smex)
@@ -252,10 +255,10 @@
 
 
 ;; auto complete
-;; (require 'auto-complete-config)
-;; (add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
-;; (ac-config-default)
-
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+(ac-config-default)
+(setq ac-auto-start 2)
 
 
 ;; Put backup files (ie foo~) in one place too. (The backup-directory-alist

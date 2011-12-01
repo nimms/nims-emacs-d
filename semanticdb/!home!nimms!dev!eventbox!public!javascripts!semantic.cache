@@ -6,10 +6,10 @@
     :major-mode 'js-mode
     :tags nil
     :file "events.js"
-    :pointmax 2137
-    :fsize 2136
-    :lastmodtime '(19706 12489)
-    :unmatched-syntax '((PAREN_BLOCK 2 . 2133) (PAREN_BLOCK 2 . 2138) (PAREN_BLOCK 2 . 2129) (PAREN_BLOCK 2 . 2131) (PAREN_BLOCK 2 . 2124) (PAREN_BLOCK 2 . 2068) (PAREN_BLOCK 2 . 2060) (PAREN_BLOCK 2 . 2033) (PAREN_BLOCK 2 . 2029) (PAREN_BLOCK 2 . 2025) (PAREN_BLOCK 2 . 2001) (PAREN_BLOCK 2 . 1979) (PAREN_BLOCK 2 . 1963) (PAREN_BLOCK 2 . 1962) (PAREN_BLOCK 2 . 1938) (PAREN_BLOCK 2 . 1936) (PAREN_BLOCK 2 . 1933) (PAREN_BLOCK 2 . 1924))
+    :pointmax 2183
+    :fsize 2182
+    :lastmodtime '(19707 13487)
+    :unmatched-syntax '((PAREN_BLOCK 2 . 2179) (PAREN_BLOCK 2 . 2159) (PAREN_BLOCK 2 . 1766) (PAREN_BLOCK 2 . 2155) (PAREN_BLOCK 2 . 2150) (PAREN_BLOCK 2 . 2147) (PAREN_BLOCK 2 . 2149) (PAREN_BLOCK 2 . 2133))
     )
    (semanticdb-table "application.js"
     :major-mode 'js-mode
@@ -99,16 +99,7 @@
     :lastmodtime '(19670 7045)
     :unmatched-syntax '((PAREN_BLOCK 4315 . 4325) (PAREN_BLOCK 1289 . 4315))
     )
-   (semanticdb-table "places.js"
-    :major-mode 'js-mode
-    :tags nil
-    :file "places.js"
-    :pointmax 576
-    :fsize 575
-    :lastmodtime '(19670 7045)
-    :unmatched-syntax '((PAREN_BLOCK 2 . 574))
-    )
-   (semanticdb-table "users.js"
+    (semanticdb-table "users.js"
     :major-mode 'js-mode
     :tags nil
     :file "users.js"
@@ -152,6 +143,15 @@
     :fsize 16498
     :lastmodtime '(19686 14461)
     :unmatched-syntax '((PAREN_BLOCK 16490 . 16498) (PAREN_BLOCK 370 . 16490))
+    )
+   (semanticdb-table "venues.js"
+    :major-mode 'js-mode
+    :tags nil
+    :file "venues.js"
+    :pointmax 576
+    :fsize 575
+    :lastmodtime '(19670 7045)
+    :unmatched-syntax '((PAREN_BLOCK 2 . 574))
     )
    )
   :file "!home!nimms!dev!eventbox!public!javascripts!semantic.cache"

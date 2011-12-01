@@ -31,9 +31,7 @@
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 
 
-
-(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.erb\\'" . eruby-nxhtml-mumamo-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-nxhtml-mumamo-mode))
 
-(add-to-list 'auto-mode-alist '("\\.html\\.haml\\'" . haml-mode))
+(add-to-list 'auto-mode-alist '("\\.haml\\'" . haml-mode))
