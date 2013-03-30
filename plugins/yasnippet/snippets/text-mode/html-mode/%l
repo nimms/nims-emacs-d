@@ -1,3 +1,0 @@
-#name : <%= label_tag :..., "..." %> %>
-# --
-<%= label_tag :${field}, "${name}" %>$0

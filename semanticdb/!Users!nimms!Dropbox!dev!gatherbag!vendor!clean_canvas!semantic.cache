@@ -1,0 +1,27 @@
+;; Object clean_canvas/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "clean_canvas/"
+  :tables (list 
+   (semanticdb-table "sign-up.html"
+    :major-mode 'html-mode
+    :tags nil
+    :file "sign-up.html"
+    :pointmax 11096
+    :fsize 11096
+    :lastmodtime '(20814 33093 0 0)
+    :unmatched-syntax 'nil
+    )
+   (semanticdb-table "contact.html"
+    :major-mode 'html-mode
+    :tags nil
+    :file "contact.html"
+    :pointmax 9257
+    :fsize 9261
+    :lastmodtime '(20814 33093 0 0)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!Users!nimms!Dropbox!dev!gatherbag!vendor!clean_canvas!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

@@ -34,10 +34,17 @@
                         load-path))
 
 
-(load "mode-list.el")
+
+;; Setting rbenv path
+(setenv "PATH" (concat (getenv "HOME") "/.rbenv/shims:" (getenv "HOME") "/.rbenv/bin:" (getenv "PATH")))
+(setq exec-path (cons (concat (getenv "HOME") "/.rbenv/shims") (cons (concat (getenv "HOME") "/.rbenv/bin") exec-path)))
+
+
+
+
+;(load "mode-list.el")
 (load "hooks.el")
 (load "vi-misc.el")
-(load "moz-auto-update.el")
 
                                         ;(load "color-theme-ld-dark")
                                         ;(color-theme-ld-dark)
@@ -271,6 +278,13 @@
 (setq auto-save-default nil)
 
 (setq debug-on-error nil)
+
+(require 'package)
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                           ("marmalade" . "http://marmalade-repo.org/packages/")
+                           ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+(package-initialize)
 
 (require 'nimai-keycommands)
 (require 'nimms-functions)

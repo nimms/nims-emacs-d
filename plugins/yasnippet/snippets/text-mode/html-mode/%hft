@@ -1,3 +1,0 @@
-#name : <%= hidden_field_tag " ... " %>
-# --
-<%= hidden_field_tag ${object_name}, ${object_value} %>$0

@@ -1,9 +1,6 @@
 
 
 (add-hook 'nxhtml-mode-hook 'nxhtml-custom-setup)
-(add-hook 'haml-mode-hook 'auto-reload-firefox-on-after-save-hook)
-(add-hook 'css-mode-hook 'auto-reload-firefox-on-after-save-hook)
-(add-hook 'js-mode-hook 'auto-reload-firefox-on-after-save-hook)
 
 
 (add-hook 'ruby-mode-hook 'ruby-custom-setup)
@@ -12,14 +9,17 @@
   (enclose-mode t))
 
 
+(defun sass-mode-setup ()
+  (set-variable 'scss-compile-at-save nil))
+(add-hook 'sass-mode-hook 'sass-mode-setup)
+(add-hook 'scss-mode-map 'sass-mode-setup)
+
 (add-hook 'js-mode-hook 'js-custom-setup)
 (defun js-custom-setup ()
-  (moz-minor-mode 1)
   (enclose-mode t))
   ;;(pabbrev-mode 1))
 
 (defun nxhtml-custom-setup ()
-  (auto-reload-firefox-on-after-save-hook)
   (enclose-mode))
 
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)

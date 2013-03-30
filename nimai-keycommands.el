@@ -31,6 +31,7 @@
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-[") 'ido-find-file)
 (global-set-key (kbd "M-]") 'ido-find-file)
+(global-set-key (kbd "M-t") 'find-file-in-project)
 (global-set-key (kbd "H-o") 'find-file-in-project)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
 (global-set-key (kbd "C-o") 'open-line)

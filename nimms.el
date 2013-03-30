@@ -15,42 +15,16 @@
 (setq load-path (append (list (concat use-home "")
                               (concat use-home ".emacs.d/plugins")
                               (concat use-home ".emacs.d/")
-                              (concat use-home ".emacs.d/plugins/color-theme")
-                              (concat use-home ".emacs.d/plugins/clojure-mode")
-                              (concat use-home ".emacs.d/plugins/cucumber-mode")
-                              (concat use-home ".emacs.d/plugins/slime")
                               (concat use-home ".emacs.d/egg")
-                              (concat use-home ".emacs.d/emacs-rails")
                               (concat use-home ".emacs.d/includes")
-                              (concat use-home ".emacs.d/rhtml-mode")
-                              (concat use-home ".emacs.d/nyan")
-                              (concat use-home ".emacs.d/malabar-1.4-SNAPSHOT/lisp")
-                              (concat use-plugins "ergoemacs")
-                              (concat use-plugins "rinari")
-                              (concat use-plugins "jd-el")
-                              (concat use-plugins "yasnippet")
-                              (concat use-plugins "remember")
                               (concat use-plugins "ergoemacs")
                               (concat use-plugins ""))
                         load-path))
 
+(require 'helm-config)
 
-(load "mode-list.el")
 (load "hooks.el")
-(load "vi-misc.el")
-(load "moz-auto-update.el")
 
-
-
-                                        ;(load "color-theme-ld-dark")
-                                        ;(color-theme-ld-dark)
-
-                                        ;(require 'nimms-color)
-                                        ;(load "color-theme-obsolescence.el")
-
-                                        ;(load "color-theme-subdued.el")
-;;(color-theme-subdued)
-                                        ;(nimms-color-theme)
 
 ;; set default font depending on what machine I'm on
 (if macosx-p 
@@ -60,46 +34,33 @@
 ;    (set-frame-font "-unknown-Droid Sans Mono-normal-normal-normal-*-13-*-*-*-m-0-iso10646-1"))
 
 ;;(load "anything.el")
-(require 'yasnippet) ;; not yasnippet-bundle
-(yas/initialize)
-(yas/load-directory "~/.emacs.d/plugins/yasnippet/snippets")
 (require 'parenface)
 ;;(require 'nimai-clisp)
 (require 'tramp)
 (require 'cc-mode)
 (require 'etags)
 (require 'egg)
-(require 'snippet)
 (require 'rainbow-mode)
-;;(require 'multi-term)
-(require 'google-maps)
 (require 'window-numbering)
-;;(require 'vimpulse)
-(require 'remember)
-(require 'rinari)
+
 (require 'pabbrev)
 (require 'enclose)
-(require 'ruby-end)
-(require 'ido-goto-symbol)
+(setq pabbrev-idle-timer-verbose nil)
+; (if macosx-p 
+;     (require 'rvm)
+;     (rvm-use-default))
+
 (require 'nyan-mode)
 (nyan-mode 1)
 (nyan-start-animation)
-(setq pabbrev-idle-timer-verbose nil)
-;; (if macosx-p 
-;;     (require 'rvm)
-;;     (rvm-use-default))
 
 (setq tab-always-indent 'complete)
 (setq smex-history-length 50)
-(require 'smex)
-
-(smex-initialize)
-
 (load "mark-lines")
 (setenv "ERGOEMACS_KEYBOARD_LAYOUT" "us") ; US layout
-;(setenv "ERGOEMACS_KEYBOARD_LAYOUT" "colemak") ; Colemak layout
 
-;; load ErgoEmacs keybinding
+
+
 (load "ergoemacs-mode")
 
 ;;(load (concat use-home ".emacs.d/nxhtml/autostart.el"))
@@ -120,17 +81,12 @@
 (winner-mode 1)
 (cua-mode t)
 (ergoemacs-mode 1)
-;;(desktop-save-mode t)
-;;(partial-completion-mode t)
 (iswitchb-mode 1)
 (icomplete-mode 1)
 
 (setq show-paren-delay 0.0)
 (auto-fill-mode 0)
 
-
-(autoload 'multi-term "multi-term" nil t)
-(autoload 'multi-term-next "multi-term" nil t)
 (setq multi-term-program "/bin/zsh") ;; or use zsh...
 
 ;;auto-complete
@@ -140,19 +96,9 @@
 (setq ac-auto-start 2)
 
 
-
-;;smex
-(require 'smex)
-(smex-initialize)
-
 (when (require 'browse-kill-ring nil 'noerror)
   (browse-kill-ring-default-keybindings))
-;; Enabling various SEMANTIC minor modes.  See semantic/INSTALL for more ideas.
-;; Select one of the following
 
-
-(autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
-(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
 
 (setq x-select-enable-clipboard t)
 (setq rinari-tags-file-name "TAGS")
@@ -160,21 +106,8 @@
 (setq default-directory "~/")
 (setq tramp-default-method "ssh")
 (setq tramp-chunksize 500)
-(add-to-list 'tramp-default-proxies-alist
-             '("storage01.sdx.com.au" nil "/ssh:sysadmin@web03.sdx.com.au:"))
 (set-default 'truncate-lines t)
-(setq-default ispell-program-name "aspell")
-(setq max-lisp-eval-depth 2048)         ; trying to fix max list eval
-                                        ; depth errors
 
-
-(setq org-remember-templates
-      '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/gtd.org" "Tasks")
-        ("Appointments" ?a "* Appointment: %?\n%^T\n%i\n  %a" "~/org/appoinments.org")))
-(setq remember-annotation-functions '(org-remember-annotation))
-(setq remember-handler-functions '(org-remember-handler))
-(eval-after-load 'remember
-  '(add-hook 'remember-mode-hook 'org-remember-apply-template))
 
 
 
@@ -201,21 +134,6 @@
 (load "color-theme-tangotango")
 (color-theme-tangotango)
 
-
-;; bitlbee
-  
-(defvar bitlbee-password "Trinkets")
-
-(add-hook 'erc-join-hook 'bitlbee-identify)
-
-(defun bitlbee-identify ()
-  "If we're on the bitlbee server, send the identify command to the 
- &bitlbee channel."
-  (when (and (string= "localhost" erc-session-server)
-             (string= "&bitlbee" (buffer-name)))
-    (erc-message "PRIVMSG" (format "%s identify %s" 
-                                   (erc-default-target) 
-                                   bitlbee-password))))
 
 (autoload 'erc "erc" "" t)
 (ignore-errors
@@ -284,11 +202,19 @@
 ;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
-;; I use version control, don't annoy me with backup files everywhere
 (setq make-backup-files nil)
 (setq auto-save-default nil)
 
 (setq debug-on-error nil)
 
-(require 'nimai-keycommands)
+;;; Code:
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "http://melpa.milkbox.net/packages/") t)
+
+
+
+(load "nimai-keycommands")
 (require 'nimms-functions)
+
+

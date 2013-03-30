@@ -1,0 +1,105 @@
+
+;; ----- smex-history -----
+(
+ nyan-start-animation
+ nyan-mode
+ package-list-packages
+ find-library
+ rgrep
+ customize-group
+ eval-region
+ package-refresh-contents
+ add-dir-local-variable
+ html-mode
+ auto-fill-mode
+ find-file-in-project
+ query-replace-regexp
+ eval-buffer
+ customize
+ calc-grab-region
+ ffip
+ info
+ bury-buffer
+ save-buffer
+ revert-buffer
+ package-install
+ Buffer-menu-bury
+ describe-function
+ electric-pair-mode
+ which-function-mode
+ auto-revert-tail-mode
+ cd
+ 5x5
+ arp
+ dbx
+ dig
+ erc
+ ert
+ ftp
+ gdb
+ irc
+ jdb
+ man
+ mpc
+ pdb
+ pwd
+ rsh
+ sdb
+ xdb
+ yow
+ calc
+ diff
+ ffap
+ gnus
+)
+
+;; ----- smex-data -----
+(
+ (save-buffer . 1)
+ (regex-tool . 1)
+ (query-replace-regexp . 4)
+ (html-mode . 6)
+ (php-mode . 1)
+ (auto-fill-mode . 5)
+ (eval-region . 14)
+ (calc-grab-region . 2)
+ (package . 2)
+ (toggle-fullscreen . 1)
+ (findr-search . 2)
+ (find-file-in-project . 4)
+ (Buffer-menu-bury . 1)
+ (bury-buffer . 1)
+ (electric-pair-mode . 1)
+ (which-function-mode . 1)
+ (describe-function . 1)
+ (highlight-indentation-mode . 2)
+ (ac-start . 3)
+ (auto-complete-mode . 3)
+ (global-auto-complete-mode . 4)
+ (rgrep . 2)
+ (info . 1)
+ (Info-search . 1)
+ (add-dir-local-variable . 13)
+ (eval-buffer . 3)
+ (ffip . 1)
+ (rinari-find-view . 1)
+ (revert-buffer . 1)
+ (rinari-find-model . 1)
+ (jump-to-method . 1)
+ (jump-to-file . 1)
+ (auto-revert-tail-mode . 1)
+ (scss-mode . 1)
+ (rinari-console . 3)
+ (package-install . 1)
+ (package-list-packages . 8)
+ (customize . 2)
+ (package-refresh-contents . 2)
+ (egg-stash . 1)
+ (egg-status . 1)
+ (customize-group . 2)
+ (Custom-save . 1)
+ (helm-mini . 1)
+ (find-library . 1)
+ (nyan-mode . 1)
+ (nyan-start-animation . 1)
+)

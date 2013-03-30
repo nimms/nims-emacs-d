@@ -26,18 +26,11 @@
 
 ;; Set up load path
 (setq load-path (append (list (concat use-home "")
-                              (concat use-home ".emacs.d/plugins")
-                              (concat use-home ".emacs.d/plugins/color-theme")
-                              (concat use-home ".emacs.d/plugins/clojure-mode")
-                              (concat use-home ".emacs.d/plugins/slime"))
-                        load-path))
+                              (concat use-home ".emacs.d/plugins"))
+	load-path))
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
-
-(add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
-(add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit/jabber"))
 
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
@@ -52,10 +45,6 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-(require 'color-theme)
-(require 'parenface)
-(require 'slime)
-(require 'nimai-clisp)
 
 
 
@@ -66,28 +55,28 @@
 
 ;; Load up ELPA, the package manager
 
-;(require 'package)
-;(package-initialize)
+(require 'package)
+(package-initialize)
 ;(require 'starter-kit-elpa)
 
 ;; Load up starter kit customizations
 
-(require 'starter-kit-defuns)
-(require 'starter-kit-bindings)
-(require 'starter-kit-misc)
-(require 'starter-kit-registers)
-(require 'starter-kit-eshell)
-(require 'starter-kit-lisp)
-(require 'starter-kit-perl)
-(require 'starter-kit-ruby)
-(require 'starter-kit-js)
+; (require 'starter-kit-defuns)
+; (require 'starter-kit-bindings)
+; (require 'starter-kit-misc)
+; (require 'starter-kit-registers)
+; (require 'starter-kit-eshell)
+; (require 'starter-kit-lisp)
+; (require 'starter-kit-perl)
+; (require 'starter-kit-ruby)
+; (require 'starter-kit-js)
 
 
 
 
 
 
-(regen-autoloads)
+;(regen-autoloads)
 (load custom-file 'noerror)
 
 
@@ -101,8 +90,9 @@
 ;; You can keep system- or user-specific customizations here
 
 (setq system-specific-config (concat dotfiles-dir system-name ".el")
-      user-specific-config (concat dotfiles-dir user-login-name ".el")
-      user-specific-dir (concat dotfiles-dir user-login-name))
+      ;user-specific-config (concat dotfiles-dir user-login-name ".el")
+      user-specific-config (concat dotfiles-dir "nimms.el")
+user-specific-dir (concat dotfiles-dir user-login-name))
 (add-to-list 'load-path user-specific-dir)
 
 (if (file-exists-p system-specific-config) (load system-specific-config))
@@ -117,3 +107,4 @@
 (put 'narrow-to-page 'disabled nil)
 
 (put 'upcase-region 'disabled nil)
+
