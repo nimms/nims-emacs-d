@@ -1,24 +1,27 @@
 
 ;; ----- smex-history -----
 (
- nyan-start-animation
- nyan-mode
- package-list-packages
+ ag
+ exec-path-from-shell-initialize
  find-library
- rgrep
- customize-group
+ package-list-packages
  eval-region
- package-refresh-contents
+ magit-status
+ customize
  add-dir-local-variable
  html-mode
  auto-fill-mode
  find-file-in-project
  query-replace-regexp
  eval-buffer
- customize
+ customize-group
+ rgrep
  calc-grab-region
+ package-refresh-contents
  ffip
  info
+ conf-mode
+ goto-line
  bury-buffer
  save-buffer
  revert-buffer
@@ -48,9 +51,6 @@
  xdb
  yow
  calc
- diff
- ffap
- gnus
 )
 
 ;; ----- smex-data -----
@@ -61,7 +61,7 @@
  (html-mode . 6)
  (php-mode . 1)
  (auto-fill-mode . 5)
- (eval-region . 14)
+ (eval-region . 15)
  (calc-grab-region . 2)
  (package . 2)
  (toggle-fullscreen . 1)
@@ -91,15 +91,22 @@
  (scss-mode . 1)
  (rinari-console . 3)
  (package-install . 1)
- (package-list-packages . 8)
- (customize . 2)
+ (package-list-packages . 10)
+ (customize . 3)
  (package-refresh-contents . 2)
  (egg-stash . 1)
  (egg-status . 1)
- (customize-group . 2)
- (Custom-save . 1)
+ (customize-group . 3)
+ (Custom-save . 5)
  (helm-mini . 1)
- (find-library . 1)
+ (find-library . 3)
  (nyan-mode . 1)
  (nyan-start-animation . 1)
+ (magit-status . 7)
+ (conf-mode . 1)
+ (goto-line . 1)
+ (magit-init . 1)
+ (vc-git-log-view-mode . 4)
+ (exec-path-from-shell-initialize . 2)
+ (ag . 4)
 )

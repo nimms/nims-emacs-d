@@ -19,7 +19,7 @@ url/cookies
 .svn
 .DS_Store
 image-dired
-
+.smex-items
 /init.el~
 /session.10d8daa964000127053808000000078590052
 /tramp

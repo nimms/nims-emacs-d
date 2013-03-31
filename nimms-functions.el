@@ -153,6 +153,10 @@ If there is one running, switch to that buffer."
   (interactive) 
   (remote-term "web03" "ssh" "web03")) 
 
+(defun deploy ()
+  (interactive)
+  (remote-term "deploy" "ssh" "deploy"))
+
 
 (defun nimms-toggle-selective-display (column)
   "toggles code folding.  defaults to 3 which will show ruby methods in a file"
@@ -168,12 +172,35 @@ If there is one running, switch to that buffer."
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 
+(defun recentf-ido-find-file ()
+  "Find a recent file using Ido."
+  (interactive)
+  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
+    (when file
+      (find-file file))))
 
 (setq path-to-ctags "/opt/local/bin/ctags") ;; <- your ctags path here
 (defun create-tags (dir-name)
   "Create tags file."
   (interactive "Directory: ")
   (shell-command
-   (format "%s -f %s/TAGS -e -R %s" path-to-ctags dir-name (directory-file-name dir-name)))
-  )
+   (format "%s -f %s/TAGS -e -R %s" path-to-ctags dir-name (directory-file-name dir-name))))
+
+(defun rake (task)
+  (interactive (list (completing-read "Rake (default: default): "
+                                      (pcmpl-rake-tasks))))
+  (shell-command-to-string (concat "rake " (if (= 0 (length task)) "default" task))))
+
+(defun pcomplete/rake ()
+  "Completion rules for the `ssh' command."
+  (pcomplete-here (pcmpl-rake-tasks)))
+
+(defun pcmpl-rake-tasks ()
+   "Return a list of all the rake tasks defined in the current
+projects.  I know this is a hack to put all the logic in the
+exec-to-string command, but it works and seems fast"
+   (delq nil (mapcar '(lambda(line)
+			(if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
+		     (split-string (shell-command-to-string "rake -T") "[\n]"))))
+
 (provide 'nimms-functions)

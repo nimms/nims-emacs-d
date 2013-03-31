@@ -4,7 +4,9 @@
 ;(global-set-key (kbd "M-z") 'repeat)
 (setq local-function-key-map (delq '(kp-tab . [9]) local-function-key-map))
 
-(global-set-key (kbd "<f5>") 'nimms-toggle-selective-display)
+(global-set-key (kbd "<f5>") 'ag-project-at-point)
+(global-set-key (kbd "<f6>") 'ag-regexp-project-at-point)
+
 (global-set-key (kbd "<f7>") 'rename-buffer)
 (global-set-key (kbd "<f8>")
                 (lambda ()
@@ -31,12 +33,13 @@
 (global-set-key (kbd "M-b") 'ido-switch-buffer)
 (global-set-key (kbd "M-[") 'ido-find-file)
 (global-set-key (kbd "M-]") 'ido-find-file)
-(global-set-key (kbd "M-t") 'find-file-in-project)
-(global-set-key (kbd "H-o") 'find-file-in-project)
+(global-set-key (kbd "M-t") 'projectile-find-file)
+(global-set-key (kbd "H-o") 'projectile-find-file)
 (global-set-key (kbd "C-M-o") 'recentf-ido-find-file)
 (global-set-key (kbd "C-o") 'open-line)
-(global-set-key (kbd "H-g") 'goto-line)
+(global-set-key (kbd "C-M-g") 'goto-line)
 (global-set-key (kbd "M-m") 'back-to-indentation)                
+(kbd "RET") 'reindent-then-newline-and-indent)
 ;; marking commands
 (define-key cua--cua-keys-keymap (kbd "M-v") 'cua-paste)
 (global-set-key (kbd "M-C") 'nimms-copy-line)
@@ -77,13 +80,17 @@
 (eval-after-load 'ruby-mode
   '(progn
      (require 'rinari)
-     (global-set-key (kbd "M-c") 'rinari-find-controller)
+     (global-set-key (kbd "C-M-c") 'rinari-find-controller)
      (global-set-key (kbd "C-M-v") 'rinari-find-view)
-     (global-set-key (kbd "M-m") 'rinari-find-model)
-     (global-set-key (kbd "M-t") 'rinari-find-rspec)
+     (global-set-key (kbd "C-M-m") 'rinari-find-model)
      (global-set-key (kbd "C-r") 'ruby-send-block)
      (global-set-key (kbd "C-R") 'ruby-send-region)
-     (global-set-key (kbd "H-o") 'find-file-in-project)))
+     (global-set-key (kbd "C-h r") 'ri)
+     (setq ruby-use-encoding-map nil)
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)))
+
+
+
 
 (global-unset-key (kbd "C-p"))
 (global-unset-key (kbd "C-n"))
