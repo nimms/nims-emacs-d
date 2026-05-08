@@ -106,4 +106,30 @@
 (use-package nyan-mode
   :config (nyan-mode 1))
 
+;;----------------------------------------------------------------------------
+;; COMPLETION — VERTICO + CORFU
+;;----------------------------------------------------------------------------
+(use-package vertico
+  :init (vertico-mode 1))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
+(use-package marginalia
+  :init (marginalia-mode 1))
+
+(use-package corfu
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-quit-no-match 'separator)
+  :init (global-corfu-mode 1))
+
+(use-package cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file))
+
 ;;; init.el ends here
