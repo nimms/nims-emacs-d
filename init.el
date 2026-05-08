@@ -149,4 +149,30 @@
 ;;----------------------------------------------------------------------------
 (use-package magit)
 
+;;----------------------------------------------------------------------------
+;; TREE-SITTER + LANGUAGES
+;;----------------------------------------------------------------------------
+(use-package treesit-auto
+  :custom (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+
+;;----------------------------------------------------------------------------
+;; LSP — EGLOT (built-in, Emacs 29+)
+;;----------------------------------------------------------------------------
+(use-package eglot
+  :ensure nil
+  :hook
+  ((python-ts-mode    . eglot-ensure)
+   (js-ts-mode        . eglot-ensure)
+   (tsx-ts-mode       . eglot-ensure)
+   (typescript-ts-mode . eglot-ensure))
+  :config
+  (add-to-list 'eglot-server-programs
+               '((js-ts-mode tsx-ts-mode typescript-ts-mode)
+                 . ("typescript-language-server" "--stdio")))
+  (add-to-list 'eglot-server-programs
+               '(python-ts-mode . ("pyright-langserver" "--stdio"))))
+
 ;;; init.el ends here
