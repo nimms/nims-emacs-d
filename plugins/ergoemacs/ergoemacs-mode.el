@@ -350,9 +350,9 @@ Shift+<special key> is used (arrows keys, home, end, pgdn, pgup, etc.)."
 
   ;; The ergoemacs-mode keymap could already be in the minor-mode-overriding map
   ;; (e.g. iswitchb or ido hooks were executed)
-  (add-to-list 'minor-mode-overriding-map-alist (cons 'ergoemacs-mode ergoemacs-minibuffer-keymap)
-	       nil (lambda (x y)
-		     (equal (car y) (car x))))
+  ;; (add-to-list 'minor-mode-overriding-map-alist (cons 'ergoemacs-mode ergoemacs-minibuffer-keymap)
+  ;;              nil (lambda (x y)
+  ;;       	     (equal (car y) (car x))))
   )
 
 (defun ergoemacs-isearch-hook ()
@@ -473,7 +473,7 @@ ergoemacs hooks."
 (ergoemacs-add-hook 'eshell-mode-hook 'ergoemacs-eshell-hook)
 (ergoemacs-add-hook 'minibuffer-setup-hook 'ergoemacs-minibuffer-setup-hook)
 (ergoemacs-add-hook 'iswitchb-minibuffer-setup-hook 'ergoemacs-iswitchb-hook)
-(ergoemacs-add-hook 'ido-minibuffer-setup-hook 'ergoemacs-ido-minibuffer-setup-hook)
+;(ergoemacs-add-hook 'ido-minibuffer-setup-hook 'ergoemacs-ido-minibuffer-setup-hook)
 
 (defun ergoemacs-hook-modes ()
   "Installs/Removes ErgoEmacs minor mode hooks from major modes

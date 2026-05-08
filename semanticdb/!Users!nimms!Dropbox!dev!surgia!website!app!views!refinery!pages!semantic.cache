@@ -1,0 +1,30 @@
+;; Object pages/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "pages/"
+  :tables (list 
+   (semanticdb-table "home.html.erb"
+    :major-mode 'html-mode
+    :tags 
+        '( ("Enhancing surgical opportunities for Griffith students." section nil nil [300 551])
+            ("We love to turn ideas into beautiful things." section nil nil [551 1021])
+            ("Griffith University Surgical Interest Association" section nil nil [1021 1471])
+            ("Surgia News" section (:members 
+              ( ("Surgia News" section nil nil [2120 2255])
+                ("Our Services" section (:members 
+                  ( ("&#43;" anchor nil nil [2502 2505])
+                    ("Responsive theme" section (:members 
+                      ( ("&#43;" anchor nil nil [3153 3156]))                      ) nil [2824 3475])
+                    ("Easy customization" section (:members 
+                      ( ("&#43;" anchor nil nil [3811 3814]))                      ) nil [3475 4133])
+                    ("Made with love" section nil nil [4133 4433]))                  ) nil [2255 4433]))              ) nil [1471 4433]))          
+    :file "home.html.erb"
+    :pointmax 4433
+    :fsize 4432
+    :lastmodtime '(20813 27818 0 0)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!Users!nimms!Dropbox!dev!surgia!website!app!views!refinery!pages!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.2"
+  )

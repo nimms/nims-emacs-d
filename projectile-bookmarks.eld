@@ -1,1 +1,1 @@
-("~/.emacs.d/" "~/dev/gatherbag/")
+("~/Library/Mobile Documents/com~apple~CloudDocs/dotfiles/emacs.d/" "~/Dropbox/dotfiles/emacs.d/" "~/dev/dynamic_text_indicer/" "~/dev/puppyparadiso/" "~/dev/crisp/" "~/dev/schmushouseoflove/" "~/dev/feedbaq/" "~/dev/gatherbag/" "~/dev/dogworts/" "~/dev/surgia/website/" "~/.emacs.d/")

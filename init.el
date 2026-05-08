@@ -24,6 +24,8 @@
       "c:/bin/"
     (concat (expand-file-name "~") "/bin/")))
 
+(setq default-directory "~/")
+
 ;; Set up load path
 (setq load-path (append (list (concat use-home "")
                               (concat use-home ".emacs.d/plugins"))
@@ -35,7 +37,6 @@
 (setq autoload-file (concat dotfiles-dir "loaddefs.el"))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
-
 ;; These should be loaded on startup rather than autoloaded on demand
 ;; since they are likely to be used in every session
 
@@ -46,6 +47,7 @@
 (require 'ansi-color)
 (require 'recentf)
 
+(fset 'yes-or-no-p 'y-or-n-p)
 
 
 
@@ -56,22 +58,17 @@
 ;; Load up ELPA, the package manager
 
 (require 'package)
+(setq package-archives (cons '("tromey" . "http://tromey.com/elpa/") package-archives))
 (package-initialize)
-;(require 'starter-kit-elpa)
-
-;; Load up starter kit customizations
-
-; (require 'starter-kit-defuns)
-; (require 'starter-kit-bindings)
-; (require 'starter-kit-misc)
-; (require 'starter-kit-registers)
-; (require 'starter-kit-eshell)
-; (require 'starter-kit-lisp)
-; (require 'starter-kit-perl)
-; (require 'starter-kit-ruby)
-; (require 'starter-kit-js)
 
 
+;(require 'smartparens-config)
+;(require 'smartparens-ruby)
+;(smartparens-global-mode)
+;(show-smartparens-global-mode t)
+;(sp-with-modes '(rhtml-mode)
+;  (sp-local-pair "<" ">")
+;  (sp-local-pair "<%" "%>"))
 
 
 
@@ -100,11 +97,20 @@ user-specific-dir (concat dotfiles-dir user-login-name))
 (if (file-exists-p user-specific-dir)
     (mapc #'load (directory-files user-specific-dir nil ".*el$")))
 
-;;; init.el ends here
-
 (put 'narrow-to-region 'disabled nil)
 
 (put 'narrow-to-page 'disabled nil)
 
 (put 'upcase-region 'disabled nil)
 
+(require 'highlight-indentation)
+(add-hook 'enh-ruby-mode-hook
+          (lambda () (highlight-indentation-current-column-mode)))
+
+(add-hook 'coffee-mode-hook
+          (lambda () (highlight-indentation-current-column-mode)))
+
+(add-hook 'haml-mode-hook
+          (lambda () (highlight-indentation-current-column-mode)))
+
+;; init.el ends here

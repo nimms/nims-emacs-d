@@ -1,56 +1,13 @@
 
 ;; ----- smex-history -----
 (
- ag
- exec-path-from-shell-initialize
- find-library
  package-list-packages
- eval-region
- magit-status
- customize
- add-dir-local-variable
- html-mode
- auto-fill-mode
- find-file-in-project
- query-replace-regexp
- eval-buffer
- customize-group
- rgrep
- calc-grab-region
- package-refresh-contents
- ffip
- info
- conf-mode
- goto-line
- bury-buffer
- save-buffer
- revert-buffer
- package-install
- Buffer-menu-bury
- describe-function
- electric-pair-mode
- which-function-mode
- auto-revert-tail-mode
- cd
- 5x5
- arp
- dbx
- dig
- erc
- ert
- ftp
- gdb
- irc
- jdb
- man
- mpc
- pdb
- pwd
- rsh
- sdb
- xdb
- yow
- calc
+ ruby-mode
+ robe-mode
+ robe-jump
+ rinari-console
+ robe-start
+ zencoding-mode
 )
 
 ;; ----- smex-data -----
@@ -74,13 +31,13 @@
  (describe-function . 1)
  (highlight-indentation-mode . 2)
  (ac-start . 3)
- (auto-complete-mode . 3)
+ (auto-complete-mode . 4)
  (global-auto-complete-mode . 4)
- (rgrep . 2)
+ (rgrep . 3)
  (info . 1)
  (Info-search . 1)
  (add-dir-local-variable . 13)
- (eval-buffer . 3)
+ (eval-buffer . 4)
  (ffip . 1)
  (rinari-find-view . 1)
  (revert-buffer . 1)
@@ -89,9 +46,9 @@
  (jump-to-file . 1)
  (auto-revert-tail-mode . 1)
  (scss-mode . 1)
- (rinari-console . 3)
+ (rinari-console . 4)
  (package-install . 1)
- (package-list-packages . 10)
+ (package-list-packages . 12)
  (customize . 3)
  (package-refresh-contents . 2)
  (egg-stash . 1)
@@ -109,4 +66,10 @@
  (vc-git-log-view-mode . 4)
  (exec-path-from-shell-initialize . 2)
  (ag . 4)
+ (zencoding-mode . 1)
+ (color-theme-xp . 1)
+ (robe-start . 1)
+ (robe-jump . 2)
+ (robe-mode . 2)
+ (ruby-mode . 1)
 )

@@ -204,7 +204,7 @@ Migrated from `nimai-keycommands.el` with Helm references updated:
 - auto-complete (replaced by Corfu)
 - flymake with separate linters (replaced by eglot)
 - egg (replaced by magit)
-- nyan-mode, window-numbering, pabbrev, enclose, rainbow-mode
+- window-numbering, pabbrev, enclose, rainbow-mode
 - Any 2014-era ELPA package not listed above
 
 ---
@@ -229,5 +229,6 @@ Migrated from `nimai-keycommands.el` with Helm references updated:
 | `move-text` | Shift lines up/down |
 | `whole-line-or-region` | Cut/copy full line without selection |
 | `page-break-lines` | Render ^L as horizontal rules |
+| `nyan-mode` | Nyan Cat progress bar in mode line |
 
 All installed automatically via `use-package :ensure t`.
