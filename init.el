@@ -189,4 +189,65 @@
         (switch-to-buffer "*vterm*")
       (vterm))))
 
+;;----------------------------------------------------------------------------
+;; EDITING UTILITIES
+;;----------------------------------------------------------------------------
+(use-package multiple-cursors)
+
+(use-package expand-region)
+
+(use-package move-text
+  :config (move-text-default-bindings))
+
+(use-package whole-line-or-region
+  :config (whole-line-or-region-global-mode 1))
+
+(autoload 'zap-up-to-char "misc" "Kill up to, but not including ARGth occurrence of CHAR.")
+
+(defun duplicate-line ()
+  "Duplicate the current line below."
+  (interactive)
+  (save-excursion
+    (let ((line-text (buffer-substring-no-properties
+                      (line-beginning-position)
+                      (line-end-position))))
+      (move-end-of-line 1)
+      (newline)
+      (insert line-text))))
+
+(defun kill-back-to-indentation ()
+  "Kill from point back to the first non-whitespace character on the line."
+  (interactive)
+  (let ((prev-pos (point)))
+    (back-to-indentation)
+    (kill-region (point) prev-pos)))
+
+(defun isearch-exit-other-end ()
+  "Exit isearch at the opposite end of the match."
+  (interactive)
+  (isearch-exit)
+  (goto-char isearch-other-end))
+
+(defun backward-up-sexp (arg)
+  "Jump up to the start of the ARG'th enclosing sexp, handling strings."
+  (interactive "p")
+  (let ((ppss (syntax-ppss)))
+    (cond ((elt ppss 3)
+           (goto-char (elt ppss 8))
+           (backward-up-sexp (1- arg)))
+          ((backward-up-list arg)))))
+
+(defun sort-lines-random (beg end)
+  "Sort lines in region randomly."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region beg end)
+      (goto-char (point-min))
+      (let ((inhibit-field-text-motion t))
+        (sort-subr nil 'forward-line 'end-of-line nil nil
+                   (lambda (_s1 _s2) (eq (random 2) 0)))))))
+
+(global-set-key [remap backward-up-list] #'backward-up-sexp)
+
 ;;; init.el ends here
