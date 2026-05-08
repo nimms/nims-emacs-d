@@ -185,13 +185,13 @@
               (when (> (mark) (point))
                 (set-mark (save-excursion
                             (goto-char (mark))
-                            (point-at-bol 2))))
+                            (line-beginning-position 2))))
             (when (<= (mark) (point))
               (when (= (mark) (point))
                 (forward-line 1))
               (set-mark (save-excursion
                           (goto-char (mark))
-                          (point-at-bol 0)))))))
+                          (line-beginning-position 0)))))))
     ad-do-it))
 
 (defadvice previous-line (around mark-lines activate)
@@ -209,13 +209,13 @@
               (when (> (point) (mark))
                 (set-mark (save-excursion
                             (goto-char (mark))
-                            (point-at-bol 0))))
+                            (line-beginning-position 0))))
             (when (<= (point) (mark))
               (when (= (point) (mark))
                 (forward-line -1))
               (set-mark (save-excursion
                           (goto-char (mark))
-                          (point-at-bol 2)))))))
+                          (line-beginning-position 2)))))))
     ad-do-it))
 
 ;; functions
@@ -270,12 +270,12 @@ BUG: goto the end of a buffer that's not an empty line, try <C-x> <C-p> then,
               (setq result t))
             (goto-char (mark))
             (unless (or (bolp) (eobp))
-              (set-mark (point-at-bol))
+              (set-mark (line-beginning-position))
               (setq result t))
             (goto-char p)) ; but we do need to go back to the old line
         (goto-char (mark))
         (unless (or (bolp) (eobp))
-          (set-mark (point-at-bol))
+          (set-mark (line-beginning-position))
           (setq result t))
         (goto-char p)
         (unless (or (bolp) (eobp))
@@ -307,8 +307,8 @@ see \\[mark-lines-previous-line] and \\[mark-lines-next-line]."
             (exchange-point-and-mark))
         (if (and (eq movement-command 'previous-line)
                  (= 1 (forward-line 1)))
-            (push-mark (point-at-eol))
-          (push-mark (point-at-bol) t t))
+            (push-mark (line-end-position))
+          (push-mark (line-beginning-position) t t))
         (funcall movement-command arg)))))
 
 
