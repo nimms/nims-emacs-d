@@ -43,9 +43,11 @@
  ediff-window-setup-function 'ediff-setup-windows-plain)
 
 (setq use-short-answers t
-      default-directory "~/"
-      backup-directory-alist
-      `(("." . ,(expand-file-name (concat "~/.emacs_backups/" (user-login-name) "/")))))
+      default-directory "~/")
+
+(let ((backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/")))
+  (make-directory backup-dir t)
+  (setq backup-directory-alist `(("." . ,backup-dir))))
 
 (save-place-mode 1)
 (recentf-mode 1)
