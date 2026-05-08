@@ -142,4 +142,9 @@
 (use-package page-break-lines
   :config (global-page-break-lines-mode 1))
 
+;;----------------------------------------------------------------------------
+;; GIT — MAGIT
+;;----------------------------------------------------------------------------
+(use-package magit)
+
 ;;; init.el ends here
