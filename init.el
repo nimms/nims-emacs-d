@@ -88,4 +88,22 @@
   (use-package exec-path-from-shell
     :config (exec-path-from-shell-initialize)))
 
+;;----------------------------------------------------------------------------
+;; UI / THEME
+;;----------------------------------------------------------------------------
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (set-frame-font "Monaco-12" nil t))
+
+(add-to-list 'load-path (expand-file-name "themes" user-emacs-directory))
+(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+
+(use-package color-theme-sanityinc-tomorrow
+  :config (load-theme 'sanityinc-tomorrow-night t))
+
+(use-package nyan-mode
+  :config (nyan-mode 1))
+
 ;;; init.el ends here
