@@ -250,4 +250,155 @@
 
 (global-set-key [remap backward-up-list] #'backward-up-sexp)
 
+;;----------------------------------------------------------------------------
+;; CUSTOM FUNCTIONS
+;;----------------------------------------------------------------------------
+(defun nimms-copy-line (arg)
+  "Copy lines (as many as prefix argument) to the kill ring."
+  (interactive "p")
+  (kill-ring-save (line-beginning-position)
+                  (line-beginning-position (+ 1 arg)))
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+
+(defun copy-all ()
+  "Copy entire buffer contents to the kill ring."
+  (interactive)
+  (kill-ring-save (point-min) (point-max))
+  (message "Buffer copied"))
+
+(defun three-quarters-window ()
+  "Resize current window to 75% of frame height."
+  (interactive)
+  (let ((size (- (truncate (* .75 (frame-height))) (window-height))))
+    (when (> size 0) (enlarge-window size))))
+
+(defun half-window ()
+  "Resize current window to 50% of frame height."
+  (interactive)
+  (let ((size (- (truncate (* .5 (frame-height))) (window-height))))
+    (when (> size 0) (enlarge-window size))))
+
+(defun dos2unix ()
+  "Convert buffer from DOS (CRLF) to Unix (LF) line endings."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (while (search-forward "\r" nil t)
+      (replace-match ""))
+    (goto-char (1- (point-max)))
+    (when (looking-at "\C-z") (delete-char 1))))
+
+(defun toggle-fullscreen ()
+  "Toggle frame fullscreen."
+  (interactive)
+  (set-frame-parameter nil 'fullscreen
+                        (unless (frame-parameter nil 'fullscreen) 'fullboth)))
+
+(defun word-count ()
+  "Count words in buffer."
+  (interactive)
+  (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+(defun remote-term (new-buffer-name cmd &rest switches)
+  "Open a terminal running CMD with SWITCHES in a buffer named NEW-BUFFER-NAME."
+  (let ((buf-name (generate-new-buffer-name (concat "*" new-buffer-name "*"))))
+    (setq buf-name (apply #'make-term buf-name cmd nil switches))
+    (set-buffer buf-name)
+    (term-mode)
+    (term-char-mode)
+    (term-set-escape-char ?\C-x)
+    (switch-to-buffer buf-name)))
+
+(defun web01 () (interactive) (remote-term "web01" "ssh" "web01"))
+(defun web03 () (interactive) (remote-term "web03" "ssh" "web03"))
+(defun deploy () (interactive) (remote-term "deploy" "ssh" "deploy"))
+
+;;----------------------------------------------------------------------------
+;; KEYBINDINGS
+;;----------------------------------------------------------------------------
+
+;; M-x
+(global-set-key (kbd "M-a") #'execute-extended-command)
+(global-set-key (kbd "C-x C-m") #'execute-extended-command)
+
+;; Buffer/file navigation (Consult replaces Helm)
+(global-set-key (kbd "M-b") #'consult-buffer)
+(global-set-key (kbd "M-[") #'consult-find)
+(global-set-key (kbd "M-{") #'consult-recent-file)
+(global-set-key (kbd "M-t") #'project-find-file)
+
+;; Window management (ergoemacs-style)
+(global-set-key (kbd "M-0") #'delete-window)
+(global-set-key (kbd "M-1") #'delete-other-windows)
+(global-set-key (kbd "M-2")
+                (lambda () (interactive)
+                  (split-window-vertically) (other-window 1)))
+(global-set-key (kbd "M-3")
+                (lambda () (interactive)
+                  (split-window-horizontally) (other-window 1)))
+
+;; Search
+(global-set-key (kbd "M-;") #'isearch-forward)
+(global-set-key (kbd "M-:") #'isearch-backward)
+(define-key isearch-mode-map (kbd "M-;") #'isearch-repeat-forward)
+(define-key isearch-mode-map (kbd "M-:") #'isearch-repeat-backward)
+(define-key isearch-mode-map (kbd "C-o") #'isearch-occur)
+(define-key isearch-mode-map [(meta z)] #'zap-to-isearch)
+(define-key isearch-mode-map [(control return)] #'isearch-exit-other-end)
+(define-key isearch-mode-map "\C-\M-w" #'isearch-yank-symbol)
+
+;; Editing
+(global-set-key (kbd "RET") #'newline-and-indent)
+(global-set-key (kbd "M-m") #'back-to-indentation)
+(global-set-key (kbd "M-w") #'kill-ring-save)
+(global-set-key (kbd "M-C") #'nimms-copy-line)
+(global-set-key (kbd "M-Z") #'zap-up-to-char)
+(global-set-key (kbd "M-T") #'transpose-lines)
+(global-set-key (kbd "C-o") #'open-line)
+(global-set-key (kbd "H-i") #'open-line)
+(global-set-key (kbd "C-M-g") #'goto-line)
+(global-set-key (kbd "C-k") #'kill-current-buffer)
+(global-set-key (kbd "C-c C-r") #'revert-buffer)
+(global-set-key (kbd "C-c j") #'join-line)
+(global-set-key (kbd "C-c J") (lambda () (interactive) (join-line 1)))
+(global-set-key (kbd "C-.") #'set-mark-command)
+(global-set-key (kbd "C-x C-.") #'pop-global-mark)
+(global-set-key (kbd "C-c p") #'duplicate-line)
+(global-set-key (kbd "C-M-<backspace>") #'kill-back-to-indentation)
+(global-unset-key [M-left])
+(global-unset-key [M-right])
+
+;; Completion / expand
+(global-set-key (kbd "C-=") #'er/expand-region)
+
+;; Multiple cursors
+(global-set-key (kbd "C-<") #'mc/mark-previous-like-this)
+(global-set-key (kbd "C->") #'mc/mark-next-like-this)
+(global-set-key (kbd "C-+") #'mc/mark-next-like-this)
+(global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
+(global-set-key (kbd "C-c c r") #'set-rectangular-region-anchor)
+(global-set-key (kbd "C-c c c") #'mc/edit-lines)
+(global-set-key (kbd "C-c c e") #'mc/edit-ends-of-lines)
+(global-set-key (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
+
+;; Avy (replaces ace-jump)
+(global-set-key (kbd "C-;") #'avy-goto-char)
+(global-set-key (kbd "C-:") #'avy-goto-word-1)
+
+;; Hyper keys (Option key on macOS)
+(global-set-key (kbd "H-c") #'copy-all)
+(global-set-key (kbd "H-p") #'mark-lines-previous-line)
+(global-set-key (kbd "H-n") #'mark-lines-next-line)
+
+;; Function keys
+(global-set-key (kbd "<f2>") #'visit-vterm)
+(global-set-key (kbd "<f5>") #'consult-ripgrep)
+(global-set-key (kbd "<f7>") #'rename-buffer)
+(global-set-key (kbd "<f8>") #'magit-status)
+(global-set-key (kbd "<f9>") #'rgrep)
+(global-set-key (kbd "C-<return>") #'toggle-fullscreen)
+
+;; mark-lines plugin (provides mark-lines-previous-line, mark-lines-next-line)
+(load "mark-lines" 'noerror)
+
 ;;; init.el ends here
