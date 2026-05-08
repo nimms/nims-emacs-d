@@ -65,7 +65,7 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
 
-(dolist (hook '(term-mode-hook comint-mode-hook compilation-mode-hook))
+(dolist (hook '(term-mode-hook comint-mode-hook compilation-mode-hook vterm-mode-hook))
   (add-hook hook (lambda () (setq show-trailing-whitespace nil))))
 
 (put 'narrow-to-region 'disabled nil)
@@ -174,5 +174,19 @@
                  . ("typescript-language-server" "--stdio")))
   (add-to-list 'eglot-server-programs
                '(python-ts-mode . ("pyright-langserver" "--stdio"))))
+
+;;----------------------------------------------------------------------------
+;; TERMINAL — VTERM
+;;----------------------------------------------------------------------------
+(use-package vterm)
+
+(defun visit-vterm ()
+  "Switch to existing vterm buffer, rename if already in vterm, or create new."
+  (interactive)
+  (if (equal "*vterm*" (buffer-name))
+      (call-interactively #'rename-buffer)
+    (if (get-buffer "*vterm*")
+        (switch-to-buffer "*vterm*")
+      (vterm))))
 
 ;;; init.el ends here
