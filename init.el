@@ -10,8 +10,10 @@
         ("melpa"  . "https://melpa.org/packages/")))
 (package-initialize)
 
+(when (null package-archive-contents)
+  (package-refresh-contents))
+
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
   (package-install 'use-package))
 
 (require 'use-package)
