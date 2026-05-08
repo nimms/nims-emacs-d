@@ -301,6 +301,7 @@
 
 (defun remote-term (new-buffer-name cmd &rest switches)
   "Open a terminal running CMD with SWITCHES in a buffer named NEW-BUFFER-NAME."
+  (require 'term)
   (let ((buf-name (generate-new-buffer-name (concat "*" new-buffer-name "*"))))
     (setq buf-name (apply #'make-term buf-name cmd nil switches))
     (set-buffer buf-name)
