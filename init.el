@@ -132,4 +132,14 @@
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file))
 
+;;----------------------------------------------------------------------------
+;; SEARCH / NAVIGATION — CONSULT + AVY
+;;----------------------------------------------------------------------------
+(use-package consult)
+
+(use-package avy)
+
+(use-package page-break-lines
+  :config (global-page-break-lines-mode 1))
+
 ;;; init.el ends here
