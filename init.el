@@ -222,7 +222,7 @@
      "M-j" "M-l" "M-i" "M-k" "M-u" "M-o" "M-U" "M-O"
      "M-I" "M-K" "M-J" "M-L" "M-h" "M-H" "M-p"
      "M-d" "M-f" "M-e" "M-r" "M-g" "M-G" "M-z"
-     "M-y" "C-c" "C-x" "C-u" "C-g" "C-l" "M-x" "<f2>")))
+     "M-y" "C-c" "C-x" "C-u" "C-g" "M-x" "<f2>")))
 
 
 (defun visit-vterm ()
@@ -376,9 +376,7 @@
   (when (eq system-type 'darwin)
     (setq mac-command-modifier 'meta
           mac-option-modifier 'hyper))
-  ;; Clear ergoemacs key translations we override ourselves
-  (define-key key-translation-map (kbd "M-u") nil)
-  (define-key key-translation-map (kbd "M-o") nil))
+  (advice-add 'ergoemacs-switch-to-buffer :override #'consult-buffer))
 
 ;;----------------------------------------------------------------------------
 ;; KEYBINDINGS
@@ -395,13 +393,19 @@
              `((nimms-keys-mode . ,nimms-keys-mode-map)))
 
 ;; Re-push to front after ergoemacs activates so we stay ahead of it.
-(add-hook 'ergoemacs-mode-on-hook
+(add-hook 'ergoemacs-mode-startup-hook
           (lambda ()
+            ;; Re-push nimms-keys-mode to front of emulation maps
             (setq emulation-mode-map-alists
                   (cons `((nimms-keys-mode . ,nimms-keys-mode-map))
                         (cl-remove-if (lambda (e)
                                         (and (listp e) (assq 'nimms-keys-mode e)))
-                                      emulation-mode-map-alists)))))
+                                      emulation-mode-map-alists)))
+            ;; Use ergoemacs-user-keymap (checked before ergoemacs-keymap) to
+            ;; pin M-u/M-o to word movement regardless of what M-b/M-f are bound to.
+            (when (boundp 'ergoemacs-user-keymap)
+              (define-key ergoemacs-user-keymap (kbd "M-u") #'backward-word)
+              (define-key ergoemacs-user-keymap (kbd "M-o") #'forward-word))))
 
 (let ((m nimms-keys-mode-map))
   ;; M-x
@@ -409,7 +413,7 @@
   (define-key m (kbd "C-x C-m") #'execute-extended-command)
 
   ;; Buffer/file navigation
-  (define-key m (kbd "M-b") #'consult-buffer)
+  (define-key m (kbd "M-p") #'consult-buffer)
   (define-key m (kbd "M-[") #'consult-find)
   (define-key m (kbd "M-{") #'consult-recent-file)
   (define-key m (kbd "M-t") #'project-find-file)
@@ -431,10 +435,6 @@
   (define-key m (kbd "M-;") #'isearch-forward)
   (define-key m (kbd "M-:") #'isearch-backward)
 
-  ;; Word movement (ergoemacs layout)
-  (define-key m (kbd "M-u") #'backward-word)
-  (define-key m (kbd "M-o") #'forward-word)
-
   ;; Editing
   (define-key m (kbd "M-m") #'back-to-indentation)
   (define-key m (kbd "M-w") #'kill-ring-save)
@@ -446,22 +446,25 @@
   (define-key m (kbd "C-M-g") #'goto-line)
   (define-key m (kbd "C-k") #'kill-current-buffer)
   (define-key m (kbd "C-c C-r") #'revert-buffer)
-  (define-key m (kbd "C-r") (lambda () (interactive)
-                               (if (derived-mode-p 'vterm-mode)
-                                   (vterm-send-C-r)
-                                 (isearch-backward))))
-  (define-key m (kbd "C-a") (lambda () (interactive)
-                               (if (derived-mode-p 'vterm-mode)
-                                   (vterm-send-C-a)
-                                 (beginning-of-line))))
-  (define-key m (kbd "C-e") (lambda () (interactive)
-                               (if (derived-mode-p 'vterm-mode)
-                                   (vterm-send-C-e)
-                                 (end-of-line))))
-  (define-key m (kbd "C-k") (lambda () (interactive)
-                               (if (derived-mode-p 'vterm-mode)
-                                   (vterm-send-C-k)
-                                 (kill-current-buffer))))
+  ;; Readline/movement keys: pass to vterm terminal, normal behaviour elsewhere
+  (cl-flet ((vterm-or (vterm-fn emacs-fn)
+               (lambda () (interactive)
+                 (if (derived-mode-p 'vterm-mode)
+                     (funcall vterm-fn)
+                   (call-interactively emacs-fn)))))
+    (define-key m (kbd "C-a") (vterm-or #'vterm-send-C-a #'beginning-of-line))
+    (define-key m (kbd "C-e") (vterm-or #'vterm-send-C-e #'end-of-line))
+    (define-key m (kbd "C-b") (vterm-or #'vterm-send-C-b #'backward-char))
+    (define-key m (kbd "C-f") (vterm-or #'vterm-send-C-f #'forward-char))
+    (define-key m (kbd "C-p") (vterm-or #'vterm-send-C-p #'previous-line))
+    (define-key m (kbd "C-n") (vterm-or #'vterm-send-C-n #'next-line))
+    (define-key m (kbd "C-d") (vterm-or #'vterm-send-C-d #'delete-char))
+    (define-key m (kbd "C-k") (vterm-or #'vterm-send-C-k #'kill-current-buffer))
+    (define-key m (kbd "C-y") (vterm-or #'vterm-send-C-y #'yank))
+    (define-key m (kbd "C-r") (vterm-or #'vterm-send-C-r #'isearch-backward))
+    (define-key m (kbd "C-w") (vterm-or #'vterm-send-C-w #'kill-region))
+    (define-key m (kbd "C-t") (vterm-or #'vterm-send-C-t #'transpose-chars))
+    (define-key m (kbd "C-l") (vterm-or #'vterm-send-C-l #'recenter-top-bottom)))
   (define-key m (kbd "C-c j") #'join-line)
   (define-key m (kbd "C-c J") (lambda () (interactive) (join-line 1)))
   (define-key m (kbd "C-.") #'set-mark-command)
