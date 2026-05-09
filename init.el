@@ -1,5 +1,9 @@
 ;;; init.el --- Emacs configuration  -*- lexical-binding: t -*-
 
+(let ((elc (concat user-init-file "c")))
+  (when (and (file-exists-p elc) (file-newer-than-file-p user-init-file elc))
+    (delete-file elc)))
+
 ;;----------------------------------------------------------------------------
 ;; PACKAGE BOOTSTRAP
 ;;----------------------------------------------------------------------------
@@ -63,6 +67,7 @@
 (display-time-mode 1)
 (transient-mark-mode 1)
 (cua-selection-mode 1)
+(winner-mode 1)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -99,22 +104,46 @@
 (tool-bar-mode -1)
 
 (when (and (eq system-type 'darwin) (display-graphic-p))
-  (set-frame-font "Monaco-12" nil t))
+  (set-frame-font "Monaspace Neon-12" nil t))
 
-(add-to-list 'load-path (expand-file-name "themes" user-emacs-directory))
-(add-to-list 'custom-theme-load-path (expand-file-name "themes" user-emacs-directory))
+(use-package doom-themes
+  :ensure t
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; for treemacs users
+  (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  :config
+  (load-theme 'doom-one t)
 
-(use-package color-theme-sanityinc-tomorrow
-  :config (load-theme 'sanityinc-tomorrow-night t))
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (nerd-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
 
 (use-package nyan-mode
   :config (nyan-mode 1))
+
+(custom-set-faces
+ '(mode-line          ((t (:background "#FFD700" :foreground "black"
+                           :box (:line-width 1 :style released-button)))))
+ '(mode-line-inactive ((t (:background "#7a6500" :foreground "#ffd080"
+                           :box (:line-width 1 :color "#7a6500")))))
+ '(mode-line-buffer-id ((t (:foreground "black" :weight bold)))))
 
 ;;----------------------------------------------------------------------------
 ;; COMPLETION — VERTICO + CORFU
 ;;----------------------------------------------------------------------------
 (use-package vertico
-  :init (vertico-mode 1))
+  :init (vertico-mode 1)
+  :bind (:map vertico-map
+         ("M-k" . vertico-next)
+         ("M-i" . vertico-previous)))
 
 (use-package orderless
   :custom
@@ -160,6 +189,12 @@
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
 
+(use-package markdown-mode
+  :mode (("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode)
+         ("README\\.md\\'" . gfm-mode))
+  :custom (markdown-command "multimarkdown"))
+
 ;;----------------------------------------------------------------------------
 ;; LSP — EGLOT (built-in, Emacs 29+)
 ;;----------------------------------------------------------------------------
@@ -180,7 +215,15 @@
 ;;----------------------------------------------------------------------------
 ;; TERMINAL — VTERM
 ;;----------------------------------------------------------------------------
-(use-package vterm)
+(use-package vterm
+  :custom
+  (vterm-keymap-exceptions
+   '("M-a" "M-s" "M-S" "M-0" "M-1" "M-2" "M-3" "M-b" "M-t"
+     "M-j" "M-l" "M-i" "M-k" "M-u" "M-o" "M-U" "M-O"
+     "M-I" "M-K" "M-J" "M-L" "M-h" "M-H" "M-p"
+     "M-d" "M-f" "M-e" "M-r" "M-g" "M-G" "M-z"
+     "M-y" "C-c" "C-x" "C-u" "C-g" "C-l" "M-x" "<f2>")))
+
 
 (defun visit-vterm ()
   "Switch to existing vterm buffer, rename if already in vterm, or create new."
@@ -255,6 +298,11 @@
 ;;----------------------------------------------------------------------------
 ;; CUSTOM FUNCTIONS
 ;;----------------------------------------------------------------------------
+(defun load-init ()
+  "Reload ~/.emacs.d/init.el."
+  (interactive)
+  (load-file (expand-file-name "init.el" user-emacs-directory)))
+
 (defun nimms-copy-line (arg)
   "Copy lines (as many as prefix argument) to the kill ring."
   (interactive "p")
@@ -317,89 +365,149 @@
 (defun deploy () (interactive) (remote-term "deploy" "ssh" "deploy"))
 
 ;;----------------------------------------------------------------------------
+;; ERGOEMACS
+;;----------------------------------------------------------------------------
+(use-package ergoemacs-mode
+  :init
+  (setq ergoemacs-theme nil
+        ergoemacs-keyboard-layout "us")
+  :config
+  (ergoemacs-mode 1)
+  (when (eq system-type 'darwin)
+    (setq mac-command-modifier 'meta
+          mac-option-modifier 'hyper))
+  ;; Clear ergoemacs key translations we override ourselves
+  (define-key key-translation-map (kbd "M-u") nil)
+  (define-key key-translation-map (kbd "M-o") nil))
+
+;;----------------------------------------------------------------------------
 ;; KEYBINDINGS
 ;;----------------------------------------------------------------------------
+;; nimms-keys-mode: override minor mode placed in emulation-mode-map-alists
+;; so it beats ergoemacs (which also uses emulation-mode-map-alists but gets
+;; added later — first entry wins).
+(defvar nimms-keys-mode-map (make-sparse-keymap))
+(define-minor-mode nimms-keys-mode "Custom key overrides."
+  :global t :keymap nimms-keys-mode-map)
+(nimms-keys-mode 1)
 
-;; M-x
-(global-set-key (kbd "M-a") #'execute-extended-command)
-(global-set-key (kbd "C-x C-m") #'execute-extended-command)
+(add-to-list 'emulation-mode-map-alists
+             `((nimms-keys-mode . ,nimms-keys-mode-map)))
 
-;; Buffer/file navigation (Consult replaces Helm)
-(global-set-key (kbd "M-b") #'consult-buffer)
-(global-set-key (kbd "M-[") #'consult-find)
-(global-set-key (kbd "M-{") #'consult-recent-file)
-(global-set-key (kbd "M-t") #'project-find-file)
+;; Re-push to front after ergoemacs activates so we stay ahead of it.
+(add-hook 'ergoemacs-mode-on-hook
+          (lambda ()
+            (setq emulation-mode-map-alists
+                  (cons `((nimms-keys-mode . ,nimms-keys-mode-map))
+                        (cl-remove-if (lambda (e)
+                                        (and (listp e) (assq 'nimms-keys-mode e)))
+                                      emulation-mode-map-alists)))))
 
-;; Window management (ergoemacs-style)
-(global-set-key (kbd "M-0") #'delete-window)
-(global-set-key (kbd "M-1") #'delete-other-windows)
-(global-set-key (kbd "M-2")
-                (lambda () (interactive)
-                  (split-window-vertically) (other-window 1)))
-(global-set-key (kbd "M-3")
-                (lambda () (interactive)
-                  (split-window-horizontally) (other-window 1)))
+(let ((m nimms-keys-mode-map))
+  ;; M-x
+  (define-key m (kbd "M-a") #'execute-extended-command)
+  (define-key m (kbd "C-x C-m") #'execute-extended-command)
 
-;; Search
-(global-set-key (kbd "M-;") #'isearch-forward)
-(global-set-key (kbd "M-:") #'isearch-backward)
+  ;; Buffer/file navigation
+  (define-key m (kbd "M-b") #'consult-buffer)
+  (define-key m (kbd "M-[") #'consult-find)
+  (define-key m (kbd "M-{") #'consult-recent-file)
+  (define-key m (kbd "M-t") #'project-find-file)
+
+  ;; Window management
+  (define-key m (kbd "M-s") #'other-window)
+  (define-key m (kbd "M-S") (lambda () (interactive) (other-window -1)))
+  (define-key m (kbd "M-0") #'delete-window)
+  (define-key m (kbd "M-1") #'delete-other-windows)
+  (define-key m (kbd "M-,") #'winner-undo)
+  (define-key m (kbd "M-.") #'winner-redo)
+  (define-key m (kbd "M-2") (lambda () (interactive)
+                               (split-window-vertically) (other-window 1)))
+  (define-key m (kbd "M-3") (lambda () (interactive)
+                               (split-window-horizontally) (other-window 1)))
+
+  ;; Search
+  (define-key m (kbd "M-y") #'isearch-forward)
+  (define-key m (kbd "M-;") #'isearch-forward)
+  (define-key m (kbd "M-:") #'isearch-backward)
+
+  ;; Word movement (ergoemacs layout)
+  (define-key m (kbd "M-u") #'backward-word)
+  (define-key m (kbd "M-o") #'forward-word)
+
+  ;; Editing
+  (define-key m (kbd "M-m") #'back-to-indentation)
+  (define-key m (kbd "M-w") #'kill-ring-save)
+  (define-key m (kbd "M-C") #'nimms-copy-line)
+  (define-key m (kbd "M-Z") #'zap-up-to-char)
+  (define-key m (kbd "M-T") #'transpose-lines)
+  (define-key m (kbd "C-o") #'open-line)
+  (define-key m (kbd "H-i") #'open-line)
+  (define-key m (kbd "C-M-g") #'goto-line)
+  (define-key m (kbd "C-k") #'kill-current-buffer)
+  (define-key m (kbd "C-c C-r") #'revert-buffer)
+  (define-key m (kbd "C-r") (lambda () (interactive)
+                               (if (derived-mode-p 'vterm-mode)
+                                   (vterm-send-C-r)
+                                 (isearch-backward))))
+  (define-key m (kbd "C-a") (lambda () (interactive)
+                               (if (derived-mode-p 'vterm-mode)
+                                   (vterm-send-C-a)
+                                 (beginning-of-line))))
+  (define-key m (kbd "C-e") (lambda () (interactive)
+                               (if (derived-mode-p 'vterm-mode)
+                                   (vterm-send-C-e)
+                                 (end-of-line))))
+  (define-key m (kbd "C-k") (lambda () (interactive)
+                               (if (derived-mode-p 'vterm-mode)
+                                   (vterm-send-C-k)
+                                 (kill-current-buffer))))
+  (define-key m (kbd "C-c j") #'join-line)
+  (define-key m (kbd "C-c J") (lambda () (interactive) (join-line 1)))
+  (define-key m (kbd "C-.") #'set-mark-command)
+  (define-key m (kbd "C-x C-.") #'pop-global-mark)
+  (define-key m (kbd "C-c p") #'duplicate-line)
+  (define-key m (kbd "C-M-<backspace>") #'kill-back-to-indentation)
+
+  ;; Completion / expand
+  (define-key m (kbd "C-=") #'er/expand-region)
+
+  ;; Multiple cursors
+  (define-key m (kbd "C-<") #'mc/mark-previous-like-this)
+  (define-key m (kbd "C->") #'mc/mark-next-like-this)
+  (define-key m (kbd "C-+") #'mc/mark-next-like-this)
+  (define-key m (kbd "C-c C-<") #'mc/mark-all-like-this)
+  (define-key m (kbd "C-c c r") #'set-rectangular-region-anchor)
+  (define-key m (kbd "C-c c c") #'mc/edit-lines)
+  (define-key m (kbd "C-c c e") #'mc/edit-ends-of-lines)
+  (define-key m (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
+
+  ;; Avy
+  (define-key m (kbd "C-;") #'avy-goto-char)
+  (define-key m (kbd "C-:") #'avy-goto-word-1)
+
+  ;; Hyper keys (Option on macOS)
+  (define-key m (kbd "H-c") #'copy-all)
+  (define-key m (kbd "H-p") #'mark-lines-previous-line)
+  (define-key m (kbd "H-n") #'mark-lines-next-line)
+
+  ;; Function keys
+  (define-key m (kbd "<f2>") #'visit-vterm)
+  (define-key m (kbd "<f5>") #'consult-ripgrep)
+  (define-key m (kbd "<f7>") #'rename-buffer)
+  (define-key m (kbd "<f8>") #'magit-status)
+  (define-key m (kbd "<f9>") #'rgrep)
+  (define-key m (kbd "C-<return>") #'toggle-fullscreen))
+
+(add-hook 'prog-mode-hook (lambda () (local-set-key (kbd "RET") #'newline-and-indent)))
+
+;; isearch mode bindings (mode-local, unaffected by ergoemacs)
 (define-key isearch-mode-map (kbd "M-;") #'isearch-repeat-forward)
 (define-key isearch-mode-map (kbd "M-:") #'isearch-repeat-backward)
 (define-key isearch-mode-map (kbd "C-o") #'isearch-occur)
 (define-key isearch-mode-map [(meta z)] #'zap-to-isearch)
 (define-key isearch-mode-map [(control return)] #'isearch-exit-other-end)
 (define-key isearch-mode-map "\C-\M-w" #'isearch-yank-symbol)
-
-;; Editing
-(global-set-key (kbd "RET") #'newline-and-indent)
-(global-set-key (kbd "M-m") #'back-to-indentation)
-(global-set-key (kbd "M-w") #'kill-ring-save)
-(global-set-key (kbd "M-C") #'nimms-copy-line)
-(global-set-key (kbd "M-Z") #'zap-up-to-char)
-(global-set-key (kbd "M-T") #'transpose-lines)
-(global-set-key (kbd "C-o") #'open-line)
-(global-set-key (kbd "H-i") #'open-line)
-(global-set-key (kbd "C-M-g") #'goto-line)
-(global-set-key (kbd "C-k") #'kill-current-buffer)
-(global-set-key (kbd "C-c C-r") #'revert-buffer)
-(global-set-key (kbd "C-c j") #'join-line)
-(global-set-key (kbd "C-c J") (lambda () (interactive) (join-line 1)))
-(global-set-key (kbd "C-.") #'set-mark-command)
-(global-set-key (kbd "C-x C-.") #'pop-global-mark)
-(global-set-key (kbd "C-c p") #'duplicate-line)
-(global-set-key (kbd "C-M-<backspace>") #'kill-back-to-indentation)
-(global-unset-key [M-left])
-(global-unset-key [M-right])
-
-;; Completion / expand
-(global-set-key (kbd "C-=") #'er/expand-region)
-
-;; Multiple cursors
-(global-set-key (kbd "C-<") #'mc/mark-previous-like-this)
-(global-set-key (kbd "C->") #'mc/mark-next-like-this)
-(global-set-key (kbd "C-+") #'mc/mark-next-like-this)
-(global-set-key (kbd "C-c C-<") #'mc/mark-all-like-this)
-(global-set-key (kbd "C-c c r") #'set-rectangular-region-anchor)
-(global-set-key (kbd "C-c c c") #'mc/edit-lines)
-(global-set-key (kbd "C-c c e") #'mc/edit-ends-of-lines)
-(global-set-key (kbd "C-c c a") #'mc/edit-beginnings-of-lines)
-
-;; Avy (replaces ace-jump)
-(global-set-key (kbd "C-;") #'avy-goto-char)
-(global-set-key (kbd "C-:") #'avy-goto-word-1)
-
-;; Hyper keys (Option key on macOS)
-(global-set-key (kbd "H-c") #'copy-all)
-(global-set-key (kbd "H-p") #'mark-lines-previous-line)
-(global-set-key (kbd "H-n") #'mark-lines-next-line)
-
-;; Function keys
-(global-set-key (kbd "<f2>") #'visit-vterm)
-(global-set-key (kbd "<f5>") #'consult-ripgrep)
-(global-set-key (kbd "<f7>") #'rename-buffer)
-(global-set-key (kbd "<f8>") #'magit-status)
-(global-set-key (kbd "<f9>") #'rgrep)
-(global-set-key (kbd "C-<return>") #'toggle-fullscreen)
 
 ;; mark-lines plugin (provides mark-lines-previous-line, mark-lines-next-line)
 (load "mark-lines" 'noerror)
